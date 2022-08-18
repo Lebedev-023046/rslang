@@ -1,9 +1,10 @@
 import React from 'react'
 import './App.css'
+import Button from '@mui/material/Button'
 
 function App () {
   return (
-    <h1>Hello</h1>
+    <Button className='text-color'>Hello!</Button>
   )
 }
 
