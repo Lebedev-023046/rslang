@@ -5,6 +5,7 @@ module.exports = {
   },
   extends: [
     'plugin:react/recommended',
+    'plugin:react-hooks/recommended',
     'standard-with-typescript'
   ],
   overrides: [
@@ -16,9 +17,12 @@ module.exports = {
     project: 'tsconfig.json'
   },
   plugins: [
-    'react'
+    'react',
+    'react-hooks'
   ],
   rules: {
-    '@typescript-eslint/explicit-function-return-type': 'off'
+    '@typescript-eslint/explicit-function-return-type': 'off',
+    'react-hooks/rules-of-hooks': 'error',
+    'react-hooks/exhaustive-deps': 'warn'
   }
 }
