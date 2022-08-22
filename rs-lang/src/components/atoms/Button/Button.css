@@ -1,0 +1,54 @@
+.button {
+    display: flex;
+    padding: 18px 20px;
+
+    justify-content: center;
+    align-items: center;
+
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 23px;
+    border-radius: 10px;
+
+    cursor: pointer;
+    transition: .3s;
+}
+
+.button_small {
+    height: 59px;
+}
+
+.button_big {
+    height: 64px;
+    width: 100%;
+    flex-grow: 1;
+}
+
+.button_primary {
+    color: white;
+    background: #FF6822;
+}
+
+.button_secondary {
+    color: #151618;
+    background-color: transparent;
+    border: 2px solid #151618;
+
+}
+
+.button_bordered {
+    color: #FF6822;
+    background-color: transparent;
+    border: 2px solid #FF6822;
+}
+
+.button_rounded {
+    width: 60px;
+    height: 60px;
+
+    color: #FFFFFF;
+    background-color: #FF6822;
+    border-radius: 100%;
+}
