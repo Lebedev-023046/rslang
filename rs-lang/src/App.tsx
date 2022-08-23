@@ -1,8 +1,9 @@
 import React from 'react'
+import MainPage from './components/templates/MainPage/MainPage'
 
 function App () {
   return (
-    <div></div>
+    <MainPage />
   )
 }
 

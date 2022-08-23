@@ -4,8 +4,8 @@ import React from 'react'
 interface ButtonProps {
   text: string
   type: 'primary' | 'secondary' | 'bordered' | 'rounded'
-  small: boolean
-  disabled: boolean
+  small?: boolean
+  disabled?: boolean
   // TODO add additional icon
   iconSrc?: string
   onClick: () => void
@@ -14,7 +14,7 @@ interface ButtonProps {
 const Button = ({
   text = 'button',
   type = 'primary',
-  small = false,
+  small = true,
   disabled = false,
   iconSrc = '',
   onClick = () => {}

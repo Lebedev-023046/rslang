@@ -1,0 +1,13 @@
+.header {
+}
+
+.header__conteiner {
+  display: flex;
+
+  align-items: center;
+  gap: 5rem;
+}
+
+.header__conteiner > h2 {
+  margin-right: auto;
+}
