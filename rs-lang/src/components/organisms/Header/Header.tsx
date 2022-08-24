@@ -1,19 +1,15 @@
 import React from 'react'
-import Button from '../../atoms/Button/Button'
-import Nav from '../../molecules/Nav/Nav'
 import './Header.css'
 
-const Header = () => {
+interface IHeaderProps {
+  children: React.ReactNode
+}
+
+const Header = ({ children }: IHeaderProps) => {
   return (
     <header className='header'>
       <div className='conteiner header__conteiner'>
-        <h2>RS Lang</h2>
-        <Nav />
-        <Button
-          text='Get Started'
-          type='secondary'
-          onClick={() => {}}
-        />
+        { children }
       </div>
     </header>
   )

@@ -52,3 +52,9 @@
     background-color: #FF6822;
     border-radius: 100%;
 }
+
+.button_icon {
+    display: flex;
+
+    gap: 1rem;
+}

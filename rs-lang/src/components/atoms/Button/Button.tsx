@@ -1,34 +1,49 @@
-import './Button.css'
 import React from 'react'
+import Icon from '../Icon/Icon'
+import './Button.css'
 
 interface ButtonProps {
   text: string
   type: 'primary' | 'secondary' | 'bordered' | 'rounded'
   small?: boolean
   disabled?: boolean
-  // TODO add additional icon
-  iconSrc?: string
+  iconType?: string
+  iconHeight?: string
+  iconWidth?: string
+  iconColor?: string
   onClick: () => void
 }
 
-const Button = ({
+const Button: React.FC<ButtonProps> = ({
   text = 'button',
   type = 'primary',
   small = true,
   disabled = false,
-  iconSrc = '',
+  iconType = '',
+  iconHeight = '',
+  iconWidth = '',
+  iconColor = '',
   onClick = () => {}
-}: ButtonProps) => {
+}) => {
   const sizeClass = small ? 'button_small' : 'button_big'
+  const iconClass = iconType.length > 0 ? 'button_icon' : ''
 
   switch (type) {
     case 'primary':
       return (
         <button
           disabled={disabled}
-          className={`button button_primary ${sizeClass}`}
+          className={`button button_primary ${sizeClass} ${iconClass}`}
           onClick={onClick}
         >
+          {(iconType.length > 0) &&
+            <Icon
+              type={iconType}
+              width={iconWidth}
+              height={iconHeight}
+              color={iconColor}
+            />
+          }
           {text}
         </button>
       )
@@ -36,9 +51,17 @@ const Button = ({
       return (
         <button
           disabled={disabled}
-          className={`button button_secondary ${sizeClass}`}
+          className={`button button_secondary ${sizeClass} ${iconClass}`}
           onClick={onClick}
         >
+          {(iconType.length > 0) &&
+            <Icon
+              type={iconType}
+              width={iconWidth}
+              height={iconHeight}
+              color={iconColor}
+            />
+          }
           {text}
         </button>
       )
@@ -46,9 +69,17 @@ const Button = ({
       return (
         <button
           disabled={disabled}
-          className={`button button_bordered ${sizeClass}`}
+          className={`button button_bordered ${sizeClass} ${iconClass}`}
           onClick={onClick}
         >
+          {(iconType.length > 0) &&
+            <Icon
+              type={iconType}
+              width={iconWidth}
+              height={iconHeight}
+              color={iconColor}
+            />
+          }
           {text}
         </button>
       )
@@ -56,9 +87,17 @@ const Button = ({
       return (
         <button
           disabled={disabled}
-          className={`button button_rounded ${sizeClass}`}
+          className={`button button_rounded ${sizeClass} ${iconClass}`}
           onClick={onClick}
         >
+          {(iconType.length > 0) &&
+            <Icon
+              type={iconType}
+              width={iconWidth}
+              height={iconHeight}
+              color={iconColor}
+            />
+          }
           {text}
         </button>
       )
