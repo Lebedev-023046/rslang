@@ -38,42 +38,49 @@ export function FormBody () {
           <TextField
               className='text-field'
               autoComplete='off'
-              label='Name'
+              label={<span style={{ fontSize: 16 }}>Name</span>}
               variant='outlined'
               type='text'
               value={name}
               onChange={event => setName(event?.target.value)}
+              inputProps={{ style: { fontSize: 16 } }}
+              InputLabelProps={{ style: { fontSize: 16 } }}
               required
           />
           <TextField
               className='text-field'
               autoComplete='off'
-              label='Email'
+              label={<span style={{ fontSize: 16 }}>Email</span>}
               variant='outlined'
               type='email'
               value={email}
               onChange={event => setEmail(event?.target.value)}
+              inputProps={{ style: { fontSize: 16 } }}
+              InputLabelProps={{ style: { fontSize: 16 } }}
               required
           />
 
-          <FormControl className='text-field' variant='outlined' required>
-              <InputLabel>Password</InputLabel>
+          <FormControl id='password-line' className='text-field' variant='outlined' required>
+              <InputLabel sx={{
+                fontSize: 16
+              }} htmlFor='password-line' size='normal'>Password</InputLabel>
               <OutlinedInput
                   type={showPassword ? 'password' : 'text'}
                   name='password'
                   autoComplete='on'
                   value={password}
                   onChange={event => setPassword(event?.target.value)}
+                  inputProps={{ style: { fontSize: 16 } }}
                   endAdornment={
                       <InputAdornment position='end'>
-                          <IconButton
+                          <IconButton sx={{ transform: 'scale(1.5)' }}
                               onClick={() => setShowPassword((prev) => !prev)}
                           >
                               {showPassword ? <Visibility /> : <VisibilityOff />}
                           </IconButton>
                       </InputAdornment>
                   }
-                  label='Password'
+                  label={<span style={{ fontSize: 14 }}>Password</span>}
               />
           </FormControl>
 

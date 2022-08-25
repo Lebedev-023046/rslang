@@ -6,14 +6,16 @@ export function FormHeader () {
         <div className="form-header">
             <Typography
             align='center'
-            fontSize='1.5rem'
-            lineHeight='1.875rem'
-            mb='0.625rem'>
+            fontSize='2.4rem'
+            fontWeight='700'
+            lineHeight='2.8rem'
+            mb='1rem'>
             Create Individual Account
             </Typography>
             <Typography
             align='center'
             color='#FF6822'
+            fontSize='2rem'
             lineHeight='1.5rem'
             mb='2.5rem'
             >
