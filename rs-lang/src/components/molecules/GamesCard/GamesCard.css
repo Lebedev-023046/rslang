@@ -1,0 +1,41 @@
+.games__card {
+  display: flex;
+  padding: 23rem 3rem 4rem;
+  height: 50rem;
+  width: 40rem;
+
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 1.5rem;
+}
+
+.games__card h3 {
+  color: #FFFFFF;
+}
+
+.games__card p {
+  padding: 1rem;
+
+  background: rgba(255, 104, 34, 0.3);
+  box-shadow: 0px 4px 4px rgba(21, 22, 24, 0.25);
+  border-radius: 10px;
+
+  font-size: 20px;
+  line-height: 23px;
+  color: #FFFFFF;
+}
+
+.games__card_audio {
+  background-image: url('./images/audio.png');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.games__card_sprint {
+  background-image: url('./images/sprint.png');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}

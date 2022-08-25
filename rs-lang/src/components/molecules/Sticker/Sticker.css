@@ -1,0 +1,19 @@
+.sticker {
+  display: flex;
+  padding: 2rem;
+  max-width: 28rem;
+
+  flex-direction: column;
+  gap: 2rem;
+
+  background-color: #FFFFFF;
+  box-shadow: 1px 4px 4px rgba(21, 22, 24, 0.25);
+  border-radius: 1rem;
+}
+
+.sticker__content {
+  display: flex;
+
+  flex-direction: column;
+  gap: 1rem;
+}

@@ -1,8 +1,16 @@
 .header {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  /* z-index: 5; */
+
+  background-color: transparent;
 }
 
 .header__conteiner {
   display: flex;
+  padding: 7rem 2rem 0;
 
   align-items: center;
   gap: 5rem;

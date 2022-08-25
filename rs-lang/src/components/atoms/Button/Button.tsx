@@ -20,9 +20,9 @@ const Button: React.FC<ButtonProps> = ({
   small = true,
   disabled = false,
   iconType = '',
-  iconHeight = '',
-  iconWidth = '',
-  iconColor = '',
+  iconHeight = '22px',
+  iconWidth = '13px',
+  iconColor = '#FFFFFF',
   onClick = () => {}
 }) => {
   const sizeClass = small ? 'button_small' : 'button_big'
