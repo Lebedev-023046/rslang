@@ -26,4 +26,17 @@ export interface IUserResponse {
   id: string
 }
 
-export type IUserError = string
+export type IResponseError = string
+
+export interface ISigninRequest {
+  email: string
+  password: string
+}
+
+export interface ISigninResponse {
+  message: string
+  token: string
+  refreshToken: string
+  userId: string
+  name: string
+}
