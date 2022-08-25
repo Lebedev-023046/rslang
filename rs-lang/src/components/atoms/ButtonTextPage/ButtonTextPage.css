@@ -1,0 +1,30 @@
+.btnLevel {
+    max-width: 220px;
+    width: 100%;
+    text-align: left;
+    margin: 10px;
+    padding: 15.5px 14px ;
+    border-radius: 10px;
+    color: rgba(21, 22, 24, 1);
+    font-size: 1.6rem;
+    box-shadow: 1px 2px 4px 0px rgba(21, 22, 24, 0.25);
+    cursor: pointer;
+}
+
+.btnLevel-active {
+    color: #ffffff;
+    background-color: #6CA0FA;
+}
+
+.btnWordCard {
+    max-width: 150px;
+    width: 100%;
+    text-align: center;
+    padding: 10px 8px;
+    border-radius: 5px;
+    color: #FF6822;
+    font-size: 1em;
+    font-weight: 600;
+    box-shadow: 1px 1px 4px 0px rgba(21, 22, 24, 0.25);
+    background: transparent;
+}
