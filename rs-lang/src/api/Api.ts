@@ -7,7 +7,9 @@ import {
   ISigninResponse,
   IResponseError,
   IUserRequest,
-  IUserResponse
+  IUserResponse,
+  IWordDescription,
+  IWordsResponse
 } from '../interfaces/IData'
 
 // eslint-disable-next-line @typescript-eslint/no-extraneous-class
@@ -24,8 +26,8 @@ export default class Api {
   }
 
   /**  Возвращает слово по ID */
-  static async getWord(id: string): Promise<IData> {
-    const response = await fetch(`${Api.WORDS}/${id}`)
+  static async getWord(wordId: string): Promise<IData> {
+    const response = await fetch(`${Api.WORDS}/${wordId}`)
     return await response.json()
   }
 
@@ -70,6 +72,15 @@ export default class Api {
     return data
   }
 
+  /** При выходе из аккаунта очищает localStorage */
+  static logout() {
+    localStorage.removeItem('tokenLang')
+    localStorage.removeItem('refreshTokenLang')
+    localStorage.removeItem('idLang')
+    localStorage.removeItem('tokenTimeLang')
+    localStorage.removeItem('signinLang')
+  }
+
   /** Возвращает {
   "name": "string",
   "email": "string",
@@ -77,9 +88,10 @@ export default class Api {
   }
   или описание ошибки (строку)
 */
-  static async getUser(id: string): Promise<IUserResponse | IResponseError> {
+  static async getUser(): Promise<IUserResponse | IResponseError> {
     const currentToken = await Api.getCurrentToken()
-
+    const id = Api.getId()
+    if (id === null) return 'Please signin'
     const response = await fetch(`${Api.USERS}/${id}`, {
       method: 'GET',
       headers: {
@@ -95,11 +107,11 @@ export default class Api {
 
   /** Изменяет email и пароль. В случае ошибки возвращает описание ошибки (строку) */
   static async updateUser(
-    id: string,
     newUserData: ISigninRequest
   ): Promise<IUserResponse | IResponseError> {
     const currentToken = await Api.getCurrentToken()
-
+    const id = Api.getId()
+    if (id === null) return 'Please signin'
     const response = await fetch(`${Api.USERS}/${id}`, {
       method: 'PUT',
       headers: {
@@ -127,16 +139,20 @@ export default class Api {
     const status = response.status
     if (status === 401) return 'Access token is missing or invalid'
     if (status === 204) {
-      Api.logout()
+      if (Api.getId() === id) {
+        Api.logout()
+      }
       return 'The user has been deleted'
     }
     if (status !== 200) return 'Bad request'
     return await response.json()
   }
 
-  static async getUserWords(id: string) {
+  /** Возвращает слова сохраненные пользователем */
+  static async getUserWords(): Promise<IWordsResponse[] | IResponseError> {
     const currentToken = await Api.getCurrentToken()
-
+    const id = Api.getId()
+    if (id === null) return 'Please signin'
     const response = await fetch(`${Api.USERS}/${id}/words`, {
       method: 'GET',
       headers: {
@@ -144,6 +160,32 @@ export default class Api {
         Accept: 'application/json'
       }
     })
+    if (response.status === 402) return 'Access token is missing or invalid'
+    if (response.status !== 200) return 'incorrect request'
+
+    return await response.json()
+  }
+
+  static async createUserWords(
+    wordId: string,
+    wordDescription: IWordDescription
+  ): Promise<IWordsResponse | IResponseError> {
+    const currentToken = await Api.getCurrentToken()
+    const id = Api.getId()
+    if (id === null) return 'Please signin'
+    const response = await fetch(`${Api.USERS}/${id}/words/${wordId}`, {
+      method: 'POST',
+      headers: {
+        Authorization: `Bearer ${currentToken}`,
+        Accept: 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(wordDescription)
+    })
+    const status = response.status
+    if (status === 417) return 'such user word already exists'
+    if (status === 402) return 'Access token is missing or invalid'
+    if (status !== 200) return 'Bad Request'
     return await response.json()
   }
 
@@ -198,12 +240,7 @@ export default class Api {
     Api.setTokensAndId(data.token, data.refreshToken, id)
   }
 
-  /** При выходе из аккаунта очищает localStorage */
-  static logout() {
-    localStorage.removeItem('tokenLang')
-    localStorage.removeItem('refreshTokenLang')
-    localStorage.removeItem('idLang')
-    localStorage.removeItem('tokenTimeLang')
-    localStorage.removeItem('signinLang')
+  private static getId(): string | null {
+    return localStorage.getItem('idLang')
   }
 }

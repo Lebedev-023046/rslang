@@ -40,3 +40,16 @@ export interface ISigninResponse {
   userId: string
   name: string
 }
+
+// type Difficulty = 'easy' | 'medium' | 'hard'
+export interface IWordDescription {
+  difficulty: string
+  optional: {
+    dataAdd: string
+  }
+}
+
+export interface IWordsResponse extends IWordDescription {
+  id: string
+  wordId: string
+}
