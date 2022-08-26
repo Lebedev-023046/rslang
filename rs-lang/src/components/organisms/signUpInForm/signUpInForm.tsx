@@ -1,8 +1,7 @@
+import { FormBody } from '../../molecules/Registration/FormBody/FormBody'
+import { FormFooter } from '../../molecules/Registration/FormFooter/FormFooter'
+import { FormHeader } from '../../molecules/Registration/FormHeader/FormHeader'
 import './signUpInForm.css'
-
-import { FormBody } from '../../Molecules/Registration/FormBody/FormBody'
-import { FormFooter } from '../../Molecules/Registration/FormFooter/FormFooter'
-import { FormHeader } from '../../Molecules/Registration/FormHeader/FormHeader'
 
 export function SignUpInForm () {
   return (
