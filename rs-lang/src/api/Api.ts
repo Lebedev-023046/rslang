@@ -166,6 +166,7 @@ export default class Api {
     return await response.json()
   }
 
+  /** Кладет слово в словарь. принимает id слова и параметры (сложность слова и опциональные параметры. Я указал только дату создания, но можно будет поменять или добавить что-то) */
   static async createUserWords(
     wordId: string,
     wordDescription: IWordDescription
@@ -188,6 +189,76 @@ export default class Api {
     if (status !== 200) return 'Bad Request'
     return await response.json()
   }
+
+  /**  Берет слово по id из словаря пользователя */
+  static async getUserWord(
+    wordId: string
+  ): Promise<IWordsResponse | IResponseError> {
+    const currentToken = await Api.getCurrentToken()
+    const id = Api.getId()
+    if (id === null) return 'Please signin'
+    const response = await fetch(`${Api.USERS}/${id}/words/${wordId}`, {
+      method: 'GET',
+      headers: {
+        Authorization: `Bearer ${currentToken}`,
+        Accept: 'application/json',
+        'Content-Type': 'application/json'
+      }
+    })
+    const status = response.status
+    if (status === 404) return 'Users word not found'
+    if (status === 401) return 'Access token is missing or invalid'
+    if (status !== 200) return 'Bad Request'
+    return await response.json()
+  }
+
+  /** обновляет слово из словаря пользователя */
+  static async updateUserWord(
+    wordId: string,
+    wordDescription: IWordDescription
+  ): Promise<IWordsResponse | IResponseError> {
+    const currentToken = await Api.getCurrentToken()
+    const id = Api.getId()
+    if (id === null) return 'Please signin'
+    const response = await fetch(`${Api.USERS}/${id}/words/${wordId}`, {
+      method: 'PUT',
+      headers: {
+        Authorization: `Bearer ${currentToken}`,
+        Accept: 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(wordDescription)
+    })
+    const status = response.status
+    if (status === 401) return 'Access token is missing or invalid'
+    if (status !== 200) return 'Bad Request'
+    return await response.json()
+  }
+
+  /** Если слово из пользовательского словаря было удалено или его там и не было - возвращает true. В случае ошибки возвращает её описание */
+  static async deleteUserWord(
+    wordId: string
+  ): Promise<boolean | IResponseError> {
+    const currentToken = await Api.getCurrentToken()
+    const id = Api.getId()
+    if (id === null) return 'Please signin'
+    const response = await fetch(`${Api.USERS}/${id}/words/${wordId}`, {
+      method: 'DELETE',
+      headers: {
+        Authorization: `Bearer ${currentToken}`,
+        Accept: 'application/json',
+        'Content-Type': 'application/json'
+      }
+    })
+    const status = response.status
+    if (status === 404) return 'Users word not found'
+    if (status === 401) return 'Access token is missing or invalid'
+    if (status !== 204) return 'Bad Request'
+
+    return true
+  }
+
+  // _______________ private methods _______________
 
   /*  ВАЖНО!!!
   Для того, чтобы проверить вошел ли пользователь проверяй:
