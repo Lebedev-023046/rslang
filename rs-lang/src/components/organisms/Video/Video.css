@@ -1,0 +1,24 @@
+.video {
+  background-color: #FFFFFF;
+}
+
+.video__conteiner {
+  display: flex;
+  padding: 7rem 2rem 19rem;
+
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10rem;
+}
+
+.video__player {
+  display: flex;
+  width: 90rem;
+  height: 50rem;
+
+  align-items: center;
+  justify-content: center;
+
+  border: 2px solid black;
+}
