@@ -1,18 +1,15 @@
-import { useContext } from 'react'
-import { Modal } from './components/organisms/Modal/Modal'
-import { SignUpInForm } from './components/organisms/signUpInForm/signUpInForm'
-import { signInUpContext } from './context/ModalContext/ModalContext'
+import { WordCard } from './components/molecules/WordCard/WordCard'
+import { useWords } from './hooks/useWords'
 
 function App () {
-  const { signInUpModal, openSIU, closeSIU } = useContext(signInUpContext)
-  return (
-    <>
-    <button onClick={openSIU}>Open Modal</button>
+  const { words } = useWords()
 
-    {signInUpModal && <Modal onClose={closeSIU}>
-        <SignUpInForm/>
-    </Modal>}
-    </>
+  return (
+    <div>
+      { words.map(word =>
+        <WordCard card={word} key={word.id} />
+      ) }
+    </div>
   )
 }
 
