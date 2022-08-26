@@ -1,0 +1,19 @@
+.team {
+  background-color: #FFFFFF;
+}
+
+.team__conteiner {
+  display: flex;
+  padding: 7rem 2rem 11.3rem;
+
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 7.5rem;
+}
+
+.team__slider {
+  display: flex;
+
+  align-items: center;
+}

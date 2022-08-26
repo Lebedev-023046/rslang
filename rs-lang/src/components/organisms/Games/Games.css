@@ -1,0 +1,23 @@
+.games {
+  background-color: #FFFFFF;
+}
+
+.games__conteiner {
+  display: flex;
+  padding: 9rem 2rem 14.8rem;
+
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 12rem;
+}
+
+.games__cards {
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  row-gap: 12rem;
+  column-gap: 10rem;
+}
