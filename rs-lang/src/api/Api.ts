@@ -258,6 +258,66 @@ export default class Api {
     return true
   }
 
+  /** Достает слова по фильтрам. Пока в доработке */
+  static async getAggregatedWords(
+    group: string,
+    page: string,
+    wordsPerPage: string,
+    difficulty?: string
+  ) {
+    const currentToken = await Api.getCurrentToken()
+    const id = Api.getId()
+    if (id === null) return 'Please signin'
+    const response = await fetch(
+      `${
+        Api.USERS
+      }/${id}/aggregatedWords?wordsPerPage=${wordsPerPage}&filter=${JSON.stringify(
+        {
+          $and: [
+            { 'userWord.difficulty': difficulty }
+            // { $and: [{ page: +page }, { group: +group }] }
+          ]
+        }
+      )}`,
+      {
+        method: 'GET',
+        headers: {
+          Authorization: `Bearer ${currentToken}`,
+          Accept: 'application/json',
+          'Content-Type': 'application/json'
+        }
+      }
+    )
+    const status = response.status
+    if (status === 401) return 'Access token is missing or invalid'
+    if (status !== 200) return 'Bad Request'
+    return await response.json()
+  }
+
+  /** вроде делает тоже что и getWord только возвращает слово в массиве
+   * наверное ошибки бэкэнда
+   */
+  static async getAggregatedWord(
+    wordId: string
+  ): Promise<IWordsResponse[] | IResponseError> {
+    const currentToken = await Api.getCurrentToken()
+    const id = Api.getId()
+    if (id === null) return 'Please signin'
+    const response = await fetch(`${Api.USERS}/${id}/aggregatedWords/${wordId}`, {
+      method: 'GET',
+      headers: {
+        Authorization: `Bearer ${currentToken}`,
+        Accept: 'application/json',
+        'Content-Type': 'application/json'
+      }
+    })
+    const status = response.status
+    if (status === 404) return 'Users word not found'
+    if (status === 401) return 'Access token is missing or invalid'
+    if (status !== 200) return 'Bad Request'
+    return await response.json()
+  }
+
   // _______________ private methods _______________
 
   /*  ВАЖНО!!!
