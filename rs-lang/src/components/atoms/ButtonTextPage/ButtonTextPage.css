@@ -14,17 +14,19 @@
 .btnLevel-active {
     color: #ffffff;
     background-color: #6CA0FA;
+    cursor: pointer;
 }
 
 .btnWordCard {
-    max-width: 150px;
+    max-width: 180px;
     width: 100%;
     text-align: center;
     padding: 10px 8px;
     border-radius: 5px;
     color: #FF6822;
     font-size: 1em;
-    font-weight: 600;
+    font-weight: 500;
     box-shadow: 1px 1px 4px 0px rgba(21, 22, 24, 0.25);
     background: transparent;
+    cursor: pointer;
 }
