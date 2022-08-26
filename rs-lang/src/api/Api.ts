@@ -127,7 +127,7 @@ export default class Api {
     const status = response.status
     if (status === 401) return 'Access token is missing or invalid'
     if (status === 204) {
-      Api.setTokensAndId('', '', '')
+      Api.logout()
       return 'The user has been deleted'
     }
     if (status !== 200) return 'Bad request'
@@ -147,11 +147,16 @@ export default class Api {
     return await response.json()
   }
 
+  /*  ВАЖНО!!!
+  Для того, чтобы проверить вошел ли пользователь проверяй:
+    (localStorage.getItem('signinLang') === null)
+    если равно null значит пользователь не вошел, либо token уже недействителен
+  */
   private static async getCurrentToken(): Promise<string> {
     await Api.refreshToken()
 
-    return localStorage.getItem('token') !== null
-      ? (localStorage.getItem('token') as string)
+    return localStorage.getItem('tokenLang') !== null
+      ? (localStorage.getItem('tokenLang') as string)
       : ''
   }
 
@@ -160,20 +165,21 @@ export default class Api {
     refreshToken: string,
     id: string
   ): void {
-    localStorage.setItem('token', token)
-    localStorage.setItem('refreshToken', refreshToken)
-    localStorage.setItem('id', id)
+    localStorage.setItem('tokenLang', token)
+    localStorage.setItem('refreshTokenLang', refreshToken)
+    localStorage.setItem('idLang', id)
     const tokenExpire = 4 * 60 * 60 * 1000 + new Date().getTime()
-    localStorage.setItem('tokenTime', String(tokenExpire))
+    localStorage.setItem('tokenTimeLang', String(tokenExpire))
+    localStorage.setItem('signinLang', 'true')
   }
 
   private static async refreshToken() {
-    const tokenTime = localStorage.getItem('tokenTime')
+    const tokenTime = localStorage.getItem('tokenTimeLang')
     if (!tokenTime) return
     const currentTime = new Date().getTime()
-    if (Number(tokenTime) > currentTime) return
-    const refreshToken = localStorage.getItem('refreshToken')
-    const id = localStorage.getItem('id')
+    if (Number(tokenTime) > Number(currentTime)) return
+    const refreshToken = localStorage.getItem('refreshTokenLang')
+    const id = localStorage.getItem('idLang')
     if (!refreshToken || !id) return false
     const response = await fetch(`${Api.USERS}/${id}/tokens`, {
       method: 'GET',
@@ -182,9 +188,22 @@ export default class Api {
         Accept: 'application/json'
       }
     })
-    if (response.status !== 200) return
+    console.log(refreshToken)
+    if (response.status !== 200) {
+      localStorage.removeItem('signinLang')
+      return
+    }
 
     const data = await response.json()
     Api.setTokensAndId(data.token, data.refreshToken, id)
+  }
+
+  /** При выходе из аккаунта очищает localStorage */
+  static logout() {
+    localStorage.removeItem('tokenLang')
+    localStorage.removeItem('refreshTokenLang')
+    localStorage.removeItem('idLang')
+    localStorage.removeItem('tokenTimeLang')
+    localStorage.removeItem('signinLang')
   }
 }
