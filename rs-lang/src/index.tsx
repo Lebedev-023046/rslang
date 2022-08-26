@@ -9,6 +9,7 @@ import Api from './api/Api'
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement)
 
 root.render(<App />)
+
 void (async () => {
   // const check = await Api.createUser({
   //   name: 'string',
@@ -17,7 +18,10 @@ void (async () => {
   // })
 
   // console.log(await Api.signIn({ email: 'a@a.net', password: '12345678' }))
-
-  const check = await Api.deleteUser('6307edc30cc135001679a2df')
+  // const id = localStorage.getItem('id') as string
+  // const check = await Api.getUser(id)
+  // console.log(localStorage.getItem('token'))
+  const check = await Api.getUserWords('630809a80cc135001679a2e4')
+  // const check = await Api.deleteUser('630801e50cc135001679a2e1')
   console.log(check)
 })()

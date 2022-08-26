@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/strict-boolean-expressions */
 /* eslint-disable @typescript-eslint/space-before-function-paren */
 
 import {
@@ -65,7 +66,6 @@ export default class Api {
     if (response.status !== 200) return 'Incorrect e-mail or password'
     const data: ISigninResponse = await response.json()
     Api.setTokensAndId(data.token, data.refreshToken, data.userId)
-    console.log(data.token)
 
     return data
   }
@@ -78,8 +78,7 @@ export default class Api {
   или описание ошибки (строку)
 */
   static async getUser(id: string): Promise<IUserResponse | IResponseError> {
-    const currentToken = Api.getCurrentToken()
-    console.log(currentToken)
+    const currentToken = await Api.getCurrentToken()
 
     const response = await fetch(`${Api.USERS}/${id}`, {
       method: 'GET',
@@ -99,7 +98,7 @@ export default class Api {
     id: string,
     newUserData: ISigninRequest
   ): Promise<IUserResponse | IResponseError> {
-    const currentToken = Api.getCurrentToken()
+    const currentToken = await Api.getCurrentToken()
 
     const response = await fetch(`${Api.USERS}/${id}`, {
       method: 'PUT',
@@ -116,8 +115,7 @@ export default class Api {
 
   /** Удалить пользователя */
   static async deleteUser(id: string): Promise<IUserResponse | IResponseError> {
-    const currentToken = Api.getCurrentToken()
-    console.log(currentToken)
+    const currentToken = await Api.getCurrentToken()
 
     const response = await fetch(`${Api.USERS}/${id}`, {
       method: 'DELETE',
@@ -128,13 +126,30 @@ export default class Api {
     })
     const status = response.status
     if (status === 401) return 'Access token is missing or invalid'
-    if (status === 204) return 'The user has been deleted'
+    if (status === 204) {
+      Api.setTokensAndId('', '', '')
+      return 'The user has been deleted'
+    }
     if (status !== 200) return 'Bad request'
-    Api.setTokensAndId('', '', '')
     return await response.json()
   }
 
-  private static getCurrentToken(): string {
+  static async getUserWords(id: string) {
+    const currentToken = await Api.getCurrentToken()
+
+    const response = await fetch(`${Api.USERS}/${id}/words`, {
+      method: 'GET',
+      headers: {
+        Authorization: `Bearer ${currentToken}`,
+        Accept: 'application/json'
+      }
+    })
+    return await response.json()
+  }
+
+  private static async getCurrentToken(): Promise<string> {
+    await Api.refreshToken()
+
     return localStorage.getItem('token') !== null
       ? (localStorage.getItem('token') as string)
       : ''
@@ -148,5 +163,28 @@ export default class Api {
     localStorage.setItem('token', token)
     localStorage.setItem('refreshToken', refreshToken)
     localStorage.setItem('id', id)
+    const tokenExpire = 4 * 60 * 60 * 1000 + new Date().getTime()
+    localStorage.setItem('tokenTime', String(tokenExpire))
+  }
+
+  private static async refreshToken() {
+    const tokenTime = localStorage.getItem('tokenTime')
+    if (!tokenTime) return
+    const currentTime = new Date().getTime()
+    if (Number(tokenTime) > currentTime) return
+    const refreshToken = localStorage.getItem('refreshToken')
+    const id = localStorage.getItem('id')
+    if (!refreshToken || !id) return false
+    const response = await fetch(`${Api.USERS}/${id}/tokens`, {
+      method: 'GET',
+      headers: {
+        Authorization: `Bearer ${refreshToken}`,
+        Accept: 'application/json'
+      }
+    })
+    if (response.status !== 200) return
+
+    const data = await response.json()
+    Api.setTokensAndId(data.token, data.refreshToken, id)
   }
 }
