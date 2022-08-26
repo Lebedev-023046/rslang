@@ -352,7 +352,6 @@ export default class Api {
   ): Promise<IStatisticsUpset | IResponseError> {
     const currentToken = await Api.getCurrentToken()
     const id = Api.getId()
-    console.log(id)
 
     if (id === null) return 'Please signin'
     const response = await fetch(`${Api.USERS}/${id}/statistics`, {
@@ -393,7 +392,6 @@ export default class Api {
   ): Promise<ISettings | IResponseError> {
     const currentToken = await Api.getCurrentToken()
     const id = Api.getId()
-    console.log(id)
 
     if (id === null) return 'Please signin'
     const response = await fetch(`${Api.USERS}/${id}/settings`, {
@@ -454,7 +452,6 @@ export default class Api {
         Accept: 'application/json'
       }
     })
-    console.log(refreshToken)
     if (response.status !== 200) {
       localStorage.removeItem('signinLang')
       return
