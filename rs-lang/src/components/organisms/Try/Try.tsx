@@ -2,7 +2,7 @@ import React from 'react'
 import Button from '../../atoms/Button/Button'
 import './Try.css'
 
-const Try = () => {
+const Try: React.FC = () => {
   return (
     <section className='try'>
       <div className='conteiner try__conteiner'>

@@ -3,10 +3,6 @@ import Button from '../../atoms/Button/Button'
 import Sticker from '../../molecules/Sticker/Sticker'
 import './WhyUs.css'
 
-// interface WhyUsProps {
-
-// }
-
 const WhyUs: React.FC = () => {
   return (
     <section className='why-us'>

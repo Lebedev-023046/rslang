@@ -2,7 +2,7 @@ import React from 'react'
 import Icon from '../../atoms/Icon/Icon'
 import './Video.css'
 
-const Video = () => {
+const Video: React.FC = () => {
   return (
     <section className='video'>
       <div className='conteiner video__conteiner'>

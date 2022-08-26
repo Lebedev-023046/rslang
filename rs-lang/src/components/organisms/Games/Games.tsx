@@ -2,7 +2,7 @@ import React from 'react'
 import GamesCard from '../../molecules/GamesCard/GamesCard'
 import './Games.css'
 
-const Games = () => {
+const Games: React.FC = () => {
   return (
     <section className='games'>
       <div className='conteiner games__conteiner'>
