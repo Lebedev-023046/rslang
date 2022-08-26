@@ -1,5 +1,4 @@
 import React from 'react'
-import Icon from '../../atoms/Icon/Icon'
 import './Footer.css'
 
 const Footer = () => {
@@ -7,10 +6,10 @@ const Footer = () => {
     <footer className='footer'>
       <div className='conteiner footer__conteiner'>
         <a className="rss-link" href="https://rs.school/js/">
-          <Icon
-            type='rss'
-            height='70px'
-            width='188.485px'
+          <img
+            src="https://rs.school/images/rs_school_js.svg"
+            alt="rs_school_js.svg"
+            width="115px"
           />
         </a>
         <div className='footer__githubs'>
