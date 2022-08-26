@@ -1,0 +1,67 @@
+.word-card-container {
+    display: flex;
+    margin: 20px;
+    max-width: 800px;
+    width: 100%;
+    height: 240px;
+    border-radius: 6px;
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+    color: #151618;
+    background-color: #F4F5FF;
+    margin: 50px auto;
+}
+
+.card-img {
+    width: 32.5%;
+    height: 240px;
+    border-radius: 6px;
+    background-color: rgb(218, 213, 82);
+    background-size: cover;
+}
+
+.card-info {
+    width: 67.5%;
+    height: 240px;
+    padding: 20px;
+}
+
+.word-info {
+    display: flex;
+    justify-content: space-between;
+    font-size: 2rem;
+}
+
+.word {
+    font-weight: 500;
+}
+
+.sound-img {
+    cursor: pointer;
+}
+
+.word-common {
+    display: flex;
+    column-gap: 1rem;
+}
+
+.word-translate {
+    padding-top: 5px;
+    color: #FF6822;
+}
+
+.word-phrases {
+    margin: 20px 0;
+}
+
+.phrase1 {
+    margin-bottom: 10px;
+}
+
+.word-buttons{
+    display: flex;
+    max-width: 320px;
+    width: 100%;
+    margin: 2.4rem 0 0 auto;
+    /* margin-left: auto; */
+    column-gap: 20px;
+}
