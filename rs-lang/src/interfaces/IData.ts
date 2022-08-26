@@ -62,3 +62,8 @@ export interface IStatisticsUpset {
   learnedWords: number
   id: string
 }
+
+export interface ISettings {
+  wordsPerDay: number
+  optional: {}
+}

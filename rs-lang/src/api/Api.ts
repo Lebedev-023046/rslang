@@ -11,7 +11,8 @@ import {
   IWordDescription,
   IWordsResponse,
   IStatistics,
-  IStatisticsUpset
+  IStatisticsUpset,
+  ISettings
 } from '../interfaces/IData'
 
 // eslint-disable-next-line @typescript-eslint/no-extraneous-class
@@ -346,7 +347,7 @@ export default class Api {
   learnedWords: number
   optional: {}
 } */
-  static async upsetStatistics(
+  static async upsetUserStatistics(
     statics: IStatistics
   ): Promise<IStatisticsUpset | IResponseError> {
     const currentToken = await Api.getCurrentToken()
@@ -362,6 +363,47 @@ export default class Api {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify(statics)
+    })
+    const status = response.status
+    if (status === 401) return 'Access token is missing or invalid'
+    if (status !== 200) return 'Bad Request'
+    return await response.json()
+  }
+
+  static async getUserSettings(): Promise<ISettings | IResponseError> {
+    const currentToken = await Api.getCurrentToken()
+    const id = Api.getId()
+    if (id === null) return 'Please signin'
+    const response = await fetch(`${Api.USERS}/${id}/settings`, {
+      method: 'GET',
+      headers: {
+        Authorization: `Bearer ${currentToken}`,
+        Accept: 'application/json'
+      }
+    })
+    const status = response.status
+    if (status === 401) return 'Access token is missing or invalid'
+    if (status === 404) return 'Settings not found'
+    if (status !== 200) return 'User not found'
+    return await response.json()
+  }
+
+  static async upsetUserSettings(
+    settings: ISettings
+  ): Promise<ISettings | IResponseError> {
+    const currentToken = await Api.getCurrentToken()
+    const id = Api.getId()
+    console.log(id)
+
+    if (id === null) return 'Please signin'
+    const response = await fetch(`${Api.USERS}/${id}/settings`, {
+      method: 'PUT',
+      headers: {
+        Authorization: `Bearer ${currentToken}`,
+        Accept: 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(settings)
     })
     const status = response.status
     if (status === 401) return 'Access token is missing or invalid'
