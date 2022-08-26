@@ -9,7 +9,9 @@ import {
   IUserRequest,
   IUserResponse,
   IWordDescription,
-  IWordsResponse
+  IWordsResponse,
+  IStatistics,
+  IStatisticsUpset
 } from '../interfaces/IData'
 
 // eslint-disable-next-line @typescript-eslint/no-extraneous-class
@@ -303,16 +305,65 @@ export default class Api {
     const currentToken = await Api.getCurrentToken()
     const id = Api.getId()
     if (id === null) return 'Please signin'
-    const response = await fetch(`${Api.USERS}/${id}/aggregatedWords/${wordId}`, {
+    const response = await fetch(
+      `${Api.USERS}/${id}/aggregatedWords/${wordId}`,
+      {
+        method: 'GET',
+        headers: {
+          Authorization: `Bearer ${currentToken}`,
+          Accept: 'application/json',
+          'Content-Type': 'application/json'
+        }
+      }
+    )
+    const status = response.status
+    if (status === 404) return 'Users word not found'
+    if (status === 401) return 'Access token is missing or invalid'
+    if (status !== 200) return 'Bad Request'
+    return await response.json()
+  }
+
+  /** возвращает статистику пользователя */
+  static async getUserStatistic(): Promise<IStatistics | IResponseError> {
+    const currentToken = await Api.getCurrentToken()
+    const id = Api.getId()
+    if (id === null) return 'Please signin'
+    const response = await fetch(`${Api.USERS}/${id}/statistics`, {
       method: 'GET',
+      headers: {
+        Authorization: `Bearer ${currentToken}`,
+        Accept: 'application/json'
+      }
+    })
+    const status = response.status
+    if (status === 401) return 'Access token is missing or invalid'
+    if (status === 404) return 'Statistics not found'
+    if (status !== 200) return 'User not found'
+    return await response.json()
+  }
+
+  /** устанавливает статистику {
+  learnedWords: number
+  optional: {}
+} */
+  static async upsetStatistics(
+    statics: IStatistics
+  ): Promise<IStatisticsUpset | IResponseError> {
+    const currentToken = await Api.getCurrentToken()
+    const id = Api.getId()
+    console.log(id)
+
+    if (id === null) return 'Please signin'
+    const response = await fetch(`${Api.USERS}/${id}/statistics`, {
+      method: 'PUT',
       headers: {
         Authorization: `Bearer ${currentToken}`,
         Accept: 'application/json',
         'Content-Type': 'application/json'
-      }
+      },
+      body: JSON.stringify(statics)
     })
     const status = response.status
-    if (status === 404) return 'Users word not found'
     if (status === 401) return 'Access token is missing or invalid'
     if (status !== 200) return 'Bad Request'
     return await response.json()

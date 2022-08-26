@@ -53,3 +53,12 @@ export interface IWordsResponse extends IWordDescription {
   id: string
   wordId: string
 }
+
+export interface IStatistics {
+  learnedWords: number
+  optional: {}
+}
+export interface IStatisticsUpset {
+  learnedWords: number
+  id: string
+}

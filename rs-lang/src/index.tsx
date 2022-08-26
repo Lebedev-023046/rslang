@@ -36,9 +36,15 @@ void (async () => {
   // const useWord = {
   //   difficulty: 'hard'
   // }
-  const check = await Api.getAggregatedWord('5e9f5ee35eb9e72bc21af720')
-  console.log(await Api.getUserWords())
-  const check2 = await Api.getWord('5e9f5ee35eb9e72bc21af720')
-  console.log(check)
+  const statistics = {
+    learnedWords: 1,
+    optional: {}
+  }
+  const check2 = await Api.upsetStatistics(statistics)
+  const check = await Api.getUserStatistic()
+  // const check = await Api.getAggregatedWord('5e9f5ee35eb9e72bc21af720')
+  // console.log(await Api.getUserWords())
+  // const check2 = await Api.getWord('5e9f5ee35eb9e72bc21af720')
   console.log(check2)
+  console.log(check)
 })()
