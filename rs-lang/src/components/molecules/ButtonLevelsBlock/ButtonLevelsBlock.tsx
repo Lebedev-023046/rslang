@@ -1,17 +1,27 @@
-import React from 'react'
-import { ButtonTextPage } from '../../atoms/ButtonTextPage/ButtonTextPage'
+import React, { useState } from 'react'
+import './ButtonLevelsBlock.css'
 
 export function ButtonLevelsBlock () {
+  const levels = ['A1 - beginner',
+                  'A2 – elementary',
+                  'B1 – intermediate',
+                  'B2 – upper intermediate',
+                  'C1 - advanced',
+                  'C2 – proficiency',
+                  'Difficult Words'
+                ]
+
+  const [active, setActive] = useState(0)
+
+  // const handleClick = (e: React.ChangeEvent<HTMLElement>) => {
+  //   setActive(e.target.id)
+  // }
+
   return (
     <div className="btnLevels-block">
-        <ButtonTextPage type='btnLevel' text='A1 - beginner' active/>
-        <ButtonTextPage type='btnLevel' text='A2 – elementary' active/>
-        <ButtonTextPage type='btnLevel' text='B1 – intermediate' active/>
-        <ButtonTextPage type='btnLevel' text='B2 – upper intermediate' active/>
-        <ButtonTextPage type='btnLevel' text='C1 - advanced' active/>
-        <ButtonTextPage type='btnLevel' text='C2 – proficiency' active/>
-        <ButtonTextPage type='btnLevel' text='Difficult Words' active/>
+      { levels.map((elem, i) => <button className={ i === active ? 'btnLevel btnLevel-active' : 'btnLevel'} key={i} onClick={() => setActive(i)}>
+        { elem }
+      </button>) }
     </div>
-
   )
 }
