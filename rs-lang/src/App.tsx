@@ -1,10 +1,10 @@
 
-import MainPage from './components/templates/MainPage/MainPage'
 import React from 'react'
+import { TextBook } from './components/templates/TextBook/TextBook'
 
 function App () {
   return (
-    <MainPage />
+    <TextBook />
   )
 }
 
