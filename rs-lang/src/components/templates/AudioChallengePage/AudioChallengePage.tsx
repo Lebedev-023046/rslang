@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 import Button from '../../atoms/Button/Button'
 import DifficultyButton from '../../atoms/DifficultyButton/DifficultyButton'
 import Icon from '../../atoms/Icon/Icon'
@@ -45,13 +46,13 @@ const AudioChallengePage = () => {
               color='#FF6822'
             />
           </div>
-          <a className='cross' href=''>
+          <Link className='cross' to='/'>
             <Icon
               type='cross'
               height='24'
               width='24'
             />
-          </a>
+          </Link>
           {!game &&
             <div className='audio-challenge__start-screen'>
               <div className='audio-challenge__info'>
