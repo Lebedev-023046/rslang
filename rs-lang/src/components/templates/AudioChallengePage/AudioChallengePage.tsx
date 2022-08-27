@@ -101,7 +101,7 @@ const AudioChallengePage = () => {
               />
             </div>
           }
-        </div>/
+        </div>
       </section>
     </div>
   )
