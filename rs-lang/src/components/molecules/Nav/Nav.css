@@ -1,0 +1,13 @@
+.nav {
+  display: flex;
+
+  gap: 5rem;
+}
+
+.nav__link {
+  color: #151618;
+
+  font-size: 2rem;
+  font-weight: 500;
+  line-height: 2.3rem;
+}

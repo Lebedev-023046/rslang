@@ -1,15 +1,10 @@
-import { WordCard } from './components/molecules/WordCard/WordCard'
-import { useWords } from './hooks/useWords'
+
+import MainPage from './components/templates/MainPage/MainPage'
+import React from 'react'
 
 function App () {
-  const { words } = useWords()
-
   return (
-    <div>
-      { words.map(word =>
-        <WordCard card={word} key={word.id} />
-      ) }
-    </div>
+    <MainPage />
   )
 }
 
