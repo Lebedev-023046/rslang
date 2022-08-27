@@ -13,10 +13,6 @@ export function ButtonLevelsBlock () {
 
   const [active, setActive] = useState(0)
 
-  // const handleClick = (e: React.ChangeEvent<HTMLElement>) => {
-  //   setActive(e.target.id)
-  // }
-
   return (
     <div className="btnLevels-block">
       { levels.map((elem, i) => <button className={ i === active ? 'btnLevel btnLevel-active' : 'btnLevel'} key={i} onClick={() => setActive(i)}>
