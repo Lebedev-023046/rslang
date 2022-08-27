@@ -48,9 +48,10 @@
     width: 60px;
     height: 60px;
 
-    color: #FFFFFF;
     background-color: #FF6822;
     border-radius: 100%;
+
+    color: #FFFFFF;
 }
 
 .button_icon {

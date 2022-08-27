@@ -1,0 +1,76 @@
+.wrapper {
+  min-height: 100%;
+
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.conteiner {
+  margin: 0 auto;
+  max-width: 1240px;
+  min-height: 100%;
+}
+
+.burger {
+  position: absolute;
+
+  top: 7rem;
+  left: 16rem;
+}
+
+.cross {
+  position: absolute;
+
+  top: 7.7rem;
+  right: 16rem;
+}
+
+.audio-challenge {
+  display: flex;
+  width: 100%;
+  min-height: 100vh;
+
+  background: linear-gradient(180deg, #6CA0FA 0%, rgba(108, 160, 250, 0.4) 100%);
+}
+
+.audio-challenge__conteiner {
+  margin: auto;
+}
+
+.audio-challenge__start-screen {
+  display: flex;
+
+  flex-direction: column;
+  align-items: center;
+  gap: 10rem;
+}
+
+.audio-challenge__info {
+  display: flex;
+  max-width: 54rem;
+
+  flex-direction: column;
+  align-items: center;
+  gap: 3rem;
+}
+
+.audio-challenge__text {
+  font-size: 2rem;
+  line-height: 2.3rem;
+  text-align: center;
+  color: #151618;
+}
+
+.audio-challenge__difficulty {
+  display: flex;
+
+  flex-direction: column;
+  gap: 3rem;
+}
+
+.audio-challenge__buttons {
+  display: flex;
+
+  gap: 2.8rem;
+}

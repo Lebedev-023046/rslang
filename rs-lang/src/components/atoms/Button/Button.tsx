@@ -11,7 +11,7 @@ interface ButtonProps {
   iconHeight?: string
   iconWidth?: string
   iconColor?: string
-  onClick: () => void
+  onClick: (e: React.MouseEvent) => void
 }
 
 const Button: React.FC<ButtonProps> = ({
