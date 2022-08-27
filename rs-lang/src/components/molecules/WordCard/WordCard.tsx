@@ -1,12 +1,11 @@
 import './WordCard.css'
 import soundImg from '../../../assets/sound_icon.svg'
-import { ButtonTextPage } from '../../atoms/ButtonTextPage/ButtonTextPage'
-import { IWords } from '../../../interfaces/IWords'
+import { IData } from '../../../interfaces/IData'
 
 const BASE_URL = 'https://react-rslang-words.herokuapp.com/'
 
 interface ICardProps {
-    card: IWords
+    card: IData
 }
 
 export function WordCard (props: ICardProps) {
@@ -27,17 +26,17 @@ export function WordCard (props: ICardProps) {
                     <div className="word-translate">{ props.card.wordTranslate }</div>
                     <div className="word-phrases">
                         <div className="phrase1">
-                            <p className="sentense1">{ props.card.textMeaning }</p>
-                            <p className="sentense-translate1">{ props.card.textMeaningTranslate }</p>
+                            <p className="sentense1" dangerouslySetInnerHTML={{ __html: props.card.textMeaning }}></p>
+                            <p className="sentense-translate1" dangerouslySetInnerHTML={{ __html: props.card.textMeaningTranslate }}></p>
                         </div>
                         <div className="phrase2">
-                            <p className="sentense2">{ props.card.textExample }</p>
-                            <p className="sentense-translate2">{ props.card.textExampleTranslate }</p>
+                            <p className="sentense2" dangerouslySetInnerHTML={{ __html: props.card.textExample }}></p>
+                            <p className="sentense-translate2" dangerouslySetInnerHTML={{ __html: props.card.textExampleTranslate }}></p>
                         </div>
                     </div>
                     <div className="word-buttons">
-                        <ButtonTextPage text='Mark as learned' type='btnWordCard' active={false}/>
-                        <ButtonTextPage text='Add to difficult words' type='btnWordCard' active={false}/>
+                        <button className='btnWordCard'>Mark as learned</button>
+                        <button className='btnWordCard'>Add to difficult words</button>
                     </div>
                 </div>
             </div>
