@@ -4,7 +4,7 @@ import './Footer.css'
 const Footer: React.FC = () => {
   return (
     <footer className='footer'>
-      <div className='conteiner footer__conteiner'>
+      <div className='container footer__container'>
         <a
           className="rss-link"
           href="https://rs.school/js/"

@@ -6,7 +6,7 @@ import './WhyUs.css'
 const WhyUs: React.FC = () => {
   return (
     <section className='why-us'>
-      <div className='conteiner why-us__conteiner'>
+      <div className='container why-us__container'>
         <div className='why-us__stickers'>
           <Sticker
             iconType='textbook'

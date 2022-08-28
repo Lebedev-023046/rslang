@@ -8,7 +8,7 @@ interface IHeaderProps {
 const Header = ({ children }: IHeaderProps) => {
   return (
     <header className='header'>
-      <div className='conteiner header__conteiner'>
+      <div className='container header__container'>
         { children }
       </div>
     </header>

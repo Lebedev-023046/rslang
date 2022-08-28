@@ -5,7 +5,7 @@ import './Team.css'
 const Team: React.FC = () => {
   return (
     <section className='team'>
-      <div className='conteiner team__conteiner'>
+      <div className='container team__container'>
         <h2>Our team</h2>
         <div className='team__slider'>
           {/* TODO добавить кнопки для слайдера */}

@@ -1,6 +1,6 @@
 import React from 'react'
 import './MainPage.css'
-// import { Link } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import Button from '../../atoms/Button/Button'
 import Nav from '../../molecules/Nav/Nav'
 import Header from '../../organisms/Header/Header'
@@ -23,7 +23,7 @@ const MainPage = () => {
           <span className='nav__link'>Team</span>
           <span className='nav__link'>Why Us</span>
           {/* <Link className='nav__link' to='#'>Why Us</Link> */}
-          {/* <Link className='nav__link' to='#'>Games</Link> */}
+          <Link className='nav__link' to='/AudioChallenge'>Audio Challenge</Link>
           {/* <Link className='nav__link' to='#'>Team</Link> */}
           {/* <Link className='nav__link' to='#'>Textbook</Link> */}
         </Nav>

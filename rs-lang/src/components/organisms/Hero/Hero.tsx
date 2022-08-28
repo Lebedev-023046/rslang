@@ -15,7 +15,7 @@ const Hero: React.FC<HeroProps> = ({
 }) => {
   return (
     <section className='hero'>
-      <div className='conteiner hero__conteiner'>
+      <div className='container hero__container'>
         <div className='hero__content'>
           <div className='hero__text'>
             <h1>{title}</h1>
