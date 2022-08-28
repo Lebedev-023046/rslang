@@ -2,7 +2,7 @@
   background: linear-gradient(180deg, #6CA0FA 0%, rgba(108, 160, 250, 0.4) 100%);
 }
 
-.audio-challenge__conteiner {
+.audio-challenge__container {
   display: flex;
   position: relative;
   height: 100vh;

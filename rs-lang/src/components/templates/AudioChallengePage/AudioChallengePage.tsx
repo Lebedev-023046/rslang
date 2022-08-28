@@ -37,7 +37,7 @@ const AudioChallengePage = () => {
   return (
     <div className='wrapper'>
       <section className='audio-challenge'>
-        <div className='conteiner audio-challenge__conteiner'>
+        <div className='container audio-challenge__container'>
           <div className='burger'>
             <Icon
               type='burger'

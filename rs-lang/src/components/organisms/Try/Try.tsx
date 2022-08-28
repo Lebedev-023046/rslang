@@ -5,7 +5,7 @@ import './Try.css'
 const Try: React.FC = () => {
   return (
     <section className='try'>
-      <div className='conteiner try__conteiner'>
+      <div className='container try__container'>
         <div className='try__content'>
           <h2>Try for free</h2>
           <p>Sign up and get access to statistics, word saving and other features that will make learning more effective</p>

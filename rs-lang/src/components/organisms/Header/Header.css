@@ -8,7 +8,7 @@
   background-color: transparent;
 }
 
-.header__conteiner {
+.header__container {
   display: flex;
   padding: 7rem 2rem 0;
 
@@ -16,6 +16,6 @@
   gap: 5rem;
 }
 
-.header__conteiner > h2 {
+.header__container > h2 {
   margin-right: auto;
 }
