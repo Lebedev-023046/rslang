@@ -9,9 +9,24 @@ interface ICardProps {
 }
 
 export function WordCard (props: ICardProps) {
+    const playWordSounds = () => {
+        const audios = [props.card.audio, props.card.audioMeaning, props.card.audioExample].map((path: string) => new Audio(`${BASE_URL}${path}`))
+        const playItem = async (audio: HTMLAudioElement) => await new Promise<void>((resolve) => {
+            void audio.play()
+            audio.addEventListener('ended', () => resolve())
+        })
+        const subsPlay = async () => {
+            for (let i = 0; i < audios.length; i++) {
+                await playItem(audios[i])
+            }
+        }
+
+        void subsPlay()
+    }
+
     return (
         <div className="word-card-container">
-            <div className="card-img" style={{ backgroundImage: `url(${BASE_URL}${props.card.image})` }}></div>
+            <div className="card-img" style={{ backgroundImage: `url(${BASE_URL}${props.card.image})` }}/>
             <div className="card-info">
                 <div className="card-info-block">
                     <div className="word-info">
@@ -19,8 +34,8 @@ export function WordCard (props: ICardProps) {
                             <div className="word">{ props.card.word }</div>
                             <div className="transc">{ props.card.transcription }</div>
                         </div>
-                        <div className="word-sound">
-                            <img className='sound-img' src={soundImg} alt="sound-icon" />
+                        <div className="word-sound" onClick={playWordSounds}>
+                                <img className='sound-img' src={soundImg} alt="sound-icon" />
                         </div>
                     </div>
                     <div className="word-translate">{ props.card.wordTranslate }</div>
