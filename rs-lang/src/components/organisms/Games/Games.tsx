@@ -5,7 +5,7 @@ import './Games.css'
 const Games: React.FC = () => {
   return (
     <section className='games'>
-      <div className='conteiner games__conteiner'>
+      <div className='container games__container'>
         <h2>Enhance your learning experience with games</h2>
         <div className='games__cards'>
           <GamesCard type='audio' />

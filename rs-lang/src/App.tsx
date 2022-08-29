@@ -1,10 +1,14 @@
-
 import React from 'react'
-import { TextBook } from './components/templates/TextBook/TextBook'
+import MainPage from './components/templates/MainPage/MainPage'
+import AudioChallengePage from './components/templates/AudioChallengePage/AudioChallengePage'
+import { Route, Routes } from 'react-router-dom'
 
-function App () {
+const App = () => {
   return (
-    <TextBook />
+    <Routes>
+        <Route path='/' element={ <MainPage /> } />
+        <Route path='/AudioChallenge' element={ <AudioChallengePage /> } />
+    </Routes>
   )
 }
 
