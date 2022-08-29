@@ -1,7 +1,12 @@
-import React, { useState } from 'react'
+// import React, { useState } from 'react'
 import './ButtonLevelsBlock.css'
 
-export function ButtonLevelsBlock () {
+interface ButtonLevelsBlockProps {
+  active: number
+  setActive: (i: number) => void
+}
+
+export function ButtonLevelsBlock ({ active, setActive }: ButtonLevelsBlockProps) {
   const levels = ['A1 - beginner',
                   'A2 – elementary',
                   'B1 – intermediate',
@@ -11,15 +16,9 @@ export function ButtonLevelsBlock () {
                   'Difficult Words'
                 ]
 
-  const [active, setActive] = useState(0)
-
-  // const handleClick = (e: React.ChangeEvent<HTMLElement>) => {
-  //   setActive(e.target.id)
-  // }
-
   return (
     <div className="btnLevels-block">
-      { levels.map((elem, i) => <button className={ i === active ? 'btnLevel btnLevel-active' : 'btnLevel'} key={i} onClick={() => setActive(i)}>
+      { levels.map((elem, i) => <button id={String(i + 1)} className={ i === active ? 'btnLevel btnLevel-active' : 'btnLevel'} key={i} onClick={() => setActive(i)}>
         { elem }
       </button>) }
     </div>
