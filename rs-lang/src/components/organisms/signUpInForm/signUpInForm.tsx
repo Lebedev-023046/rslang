@@ -1,14 +1,10 @@
-import { FormBody } from '../../molecules/Registration/FormBody/FormBody'
-import { FormFooter } from '../../molecules/Registration/FormFooter/FormFooter'
-import { FormHeader } from '../../molecules/Registration/FormHeader/FormHeader'
+import { FormBody } from '../../molecules/Registration/FormBody'
 import './signUpInForm.css'
 
 export function SignUpInForm () {
   return (
-    <form className='modal-content'>
-      <FormHeader/>
+    <div className='modal-content'>
       <FormBody/>
-      <FormFooter/>
-    </form>
+    </div>
   )
 }
