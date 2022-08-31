@@ -57,7 +57,7 @@ export function FormBody () {
     }
   }
 
-  const emaiHandler = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  const emailHandler = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setEmail(e.target.value)
     const re = /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/
     if (!re.test(String(e.target.value).toLowerCase())) {
@@ -149,7 +149,7 @@ export function FormBody () {
               type='email'
               name='email'
               value={email}
-              onChange={event => emaiHandler(event)}
+              onChange={event => emailHandler(event)}
               onBlur={event => handleTextField(event)}
               inputProps={{ style: { fontSize: 16 } }}
               InputLabelProps={{ style: { fontSize: 16 } }}
