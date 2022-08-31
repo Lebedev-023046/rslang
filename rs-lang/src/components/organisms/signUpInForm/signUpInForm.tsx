@@ -1,8 +1,7 @@
-import './signUpInForm.css'
-
 import { FormBody } from '../../molecules/Registration/FormBody/FormBody'
-import { FormHeader } from '../../molecules/Registration/FormHeader/FormHeader'
 import { FormFooter } from '../../molecules/Registration/FormFooter/FormFooter'
+import { FormHeader } from '../../molecules/Registration/FormHeader/FormHeader'
+import './signUpInForm.css'
 
 export function SignUpInForm () {
   return (
