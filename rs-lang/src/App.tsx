@@ -1,6 +1,6 @@
+import React from 'react'
 import MainPage from './components/templates/MainPage/MainPage'
 import AudioChallengePage from './components/templates/AudioChallengePage/AudioChallengePage'
-import React from 'react'
 import { Route, Routes } from 'react-router-dom'
 
 const App = () => {
