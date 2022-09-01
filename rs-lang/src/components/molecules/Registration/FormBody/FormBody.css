@@ -20,7 +20,9 @@
     color: #FF6822;
     padding-left: .5rem;
     text-decoration: underline;
+    font-size: 1.6rem;
     cursor: pointer;
+    
 }
 
 .bottom-text {

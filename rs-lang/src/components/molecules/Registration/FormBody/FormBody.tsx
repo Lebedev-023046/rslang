@@ -13,10 +13,7 @@ import {
   Typography
 } from '@mui/material'
 import { ThemeProvider } from '@emotion/react'
-import Api from '../../../api/Api'
-import React, { useContext, useState } from 'react'
-import { authContext } from '../../../context/AuthContext/AuthContext'
-import { signInUpContext } from '../../../context/ModalContext/ModalContext'
+import Api from '../../../../api/Api'
 
 const theme = createTheme({
   palette: {
@@ -26,26 +23,57 @@ const theme = createTheme({
   }
 })
 
-export function FormBody () {
-  const [isLogInPage, setLogInPage] = useState(false)
+interface IRegProps {
+  isLogInPage: boolean
+  setLogInPage: (e: (e: boolean) => boolean) => void
+  showPassword: boolean
+  setShowPassword: (e: (e: boolean) => boolean) => void
+  name: string
+  setName: (e: string) => void
+  email: string
+  setEmail: (e: string) => void
+  emailError: string
+  setEmailError: (e: string) => void
+  emailField: boolean
+  setEmailField: (e: boolean) => void
+  password: string
+  setPassword: (e: string) => void
+  passwordError: string
+  setPasswordError: (e: string) => void
+  passwordField: boolean
+  setPasswordField: (e: boolean) => void
+  loginMessage: string
+  setLoginMessage: (e: string) => void
+  enter: () => void
+  closeSIU: () => void
+  setSuccess: (e: boolean) => void
+}
 
-  const [showPassword, setShowPassword] = useState(true)
-  const [name, setName] = useState('')
-
-  const [email, setEmail] = useState('')
-  const [emailError, setEmailError] = useState('')
-  const [emailField, setEmailField] = useState(false)
-
-  const [password, setPassword] = useState('')
-  const [passwordError, setPasswordError] = useState('')
-  const [passwordField, setPasswordField] = useState(false)
-
-  const [loginMessage, setLoginMessage] = useState('')
-
-  const { enter } = useContext(authContext)
-
-  const { closeSIU } = useContext(signInUpContext)
-
+export function FormBody ({
+  isLogInPage,
+  setLogInPage,
+  showPassword,
+  setShowPassword,
+  name,
+  setName,
+  email,
+  setEmail,
+  emailError,
+  setEmailError,
+  emailField,
+  setEmailField,
+  password,
+  setPassword,
+  passwordError,
+  setPasswordError,
+  passwordField,
+  setPasswordField,
+  loginMessage,
+  setLoginMessage,
+  enter,
+  closeSIU,
+  setSuccess
+ }: IRegProps) {
   const handleTextField = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     switch (e.target.name) {
       case 'email':
@@ -80,7 +108,6 @@ export function FormBody () {
     e.preventDefault()
     if (isLogInPage) {
       try {
-        // Api.signIn({ email, password }).then(() => enter()).finally(() => closeSIU())
         void Api.signIn({ email, password }).then(data => {
           switch (typeof data) {
             case 'string':
@@ -99,7 +126,7 @@ export function FormBody () {
       }
     } else {
       try {
-        Api.createUser({ name, email, password }).finally(() => closeSIU())
+        void Api.createUser({ name, email, password }).then(async () => await Api.signIn({ email, password })).then(() => setSuccess(true))
       } catch (error) {
         throw new Error('Incorrect email or password')
       }
@@ -115,7 +142,7 @@ export function FormBody () {
             fontWeight='700'
             lineHeight='2.8rem'
             mb='1rem'>
-              { isLogInPage ? 'Sign In' : 'Sign Up'}
+              { isLogInPage ? 'Log In' : 'Sign Up'}
           </Typography>
           <Typography
             align='center'
@@ -172,7 +199,7 @@ export function FormBody () {
                   endAdornment={
                       <InputAdornment position='end'>
                           <IconButton sx={{ transform: 'scale(1.5)' }}
-                              onClick={() => setShowPassword((prev) => !prev)}
+                              onClick={() => setShowPassword((prev: boolean) => !prev)}
                           >
                               {showPassword ? <Visibility /> : <VisibilityOff />}
                           </IconButton>
@@ -181,7 +208,11 @@ export function FormBody () {
                   label={<span style={{ fontSize: 14 }}>Password</span>}
               />
           </FormControl>
-          <Button sx={{ fontSize: '1.6rem', color: '#ffffff', borderRadius: '10px' }} type='submit' variant='contained' color='primary'>
+          <Button sx={{ fontSize: '1.6rem', color: '#ffffff', borderRadius: '10px' }}
+                  type='submit'
+                  variant='contained'
+                  color='primary'
+                  disabled={ password.length < 8 }>
             { isLogInPage ? 'sign in' : 'sign up'}
           </Button>
       </form>
@@ -199,5 +230,6 @@ export function FormBody () {
       </div>
 
     </ThemeProvider>
-  )
+    // <SuccessfulSignUp/>
+ )
 }
