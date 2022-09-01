@@ -59,7 +59,7 @@
   gap: 3rem;
 }
 
-.audiocall__buttons {
+.question__buttons {
   display: flex;
 
   flex-wrap: wrap;

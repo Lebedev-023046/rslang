@@ -73,7 +73,7 @@ const AudioResult: React.FC<AudioResultProps> = ({
           <div className='result__diagram'>
             <CircularProgress
               size={180}
-              thickness={8}
+              thickness={7}
               color={'primary'}
               variant='determinate'
               value={correctPercent}
@@ -96,7 +96,7 @@ const AudioResult: React.FC<AudioResultProps> = ({
                   key={mistake.word}
                 >
                   <button
-                    className='audiocall__small-audio'
+                    className='question__small-audio'
                     onClick={() => handleSound(mistake.audio)}
                   >
                     <Icon
@@ -123,7 +123,7 @@ const AudioResult: React.FC<AudioResultProps> = ({
                   key={correct.word}
                 >
                   <button
-                    className='audiocall__small-audio'
+                    className='question__small-audio'
                     onClick={() => handleSound(correct.audio)}
                   >
                     <Icon

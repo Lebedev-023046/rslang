@@ -18,7 +18,7 @@ import reloadSVG from '../../../assets/icons/reload.svg'
 import crossSVG from '../../../assets/icons/cross.svg'
 
 const AudioChallengePage: React.FC = () => {
-  const [difficulty, setDifficulty] = React.useState(0)
+  const [difficulty, setDifficulty] = React.useState(1)
   const [loading, setLoading] = React.useState(false)
   const [game, setGame] = React.useState(false)
   const [result, setResult] = React.useState(false)
@@ -105,7 +105,7 @@ const AudioChallengePage: React.FC = () => {
               </div>
               <div className='audiocall__difficulty'>
                 <p className='audiocall__text'>Choose difficulty:</p>
-                <div className='audiocall__buttons'>
+                <div className='question__buttons'>
                   <DifficultyButton
                     text='A1'
                     id={0}
@@ -164,8 +164,8 @@ const AudioChallengePage: React.FC = () => {
                 question={question}
                 done={done}
                 choice={choice}
-                onNextStep={handleNextStep}
                 onClickVariant={handleVariant}
+                onNextStep={handleNextStep}
               />
             </div>
           }

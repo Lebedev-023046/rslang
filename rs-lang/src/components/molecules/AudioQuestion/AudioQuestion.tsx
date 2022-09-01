@@ -8,32 +8,56 @@ interface AudioQuestionProps {
   question: IQuestion
   done: boolean
   choice: string
-  onNextStep: () => void
   onClickVariant: (id: number) => void
+  onNextStep: () => void
 }
 
 const AudioQuestion: React.FC<AudioQuestionProps> = ({
   question,
   done,
   choice,
-  onNextStep,
-  onClickVariant
+  onClickVariant,
+  onNextStep
 }) => {
   const { answer, variants, correct } = question
 
   const audio = new Audio(`${BASE_URL}${answer.audio}`)
   audio.volume = 0.1
+  void audio.play()
 
   const handleSound = () => {
     void audio.play()
   }
 
+  React.useEffect(() => {
+    // TODO type the event
+    const onKeypress = (e: any) => {
+      if (!done) {
+        if (e.key === '1') onClickVariant(0)
+        if (e.key === '2') onClickVariant(1)
+        if (e.key === '3') onClickVariant(2)
+        if (e.key === '4') onClickVariant(3)
+        if (e.key === '5') onClickVariant(4)
+        if (e.key === ' ') onClickVariant(5)
+      }
+      if (done) {
+        if (e.key === ' ') onNextStep()
+      }
+    }
+
+    document.addEventListener('keypress', onKeypress)
+
+    return () => {
+      document.removeEventListener('keypress', onKeypress)
+    }
+  }, [done, onClickVariant, onNextStep])
+
   return (
-    <div className='audiocall__question'>
+    <div className='audiocall__question question'>
       {!done &&
         <>
           <button
-            className='audiocall__big-audio'
+            className='question__big-audio'
             onClick={handleSound}
           >
             <Icon
@@ -43,10 +67,10 @@ const AudioQuestion: React.FC<AudioQuestionProps> = ({
               color='#6CA0FA'
             />
           </button>
-          <div className='audiocall__variants'>
+          <div className='question__variants'>
             {variants.map((variant, id) => (
               <button
-                className='audiocall__variant'
+                className='question__variant'
                 onClick={() => onClickVariant(id)}
                 key={variant.word}
                 id={id.toString()}
@@ -56,7 +80,7 @@ const AudioQuestion: React.FC<AudioQuestionProps> = ({
             ))}
           </div>
           <button
-            className='audiocall__button'
+            className='question__button'
             onClick={() => onClickVariant(5)}
             id='5'
           >
@@ -67,11 +91,14 @@ const AudioQuestion: React.FC<AudioQuestionProps> = ({
 
       {done &&
         <>
-          <div className='audiocall__correct-card'>
-            <div className="audiocall__img" style={{ backgroundImage: `url(${BASE_URL}${answer.image})` }}/>
-            <div className='audiocall__sound-and-name'>
+          <div className='question__correct-card'>
+            <div
+              className="question__img"
+              style={{ backgroundImage: `url(${BASE_URL}${answer.image})` }}
+            />
+            <div className='question__sound-and-name'>
               <button
-                className='audiocall__small-audio'
+                className='question__small-audio'
                 onClick={handleSound}
               >
                 <Icon
@@ -83,17 +110,17 @@ const AudioQuestion: React.FC<AudioQuestionProps> = ({
               <h3>{answer.word}</h3>
             </div>
           </div>
-          <div className='audiocall__variants'>
+          <div className='question__variants'>
             {variants.map((variant, id) => (
               <button
                 className={
                   variants[+choice] === variant
                   ? variant === variants[correct]
-                    ? 'audiocall__variant audiocall__variant_correct'
-                    : 'audiocall__variant audiocall__variant_incorrect'
+                    ? 'question__variant question__variant_correct'
+                    : 'question__variant question__variant_incorrect'
                   : variant === variants[correct]
-                    ? 'audiocall__variant audiocall__variant_correct'
-                    : 'audiocall__variant'
+                    ? 'question__variant question__variant_correct'
+                    : 'question__variant'
                 }
                 key={variant.word}
                 id={id.toString()}
@@ -103,9 +130,8 @@ const AudioQuestion: React.FC<AudioQuestionProps> = ({
             ))}
           </div>
           <button
-            className='audiocall__button'
+            className='question__button'
             onClick={onNextStep}
-            id='5'
           >
             Next
           </button>
