@@ -4,6 +4,7 @@ import CircularProgress from '@mui/material/CircularProgress'
 import { IData, IQuestion } from '../../../interfaces/IData'
 import { ANSWERS_LIMIT, BASE_URL } from '../../../utils/Utils'
 import Icon from '../../atoms/Icon/Icon'
+import { Link } from 'react-router-dom'
 
 interface AudioResultProps {
   answers: Array<IData | null>
@@ -140,12 +141,17 @@ const AudioResult: React.FC<AudioResultProps> = ({
       }
 
       <div className='result__buttons'>
-        <button className='play-again-btn'>
+        <button
+          className='play-again-btn'
+          onClick={() => { window.location.reload() }}
+        >
           Play again
         </button>
-        <button className='go-to-btn'>
-          Go to dictionary
-        </button>
+        <Link to='/Dictionary'>
+          <button className='go-to-btn'>
+            Go to dictionary
+          </button>
+        </Link>
       </div>
     </div>
   )

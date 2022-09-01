@@ -28,7 +28,9 @@ export const getRandomPage = (): number => {
   return getRandomNumFromInterval(-1, PAGES_LIMIT)
 }
 
-export const getRandomWordsFrom = (amount: number, words: IData[], exclude?: IData): IData[] => {
+// Функция получения указанного количества рандомных слов из массива IData,
+// можно указать необязательный парамертр exclude, чтобы игнорировать какое-то слово
+export const getRandomWordsFrom = (words: IData[], amount: number, exclude?: IData): IData[] => {
   if (amount > words.length) throw new Error('The number of words exceeds the length of the array')
 
   const result: IData[] = []

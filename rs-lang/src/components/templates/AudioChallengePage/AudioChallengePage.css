@@ -12,11 +12,13 @@
   justify-content: center;
 }
 
-.burger {
+.reload {
   position: absolute;
 
   top: 7rem;
   left: 16rem;
+
+  background-color: transparent;
 }
 
 .cross {
