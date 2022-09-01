@@ -44,6 +44,8 @@ interface IRegProps {
   setPasswordField: (e: boolean) => void
   loginMessage: string
   setLoginMessage: (e: string) => void
+  signUpMessage: string
+  setSignUpMessage: (e: string) => void
   enter: () => void
   closeSIU: () => void
   setSuccess: (e: boolean) => void
@@ -70,6 +72,8 @@ export function FormBody ({
   setPasswordField,
   loginMessage,
   setLoginMessage,
+  signUpMessage,
+  setSignUpMessage,
   enter,
   closeSIU,
   setSuccess
@@ -126,7 +130,18 @@ export function FormBody ({
       }
     } else {
       try {
-        void Api.createUser({ name, email, password }).then(async () => await Api.signIn({ email, password })).then(() => setSuccess(true))
+        void Api.createUser({ name, email, password }).then(data => {
+          switch (typeof data) {
+            case 'string':
+              setSignUpMessage(data)
+              break
+            case 'object':
+              void Api.signIn({ email, password }).then(() => setSuccess(true))
+              break
+            default:
+              break
+          }
+        })
       } catch (error) {
         throw new Error('Incorrect email or password')
       }
@@ -153,6 +168,7 @@ export function FormBody ({
               { isLogInPage ? '' : 'Get access to all the features'}
           </Typography>
       </div>
+      <div style={{ textAlign: 'center', color: 'red', margin: '1rem 0', fontSize: '1.6rem' }}>{ signUpMessage.length > 0 ? signUpMessage : ''}</div>
       <form onSubmit={submitData} className='text-field-area'>
         { !isLogInPage && <TextField
               className='text-field'
@@ -224,12 +240,15 @@ export function FormBody ({
               setName('')
               setEmail('')
               setPassword('')
+              setEmailError('')
+              setPasswordError('')
+              setLoginMessage('')
+              setSignUpMessage('')
             }}>
-              { isLogInPage ? 'Sign Up' : 'Sign in'}</span>
+              { isLogInPage ? 'Sign Up' : 'Log In' }</span>
           </Typography>
       </div>
 
     </ThemeProvider>
-    // <SuccessfulSignUp/>
  )
 }
