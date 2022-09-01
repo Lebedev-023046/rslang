@@ -3,7 +3,6 @@ import Api from '../../../api/Api'
 import { useContext, useState } from 'react'
 import { authContext } from '../../../context/AuthContext/AuthContext'
 import './NameBlock.css'
-import { IUserRequest } from '../../../interfaces/IData'
 
 export function NameBlock () {
     const [name, setName] = useState('')
@@ -14,7 +13,13 @@ export function NameBlock () {
         Api.logout()
       }
 
-    void Api.getUser().then((userData) => setName((userData as unknown as IUserRequest).name))
+    void (async () => {
+        const response = await Api.getUser()
+        if (typeof response !== 'string') {
+            const { name } = response
+            setName(name)
+        }
+      })()
 
     return (
         <div className='user-name'>
