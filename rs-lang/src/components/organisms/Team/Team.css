@@ -2,8 +2,21 @@
   background-color: #FFFFFF;
 }
 
+.team__pagination {
+  display: flex;
+  position: absolute;
+  z-index: 5;
+
+  bottom: 14.3rem;
+  left: calc(50% - 7.7rem);
+
+  gap: 3rem;
+}
+
 .team__container {
   display: flex;
+  position: relative;
+
   padding: 7rem 2rem 11.3rem;
 
   flex-direction: column;
@@ -14,6 +27,37 @@
 
 .team__slider {
   display: flex;
+  position: relative;
 
   align-items: center;
+}
+
+.stroke-left,
+.stroke-right {
+  position: absolute;
+
+  height: 6rem;
+  width: 6rem;
+
+  background-color: #FF6822;
+  border-radius: 100%;
+}
+
+.stroke-left {
+  z-index: 5;
+
+  bottom: calc(50% - 3rem);
+  left: -3rem;
+}
+
+.stroke-right {
+  z-index: 5;
+  
+  bottom: calc(50% - 3rem);
+  right: -3rem;
+}
+
+.stroke-left img,
+.stroke-right img {
+  margin: auto;
 }

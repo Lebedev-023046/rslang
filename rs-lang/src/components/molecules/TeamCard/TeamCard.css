@@ -1,7 +1,7 @@
 .team-card {
   display: flex;
   position: relative;
-  padding: 12rem 10rem 3rem;
+  padding: 12rem 10rem 12rem;
 
   flex-direction: column;
   align-items: center;
