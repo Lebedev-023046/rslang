@@ -22,6 +22,7 @@ export function SignUpInForm () {
   const [loginMessage, setLoginMessage] = useState('')
 
   const [success, setSuccess] = useState(false)
+  const [signUpMessage, setSignUpMessage] = useState('')
 
   const { enter } = useContext(authContext)
 
@@ -50,6 +51,8 @@ export function SignUpInForm () {
               setPasswordField={setPasswordField}
               loginMessage={loginMessage}
               setLoginMessage={setLoginMessage}
+              signUpMessage={signUpMessage}
+              setSignUpMessage={setSignUpMessage}
               enter={enter}
               closeSIU={closeSIU}
               setSuccess={setSuccess}
