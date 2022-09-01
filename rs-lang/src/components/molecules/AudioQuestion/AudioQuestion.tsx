@@ -30,8 +30,7 @@ const AudioQuestion: React.FC<AudioQuestionProps> = ({
   }
 
   React.useEffect(() => {
-    // TODO type the event
-    const onKeypress = (e: any) => {
+    const onKeypress = (e: KeyboardEvent) => {
       if (!done) {
         if (e.key === '1') onClickVariant(0)
         if (e.key === '2') onClickVariant(1)
