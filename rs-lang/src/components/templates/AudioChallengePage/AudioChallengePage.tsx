@@ -1,95 +1,145 @@
 import React from 'react'
+import './AudioChallengePage.css'
 import { Link } from 'react-router-dom'
 import Button from '../../atoms/Button/Button'
 import DifficultyButton from '../../atoms/DifficultyButton/DifficultyButton'
-import Icon from '../../atoms/Icon/Icon'
-import './AudioChallengePage.css'
+import Api from '../../../api/Api'
+import { IData, IQuestion } from '../../../interfaces/IData'
+import {
+  ANSWERS_LIMIT,
+  VARIANTS_LIMIT,
+  shuffleArr,
+  getRandomWordsFrom,
+  getRandomPage
+} from '../../../utils/Utils'
+import AudioQuestion from '../../molecules/AudioQuestion/AudioQuestion'
+import AudioResult from '../../molecules/AudioResult/AudioResult'
+import reloadSVG from '../../../assets/icons/reload.svg'
+import crossSVG from '../../../assets/icons/cross.svg'
 
-// const questions = [
-//   {
-//     word: 'Alcohol',
-//     variants: ['Ливень', 'Падение', 'Скала', 'Алкоголь', 'Жизнь'],
-//     correct: 3
-//   },
-//   {
-//     word: 'Rock',
-//     variants: ['Падение', 'Скала', 'Жизнь', 'Алкоголь', 'Ливень'],
-//     correct: 1
-//   },
-//   {
-//     word: 'Life',
-//     variants: ['Алкоголь', 'Скала', 'Ливень', 'Жизнь', 'Падение'],
-//     correct: 3
-//   }
-// ]
-
-const AudioChallengePage = () => {
+const AudioChallengePage: React.FC = () => {
+  const [difficulty, setDifficulty] = React.useState(1)
+  const [loading, setLoading] = React.useState(false)
   const [game, setGame] = React.useState(false)
-  // const [step, setStep] = React.useState(0)
-  // const question = questions[step]
-  const [difficulty, setDifficulty] = React.useState('A2')
+  const [result, setResult] = React.useState(false)
 
-  const handleDifficulty = (e: React.MouseEvent) => {
-    setDifficulty((e.target as HTMLButtonElement).id)
-    console.log(difficulty)
+  const [questions, setQuestions] = React.useState<IQuestion[]>([])
+  const [step, setStep] = React.useState(0)
+  const question = questions[step]
+
+  const [done, setDone] = React.useState(false)
+  const [choice, setChoice] = React.useState('')
+  const [userAnswers, setUserAnswers] = React.useState<Array<IData | null>>([])
+
+  const handleDifficulty = (id: number) => {
+    setDifficulty(id)
+  }
+
+  const generateQuestions = async (group: number, page: number) => {
+    setLoading(true)
+
+    const words: IData[] = await Api.getWords(group.toString(), page.toString())
+    const answers: IData[] = getRandomWordsFrom(words, ANSWERS_LIMIT)
+    const questions: IQuestion[] = []
+
+    answers.forEach((answer) => {
+      const variants = getRandomWordsFrom(words, VARIANTS_LIMIT, answer)
+      const shuffledVariants = shuffleArr([...variants, answer])
+      questions.push(
+        {
+          answer,
+          variants: shuffledVariants,
+          correct: shuffledVariants.indexOf(answer)
+        }
+      )
+    })
+
+    setQuestions(questions)
+    setLoading(false)
+  }
+
+  const startGame = () => {
+    setGame(true)
+    void generateQuestions(difficulty, getRandomPage())
+  }
+
+  const handleVariant = (id: number) => {
+    if (id < 5) {
+      setUserAnswers(userAnswers.concat(question.variants[id]))
+    } else {
+      setUserAnswers(userAnswers.concat(null))
+    }
+
+    // TODO get user's word, update its state
+
+    setChoice(id.toString())
+    setDone(true)
+  }
+
+  const handleNextStep = () => {
+    if (step < 9) {
+      setStep(step + 1)
+    } else {
+      setResult(true)
+      // TODO update user's stats
+    }
+    setDone(false)
+    setChoice('')
   }
 
   return (
     <div className='wrapper'>
-      <section className='audio-challenge'>
-        <div className='container audio-challenge__container'>
-          <div className='burger'>
-            <Icon
-              type='burger'
-              height='39'
-              width='54'
-              color='#FF6822'
-            />
-          </div>
+      <section className='audiocall'>
+        <div className='container audiocall__container'>
+          <button className='reload' onClick={() => { window.location.reload() }}>
+            <img src={reloadSVG} alt='reload-icon' width={32} height={32} />
+          </button>
           <Link className='cross' to='/'>
-            <Icon
-              type='cross'
-              height='24'
-              width='24'
-            />
+            <img src={crossSVG} alt="cross-icon" width={24} height={24} />
           </Link>
-          {!game &&
-            <div className='audio-challenge__start-screen'>
-              <div className='audio-challenge__info'>
+          {!game && !loading && !result &&
+            <div className='audiocall__start-screen'>
+              <div className='audiocall__info'>
                 <h2>Audio Challenge</h2>
-                <p className='audio-challenge__text'>Check your listening skills, trying to pick the right meaning after hearing a word. Be careful, as you just have one guess.</p>
+                <p className='audiocall__text'>Check your listening skills, trying to pick the right meaning after hearing a word. Be careful, as you just have one guess.</p>
               </div>
-              <div className='audio-challenge__difficulty'>
-                <p className='audio-challenge__text'>Choose difficulty:</p>
-                <div className='audio-challenge__buttons'>
+              <div className='audiocall__difficulty'>
+                <p className='audiocall__text'>Choose difficulty:</p>
+                <div className='question__buttons'>
                   <DifficultyButton
                     text='A1'
-                    active={difficulty === 'A1'}
+                    id={0}
+                    active={difficulty === 0}
                     onClick={handleDifficulty}
                   />
                   <DifficultyButton
                     text='A2'
-                    active={difficulty === 'A2'}
+                    id={1}
+                    active={difficulty === 1}
                     onClick={handleDifficulty}
                   />
                   <DifficultyButton
                     text='B1'
-                    active={difficulty === 'B1'}
+                    id={2}
+                    active={difficulty === 2}
                     onClick={handleDifficulty}
                   />
                   <DifficultyButton
                     text='B2'
-                    active={difficulty === 'B2'}
+                    id={3}
+                    active={difficulty === 3}
                     onClick={handleDifficulty}
                   />
                   <DifficultyButton
                     text='C1'
-                    active={difficulty === 'C1'}
+                    id={4}
+                    active={difficulty === 4}
                     onClick={handleDifficulty}
                   />
                   <DifficultyButton
                     text='C2'
-                    active={difficulty === 'C2'}
+                    id={5}
+                    active={difficulty === 5}
                     onClick={handleDifficulty}
                   />
                 </div>
@@ -97,7 +147,34 @@ const AudioChallengePage = () => {
               <Button
                 text='Play'
                 type='primary'
-                onClick={() => { setGame(true) }}
+                onClick={startGame}
+              />
+            </div>
+          }
+
+          {loading &&
+            <div className='audiocall__loading-screen'>
+              <h2>Loading...</h2>
+            </div>
+          }
+
+          {game && !loading && !result &&
+            <div className='audiocall__game-screen'>
+              <AudioQuestion
+                question={question}
+                done={done}
+                choice={choice}
+                onClickVariant={handleVariant}
+                onNextStep={handleNextStep}
+              />
+            </div>
+          }
+
+          {game && !loading && result &&
+            <div className='audiocall__result-screen'>
+              <AudioResult
+                answers={userAnswers}
+                questions={questions}
               />
             </div>
           }
