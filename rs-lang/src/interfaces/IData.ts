@@ -67,3 +67,9 @@ export interface ISettings {
   wordsPerDay: number
   optional: {}
 }
+
+export interface IQuestion {
+  answer: IData
+  variants: IData[]
+  correct: number
+}

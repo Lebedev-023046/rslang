@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import './MainPage.css'
 import { Link } from 'react-router-dom'
 import Button from '../../atoms/Button/Button'
@@ -11,10 +11,19 @@ import Team from '../../organisms/Team/Team'
 import Video from '../../organisms/Video/Video'
 import Try from '../../organisms/Try/Try'
 import Footer from '../../organisms/Footer/Footer'
+import { signInUpContext } from '../../../context/ModalContext/ModalContext'
+import { Modal } from '../../organisms/Modal/Modal'
+import { SignUpInForm } from '../../organisms/signUpInForm/signUpInForm'
+import { authContext } from '../../../context/AuthContext/AuthContext'
+import { NameBlock } from '../../atoms/NameBlock/NameBlock'
 
 const MainPage = () => {
+  const { signInUpModal, openSIU, closeSIU } = useContext(signInUpContext)
+  const { isAuth } = useContext(authContext)
+
   return (
     <div className='wrapper'>
+      { signInUpModal && <Modal onClose={closeSIU}><SignUpInForm /></Modal> }
       <Header>
         <h2>RS Lang</h2>
         <Nav>
@@ -28,11 +37,13 @@ const MainPage = () => {
           {/* <Link className='nav__link' to='#'>Team</Link> */}
           {/* <Link className='nav__link' to='#'>Textbook</Link> */}
         </Nav>
-        <Button
-          text='Get Started'
-          type='secondary'
-          onClick={() => {}}
-        />
+        { isAuth
+          ? <NameBlock/>
+          : <Button
+            text='Get Started'
+            type='secondary'
+            onClick={openSIU}
+          />}
       </Header>
       <Hero
         title='Learn English'
