@@ -1,14 +1,15 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import Button from '../../atoms/Button/Button'
-import DifficultyButton from '../../atoms/DifficultyButton/DifficultyButton'
-import Icon from '../../atoms/Icon/Icon'
-import './SprintPage.css'
-import reloadSVG from '../../../assets/icons/reload.svg'
-
+import Button from '../../../atoms/Button/Button'
+import DifficultyButton from '../../../atoms/DifficultyButton/DifficultyButton'
+import '../../AudioChallengePage/AudioChallengePage.css'
+import reloadSVG from '../../../../assets/icons/reload.svg'
+import crossSVG from '../../../../assets/icons/cross.svg'
+import SprintQuestion from '../SprintQuestion/SprintQuestion'
 const SprintPage = () => {
   const [difficulty, setDifficulty] = React.useState(0)
   const [game, setGame] = React.useState(false)
+  const [loading, setLoading] = React.useState(false)
 
   const handleDifficulty = (id: number) => {
     setDifficulty(id)
@@ -16,13 +17,14 @@ const SprintPage = () => {
 
   const startGame = () => {
     setGame(true)
+    setLoading(false)
     // void generateQuestions(difficulty, getRandomPage())
   }
 
   return (
     <div className="wrapper">
-      <section className="audio-challenge">
-        <div className="container audio-challenge__container">
+      <section className="audiocall">
+        <div className="container audiocall__container">
           <button
             className="reload"
             onClick={() => {
@@ -32,20 +34,19 @@ const SprintPage = () => {
             <img src={reloadSVG} alt="reload-icon" width={32} height={32} />
           </button>
           <Link className="cross" to="/">
-            <Icon type="cross" height="24" width="24" />
+            <img src={crossSVG} alt="cross-icon" width={24} height={24} />
           </Link>
-          {!game && (
-            <div className="audio-challenge__start-screen">
-              <div className="audio-challenge__info">
+          {!game && !loading && (
+            <div className="audiocall__start-screen">
+              <div className="audiocall__info">
                 <h2>Sprint</h2>
-                <p className="audio-challenge__text">
-                  Check how much points you can get in one minute, making
-                  educated guesses about what is right and what is wrong.
+                <p className="audiocall__text">
+                Check how much points you can get in one minute, making educated guesses about what is right and what is wrong.
                 </p>
               </div>
-              <div className="audio-challenge__difficulty">
-                <p className="audio-challenge__text">Choose difficulty:</p>
-                <div className="audio-challenge__buttons">
+              <div className="audiocall__difficulty">
+                <p className="audiocall__text">Choose difficulty:</p>
+                <div className="question__buttons">
                   <DifficultyButton
                     text="A1"
                     id={0}
@@ -84,13 +85,19 @@ const SprintPage = () => {
                   />
                 </div>
               </div>
-              <Button
-                text="Play"
-                type="primary"
-                onClick={startGame}
-              />
+              <Button text="Play" type="primary" onClick={startGame} />
             </div>
           )}
+                    {loading &&
+            <div className='audiocall__loading-screen'>
+              <h2>Loading...</h2>
+            </div>
+          }
+          {game && !loading &&
+          <div className='sprint__game-screen'>
+            <SprintQuestion />
+          </div>
+          }
         </div>
       </section>
     </div>

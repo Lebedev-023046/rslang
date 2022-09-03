@@ -1,7 +1,7 @@
 import React from 'react'
 import MainPage from './components/templates/MainPage/MainPage'
 import AudioChallengePage from './components/templates/AudioChallengePage/AudioChallengePage'
-import SprintPage from './components/templates/Sprint/SprintPage'
+import SprintPage from './components/templates/Sprint/SprintPage/SprintPage'
 import { Route, Routes } from 'react-router-dom'
 
 const App = () => {
