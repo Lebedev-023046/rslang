@@ -1,0 +1,87 @@
+.stats-card {
+  display: flex;
+  padding: 18.6rem 2rem 2.1rem;
+
+  height: 40rem;
+  width: 30rem;
+
+  flex-direction: column;
+  align-items: center;
+  /* justify-content: flex-end; */
+  gap: 6.8rem;
+
+  border-radius: 1rem;
+}
+
+.stats-card__heading {
+  color: #FFFFFF;
+}
+
+.stats-card__info {
+  display: flex;
+  padding: 1rem 1.5rem 1rem 1rem;
+
+  flex-direction: column;
+  gap: 1rem;
+
+  border-radius: 1rem;
+
+  font-size: 2rem;
+  line-height: 2.3rem;
+  color: #FFFFFF;
+}
+
+.stats-card_audio .stats-card__info {
+  background: rgba(216, 96, 130, 0.3);
+}
+
+.stats-card_sprint .stats-card__info {
+  background: rgba(240, 151, 1, 0.3);
+}
+
+.stats-card_audio {
+  background-image: url('./images/audio.png');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.stats-card_sprint {
+  background-image: url('./images/sprint.png');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.stats-card__new,
+.stats-card__accuracy,
+.stats-card__row {
+  display: flex;
+
+  align-items: center;
+  gap: .5rem;
+}
+
+.stats-card__amount {
+  display: flex;
+
+  padding: .2rem .6rem;
+
+  justify-content: center;
+  align-items: center;
+
+  background: #FF6822;
+  border-radius: .6rem;
+  
+  font-size: 1.2rem;
+  line-height: 1.4rem;
+  font-weight: 700;
+  color: #FFFFFF;
+}
+
+.stats-card__explanation {
+  font-size: 1.6rem;
+  line-height: 1.9rem;
+  font-weight: 400;
+  color: #FFFFFF;
+}

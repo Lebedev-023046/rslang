@@ -1,13 +1,113 @@
 .wrapper {
+  display: flex;
+
   min-height: 100%;
 
-  display: flex;
   flex-direction: column;
   overflow: hidden;
 }
 
 .container {
   margin: 0 auto;
+  
   max-width: 1240px;
   min-height: 100%;
+}
+
+.exit-button {
+  padding: 1rem 2rem;
+
+  border: 2px solid #151618;
+  border-radius: 1rem;
+  background-color: transparent;
+
+  font-size: 2rem;
+  line-height: 2.3rem;
+  font-weight: 500;
+  color: #151618;
+}
+
+.today {
+  width: 100%;
+}
+
+.today__container {
+  display: flex;
+  padding: 16.6rem 2rem 8rem;
+
+  flex-direction: column;
+  align-items: center;
+}
+
+.today__heading {
+  margin-bottom: 8rem;
+}
+
+.today__words-and-answers {
+  display: flex;
+  margin-bottom: 5rem;
+
+  max-width: 33.1rem;
+  width: 100%;
+
+  justify-content: space-between;
+}
+
+.today__games {
+  display: flex;
+  
+  max-width: 70rem;
+  width: 100%;
+  
+  justify-content: space-between;
+}
+
+.today__words,
+.today__answers {
+  display: flex;
+
+  flex-direction: column;
+  align-items: center;
+  gap: .5rem;
+}
+
+.today__words-count,
+.today__answers-count {
+  font-size: 6.4rem;
+  line-height: 7.5rem;
+  font-weight: 700;
+  color: #151618;
+}
+
+.today__words-heading,
+.today__answers-heading {
+  font-size: 2rem;
+  line-height: 2.3rem;
+  font-weight: 300;
+  color: #151618; 
+}
+
+.graphs {
+  width: 100%;
+}
+
+.graphs__container {
+  display: flex;
+  padding: 0 2rem 10rem;
+
+  flex-direction: column;
+  align-items: center;
+  gap: 8rem;
+}
+
+.graphs__graph {
+  display: flex;
+  padding: 2rem 1.5rem 1.5rem 1.2rem;
+
+  max-width: 88.2rem;
+  width: 100%;
+
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
 }
