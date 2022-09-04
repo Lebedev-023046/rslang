@@ -54,7 +54,7 @@ const SprintQuestion: React.FC<SprintQuestionProps> = ({ words, gameOver }) => {
     const color = answer ? RIGHT : WRONG
     setColorCheck(color)
     const currentWord = wordsArray[iterEng].id
-
+    // TODO
     if (answer) {
       setCurrentPoint(currentPoint + upPoint)
       setSeriesOfCorrectAnswers(seriesOfCorrectAnswers + 1)

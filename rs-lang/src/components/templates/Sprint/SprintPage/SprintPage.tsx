@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import React from 'react'
 import { Link } from 'react-router-dom'
 import Button from '../../../atoms/Button/Button'
@@ -7,7 +8,10 @@ import reloadSVG from '../../../../assets/icons/reload.svg'
 import crossSVG from '../../../../assets/icons/cross.svg'
 import SprintQuestion from '../SprintQuestion/SprintQuestion'
 import Api from '../../../../api/Api'
-import { IData, IQuestion } from '../../../../interfaces/IData'
+import {
+  IData,
+  IQuestion
+} from '../../../../interfaces/IData'
 import AudioResult from '../../../molecules/AudioResult/AudioResult'
 const SprintPage = () => {
   const [difficulty, setDifficulty] = React.useState(0)
