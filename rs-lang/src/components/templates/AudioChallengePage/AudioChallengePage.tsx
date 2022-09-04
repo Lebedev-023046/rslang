@@ -16,8 +16,11 @@ import AudioQuestion from '../../molecules/AudioQuestion/AudioQuestion'
 import AudioResult from '../../molecules/AudioResult/AudioResult'
 import reloadSVG from '../../../assets/icons/reload.svg'
 import crossSVG from '../../../assets/icons/cross.svg'
+import { authContext } from '../../../context/AuthContext/AuthContext'
 
 const AudioChallengePage: React.FC = () => {
+  const { isAuth } = React.useContext(authContext)
+
   const [difficulty, setDifficulty] = React.useState(1)
   const [loading, setLoading] = React.useState(false)
   const [game, setGame] = React.useState(false)
@@ -70,10 +73,24 @@ const AudioChallengePage: React.FC = () => {
       setUserAnswers(userAnswers.concat(null))
     }
 
-    // TODO get user's word, update its state
+    // TODO get user's word, update its state or create new
+    if (isAuth) {
+      void addWordStats(question.answer.id)
+    }
 
     setChoice(id.toString())
     setDone(true)
+  }
+
+  const addWordStats = async (wordId: string) => {
+    const res = await Api.getUserWord(wordId)
+    if (typeof res !== 'string') {
+      console.log('word exists')
+      console.log(res)
+    } else {
+      console.log('error')
+      console.log(res)
+    }
   }
 
   const handleNextStep = () => {
