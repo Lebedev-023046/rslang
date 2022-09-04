@@ -10,15 +10,16 @@ import {
 
 interface SprintQuestionProps {
   words: IData[]
+  gameOver: () => void
 }
 
-const SprintQuestion: any = (words: any) => {
+const SprintQuestion: React.FC<SprintQuestionProps> = ({ words, gameOver }) => {
   const NEUTRAL = '#DCE0E7'
   const WRONG = '#FFAFAF'
   const RIGHT = '#B1FFAF'
   const BONUS = '#FF6822'
   const [dot, setDot] = React.useState(3)
-  const wordsArray: IData[] = words.words
+  const wordsArray: IData[] = words
   const [iterEng, setIterEng] = React.useState(0)
   const randomIter = () => Math.floor(Math.random() * wordsArray.length)
   const iterForRu = () => (randomIter() % 2 === 0 ? iterEng : randomIter())
@@ -28,6 +29,7 @@ const SprintQuestion: any = (words: any) => {
   const [seriesOfCorrectAnswers, setSeriesOfCorrectAnswers] = React.useState(0)
   const [colorCheck, setColorCheck] = React.useState(NEUTRAL)
   const [timer, setTimer] = React.useState(30)
+  const arrayAnswerWords = []
 
   const { remainingTime } = useCountdown({
     isPlaying: true,
@@ -36,7 +38,7 @@ const SprintQuestion: any = (words: any) => {
   })
 
   React.useEffect(() => {
-    if (remainingTime === 0) console.log('STOP')
+    if (remainingTime === 0) gameOver()
   })
 
   const setWord = () => {
@@ -51,6 +53,8 @@ const SprintQuestion: any = (words: any) => {
   const checkAnswer = (answer: boolean) => {
     const color = answer ? RIGHT : WRONG
     setColorCheck(color)
+    const currentWord = wordsArray[iterEng].id
+
     if (answer) {
       setCurrentPoint(currentPoint + upPoint)
       setSeriesOfCorrectAnswers(seriesOfCorrectAnswers + 1)
@@ -120,7 +124,7 @@ const SprintQuestion: any = (words: any) => {
           </button>
         </div>
       </div>
-      <div className='sprint__timer'>
+      <div className="sprint__timer">
         <CountdownCircleTimer
           size={100}
           isPlaying

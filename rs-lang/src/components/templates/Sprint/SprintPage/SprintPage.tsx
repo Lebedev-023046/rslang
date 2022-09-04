@@ -7,12 +7,16 @@ import reloadSVG from '../../../../assets/icons/reload.svg'
 import crossSVG from '../../../../assets/icons/cross.svg'
 import SprintQuestion from '../SprintQuestion/SprintQuestion'
 import Api from '../../../../api/Api'
-import { IData } from '../../../../interfaces/IData'
+import { IData, IQuestion } from '../../../../interfaces/IData'
+import AudioResult from '../../../molecules/AudioResult/AudioResult'
 const SprintPage = () => {
   const [difficulty, setDifficulty] = React.useState(0)
   const [game, setGame] = React.useState(false)
   const [loading, setLoading] = React.useState(false)
   const [wordsArray, setWordsArray] = React.useState<IData[]>([])
+  const [result, setResult] = React.useState(false)
+  const [questions, setQuestions] = React.useState<IQuestion[]>([])
+  const [userAnswers, setUserAnswers] = React.useState<Array<IData | null>>([])
 
   const handleDifficulty = (id: number) => {
     setDifficulty(id)
@@ -39,6 +43,10 @@ const SprintPage = () => {
     void generateQuestions(difficulty)
     setGame(true)
     console.log(wordsArray)
+  }
+
+  const handleGameOver = () => {
+    setResult(true)
   }
 
   return (
@@ -114,9 +122,14 @@ const SprintPage = () => {
               <h2>Loading...</h2>
             </div>
           )}
-          {game && !loading && (
+          {game && !loading && !result && (
             <div className="sprint__game-screen">
-              <SprintQuestion words={wordsArray} />
+              <SprintQuestion words={wordsArray} gameOver={handleGameOver} />
+            </div>
+          )}
+          {game && !loading && result && (
+            <div className="audiocall__result-screen">
+              <AudioResult answers={userAnswers} questions={questions} />
             </div>
           )}
         </div>
