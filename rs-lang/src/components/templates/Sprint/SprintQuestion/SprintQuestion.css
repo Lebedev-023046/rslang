@@ -12,6 +12,7 @@
   flex-direction: column;
   background-color: #fff;
   border-radius: 10px;
+  margin-bottom: 30px;
 }
 .sprint__score {
   height: 58px;
@@ -22,10 +23,6 @@
   font-size: 32px;
 }
 .sprint__timer {
-  height: 130px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
   font-size: 32px;
 }
 
@@ -35,7 +32,6 @@
 }
 
 .sprint__bonus-point {
-  width: 124px;
   align-self: center;
 }
 
@@ -94,7 +90,7 @@
 }
 
 .wrong {
-  background-color: #ffafaf;
+  background-color: #FFAFAF;
 }
 
 .right {

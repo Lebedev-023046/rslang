@@ -6,19 +6,39 @@ import '../../AudioChallengePage/AudioChallengePage.css'
 import reloadSVG from '../../../../assets/icons/reload.svg'
 import crossSVG from '../../../../assets/icons/cross.svg'
 import SprintQuestion from '../SprintQuestion/SprintQuestion'
+import Api from '../../../../api/Api'
+import { IData } from '../../../../interfaces/IData'
 const SprintPage = () => {
   const [difficulty, setDifficulty] = React.useState(0)
   const [game, setGame] = React.useState(false)
   const [loading, setLoading] = React.useState(false)
+  const [wordsArray, setWordsArray] = React.useState<IData[]>([])
 
   const handleDifficulty = (id: number) => {
     setDifficulty(id)
   }
 
-  const startGame = () => {
-    setGame(true)
+  const generateQuestions = async (diff: number) => {
+    setLoading(true)
+    const maxPages = 29
+    const getRandomPage = () => Math.floor(Math.random() * maxPages)
+    let page = getRandomPage()
+    let result = await Api.getWords(String(diff), String(page))
+    const numbersOfArrays = 6
+    for (let i = 0; i < numbersOfArrays; i++) {
+      if (page === 0) page = maxPages
+      page--
+      const words = await Api.getWords(String(diff), String(page))
+      result = result.concat(words)
+    }
+    setWordsArray(result)
     setLoading(false)
-    // void generateQuestions(difficulty, getRandomPage())
+  }
+
+  const startGame = () => {
+    void generateQuestions(difficulty)
+    setGame(true)
+    console.log(wordsArray)
   }
 
   return (
@@ -41,7 +61,8 @@ const SprintPage = () => {
               <div className="audiocall__info">
                 <h2>Sprint</h2>
                 <p className="audiocall__text">
-                Check how much points you can get in one minute, making educated guesses about what is right and what is wrong.
+                  Check how much points you can get in one minute, making
+                  educated guesses about what is right and what is wrong.
                 </p>
               </div>
               <div className="audiocall__difficulty">
@@ -88,16 +109,16 @@ const SprintPage = () => {
               <Button text="Play" type="primary" onClick={startGame} />
             </div>
           )}
-                    {loading &&
-            <div className='audiocall__loading-screen'>
+          {loading && (
+            <div className="audiocall__loading-screen">
               <h2>Loading...</h2>
             </div>
-          }
-          {game && !loading &&
-          <div className='sprint__game-screen'>
-            <SprintQuestion />
-          </div>
-          }
+          )}
+          {game && !loading && (
+            <div className="sprint__game-screen">
+              <SprintQuestion words={wordsArray} />
+            </div>
+          )}
         </div>
       </section>
     </div>
