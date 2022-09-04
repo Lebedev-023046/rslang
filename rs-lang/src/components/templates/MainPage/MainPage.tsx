@@ -33,6 +33,7 @@ const MainPage = () => {
           <span className='nav__link'>Why Us</span>
           {/* <Link className='nav__link' to='#'>Why Us</Link> */}
           <Link className='nav__link' to='/AudioChallenge'>Audio Challenge</Link>
+          <Link className='nav__link' to='/Sprint'>Sprint</Link>
           {/* <Link className='nav__link' to='#'>Team</Link> */}
           {/* <Link className='nav__link' to='#'>Textbook</Link> */}
         </Nav>
