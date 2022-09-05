@@ -41,11 +41,22 @@ export interface ISigninResponse {
   name: string
 }
 
-// type Difficulty = 'easy' | 'medium' | 'hard'
 export interface IWordDescription {
-  difficulty: string
-  optional: {
-    dataAdd: string
+  difficulty?: string
+  optional?: {
+    addTime: Date
+    isDeleted: boolean
+    games: {
+      sprint: {
+        right: number
+        wrong: number
+      }
+      audioChallenge: {
+        right: number
+        wrong: number
+      }
+    }
+    allTry: number
   }
 }
 
@@ -54,12 +65,14 @@ export interface IWordsResponse extends IWordDescription {
   wordId: string
 }
 
-export interface IStatistics {
+export interface IStatisticsRequest {
   learnedWords: number
-  optional: {}
+  optional: {
+    dateStat: string
+  }
 }
-export interface IStatisticsUpset {
-  learnedWords: number
+
+export interface IStatisticsResponse extends IStatisticsRequest {
   id: string
 }
 
