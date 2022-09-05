@@ -274,7 +274,7 @@ export default class Api {
     const response = await fetch(
       `${
         Api.USERS
-      }/${id}/aggregatedWords?wordsPerPage=${wordsPerPage}&filter=${JSON.stringify(
+      }/${id}/aggregatedWords?group=${group}&page=${page}&wordsPerPage=${wordsPerPage}&filter=${JSON.stringify(
         {
           $and: [
             { 'userWord.difficulty': difficulty }
