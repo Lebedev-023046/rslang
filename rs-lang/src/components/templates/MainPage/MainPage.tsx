@@ -33,15 +33,20 @@ const MainPage = () => {
           <Link className='nav__link' to='/Sprint'>Sprint</Link>
           <a className='nav__link' href='#team'>Team</a>
           <Link className='nav__link' to='/TextBook'>TextBook</Link>
-          {isAuth && <Link className='nav__link' to='/Statistics'>Statistics</Link>}
+          {isAuth &&
+            <Link className='nav__link' to='/Statistics'>
+              Statistics
+            </Link>
+          }
+          {isAuth
+            ? <NameBlock />
+            : <Button
+                text='Get Started'
+                type='secondary'
+                onClick={openSIU}
+              />
+          }
         </Nav>
-        { isAuth
-          ? <NameBlock/>
-          : <Button
-            text='Get Started'
-            type='secondary'
-            onClick={openSIU}
-          />}
       </Header>
       <Hero />
       <WhyUs />
