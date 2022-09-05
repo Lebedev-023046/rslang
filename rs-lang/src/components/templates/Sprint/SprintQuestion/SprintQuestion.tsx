@@ -7,7 +7,8 @@ import {
   useCountdown
 } from 'react-countdown-circle-timer'
 import { handleUserAnswer } from '../../../../utils/Utils'
-
+import playRight from '../../../../assets/sound/right.mp3'
+import playWrong from '../../../../assets/sound/wrong.mp3'
 interface SprintQuestionProps {
   words: IData[]
   gameOver: (answerWords: IData[], questionsWords: IQuestion[]) => void
@@ -49,11 +50,36 @@ const SprintQuestion: React.FC<SprintQuestionProps> = ({ words, gameOver }) => {
       setIterRu(randomIter())
     }
   }
+
+  const audioAnswer = (answer: boolean) => {
+    const play = answer ? playRight : playWrong
+    const audio = new Audio(play)
+
+    audio.volume = 0.1
+    void audio.play()
+  }
+
+  const addAnswer = (
+    answer: boolean,
+    userAnswer: IData,
+    correctAnswer: IData
+  ) => {
+    setAnswerWords(answerWords.concat(userAnswer))
+    checkAnswer(answer)
+    const questionsObj: IQuestion = {
+      answer: correctAnswer,
+      variants: [userAnswer],
+      correct: 0
+    }
+    setQuestions(questions.concat([questionsObj]))
+  }
+
   const checkAnswer = (answer: boolean) => {
     const color = answer ? RIGHT : WRONG
     setColorCheck(color)
     const currentWord = wordsArray[iterEng].id
     const answerStr = answer ? 'right' : 'wrong'
+    audioAnswer(answer)
     void handleUserAnswer(currentWord, 'sprint', answerStr)
     if (answer) {
       setCurrentPoint(currentPoint + upPoint)
@@ -69,6 +95,7 @@ const SprintQuestion: React.FC<SprintQuestionProps> = ({ words, gameOver }) => {
       setWord()
     }
   }
+
   const handleRight = () => {
     const correctAnswer = wordsArray[iterEng]
     const userAnswer = wordsArray[iterRu]
@@ -88,21 +115,6 @@ const SprintQuestion: React.FC<SprintQuestionProps> = ({ words, gameOver }) => {
           : wordsArray[iterEng - 1]
     }
     addAnswer(answer, userAnswer, correctAnswer)
-  }
-
-  const addAnswer = (
-    answer: boolean,
-    userAnswer: IData,
-    correctAnswer: IData
-  ) => {
-    setAnswerWords(answerWords.concat(userAnswer))
-    checkAnswer(answer)
-    const questionsObj: IQuestion = {
-      answer: correctAnswer,
-      variants: [userAnswer],
-      correct: 0
-    }
-    setQuestions(questions.concat([questionsObj]))
   }
 
   return (
