@@ -35,11 +35,9 @@ const Team: React.FC = () => {
           >
             <img src={strokeLeft} alt="stroke-left" />
           </button>
-          <div className='team__cards'>
-            {card === 0 && <TeamCard type='dmitry' />}
-            {card === 1 && <TeamCard type='aldar' />}
-            {card === 2 && <TeamCard type='viktor' />}
-          </div>
+          {card === 0 && <TeamCard type='dmitry' />}
+          {card === 1 && <TeamCard type='aldar' />}
+          {card === 2 && <TeamCard type='viktor' />}
           <button
             className='stroke-right'
             onClick={handleStrokeRight}

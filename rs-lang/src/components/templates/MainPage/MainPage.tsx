@@ -28,7 +28,6 @@ const MainPage = () => {
         <h2>RS Lang</h2>
         <Nav>
           <a className='nav__link' href='#why-us'>Why Us</a>
-          {/* <span className='nav__link'>Games</span> */}
           <Link className='nav__link' to='/AudioChallenge'>Audio Challenge</Link>
           <Link className='nav__link' to='/Sprint'>Sprint</Link>
           <a className='nav__link' href='#team'>Team</a>
