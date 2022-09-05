@@ -8,7 +8,7 @@ const Hero: React.FC = () => {
       <div className='container hero__container'>
         <div className='hero__content'>
           <div className='hero__text'>
-            <h1>Learn English</h1>
+            <h1 className='hero__heading'>Learn English</h1>
             <p className='hero__paragraph'>Visiting the New York, getting a new job, or making a personal connection - no matter why you want to learn, we have the right app for you</p>
           </div>
           <Button
