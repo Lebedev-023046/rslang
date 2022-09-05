@@ -10,7 +10,8 @@ import {
   VARIANTS_LIMIT,
   shuffleArr,
   getRandomWordsFrom,
-  getRandomPage
+  getRandomPage,
+  handleUserAnswer
 } from '../../../utils/Utils'
 import AudioQuestion from '../../molecules/AudioQuestion/AudioQuestion'
 import AudioResult from '../../molecules/AudioResult/AudioResult'
@@ -73,24 +74,12 @@ const AudioChallengePage: React.FC = () => {
       setUserAnswers(userAnswers.concat(null))
     }
 
-    // TODO get user's word, update its state or create new
     if (isAuth) {
-      void addWordStats(question.answer.id)
+      void handleUserAnswer(question.answer.id, 'audioChallenge', id === question.correct ? 'right' : 'wrong')
     }
 
     setChoice(id.toString())
     setDone(true)
-  }
-
-  const addWordStats = async (wordId: string) => {
-    const res = await Api.getUserWord(wordId)
-    if (typeof res !== 'string') {
-      console.log('word exists')
-      console.log(res)
-    } else {
-      console.log('error')
-      console.log(res)
-    }
   }
 
   const handleNextStep = () => {
@@ -103,6 +92,11 @@ const AudioChallengePage: React.FC = () => {
     setDone(false)
     setChoice('')
   }
+
+  // void (async () => {
+  //   const res = await Api.getUserStatistic()
+  //   console.log(res)
+  // })()
 
   return (
     <div className='wrapper'>
