@@ -65,8 +65,10 @@
 @media (max-width: 1000px) {
   .team__container {
     padding: 5rem 2rem 7rem;
+
+    gap: 5rem;
   }
   .team__pagination {
-    left: calc(50% - 6rem);
+    left: calc(50% - 5.8rem);
   }
 }

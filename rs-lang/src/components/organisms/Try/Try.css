@@ -7,16 +7,19 @@
   padding: 7rem 2rem;
 
   justify-content: space-between;
+  gap: 2rem;
 }
 
 .try__content {
   display: flex;
+
   max-width: 39rem;
+  width: 100%;
 
   flex-direction: column;
   align-items: flex-start;
-  justify-content: center;
-  gap: 3rem;
+  justify-content: space-between;
+  gap: 2rem;
 }
 
 .try__content p {
@@ -27,10 +30,26 @@
 }
 
 .try__image {
-  width: 55rem;
+  max-width: 55rem;
+  width: 100%;
 }
 
 .try__image img {
   height: 100%;
   width: 100%;
+}
+
+@media (max-width: 1120px) {
+  .try__container {
+    padding: 5rem 2rem;
+  }
+  .try__content {
+    gap: 1rem;
+  }
+}
+
+@media (max-width: 960px) {
+  .try__container {
+    padding: 3rem 2rem;
+  }
 }
