@@ -1,5 +1,6 @@
 export interface IData {
-  id: string
+  id?: string
+  _id?: string
   group: number
   page: number
   word: string
