@@ -1,6 +1,5 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import React from 'react'
-import { IData } from '../../../../interfaces/IData'
+import { IData, IQuestion } from '../../../../interfaces/IData'
 import Icon from '../../../atoms/Icon/Icon'
 import './SprintQuestion.css'
 import {
@@ -11,7 +10,7 @@ import { handleUserAnswer } from '../../../../utils/Utils'
 
 interface SprintQuestionProps {
   words: IData[]
-  gameOver: () => void
+  gameOver: (answerWords: IData[], questionsWords: IQuestion[]) => void
 }
 
 const SprintQuestion: React.FC<SprintQuestionProps> = ({ words, gameOver }) => {
@@ -19,7 +18,6 @@ const SprintQuestion: React.FC<SprintQuestionProps> = ({ words, gameOver }) => {
   const WRONG = '#FFAFAF'
   const RIGHT = '#B1FFAF'
   const BONUS = '#FF6822'
-  const [dot, setDot] = React.useState(3)
   const wordsArray: IData[] = words
   const [iterEng, setIterEng] = React.useState(0)
   const randomIter = () => Math.floor(Math.random() * wordsArray.length)
@@ -29,7 +27,8 @@ const SprintQuestion: React.FC<SprintQuestionProps> = ({ words, gameOver }) => {
   const [upPoint, setUpPoint] = React.useState(10)
   const [seriesOfCorrectAnswers, setSeriesOfCorrectAnswers] = React.useState(0)
   const [colorCheck, setColorCheck] = React.useState(NEUTRAL)
-  const arrayAnswerWords = []
+  const [answerWords, setAnswerWords] = React.useState<IData[]>([])
+  const [questions, setQuestions] = React.useState<IQuestion[]>([])
 
   const { remainingTime } = useCountdown({
     isPlaying: true,
@@ -38,7 +37,7 @@ const SprintQuestion: React.FC<SprintQuestionProps> = ({ words, gameOver }) => {
   })
 
   React.useEffect(() => {
-    if (remainingTime === 0) gameOver()
+    if (remainingTime === 0) gameOver(answerWords, questions)
   })
 
   const setWord = () => {
@@ -71,12 +70,39 @@ const SprintQuestion: React.FC<SprintQuestionProps> = ({ words, gameOver }) => {
     }
   }
   const handleRight = () => {
-    const answer = wordsArray[iterEng].word === wordsArray[iterRu].word
-    checkAnswer(answer)
+    const correctAnswer = wordsArray[iterEng]
+    const userAnswer = wordsArray[iterRu]
+    const answer = correctAnswer.word === userAnswer.word
+    addAnswer(answer, userAnswer, correctAnswer)
   }
   const handleWrong = () => {
-    const answer = wordsArray[iterEng].word !== wordsArray[iterRu].word
+    const correctAnswer = wordsArray[iterEng]
+    let userAnswer = wordsArray[iterRu]
+    const answer = correctAnswer.word !== userAnswer.word
+    if (answer) {
+      userAnswer = correctAnswer
+    } else {
+      userAnswer =
+        wordsArray[iterEng + 1] !== undefined
+          ? wordsArray[iterEng + 1]
+          : wordsArray[iterEng - 1]
+    }
+    addAnswer(answer, userAnswer, correctAnswer)
+  }
+
+  const addAnswer = (
+    answer: boolean,
+    userAnswer: IData,
+    correctAnswer: IData
+  ) => {
+    setAnswerWords(answerWords.concat(userAnswer))
     checkAnswer(answer)
+    const questionsObj: IQuestion = {
+      answer: correctAnswer,
+      variants: [userAnswer],
+      correct: 0
+    }
+    setQuestions(questions.concat([questionsObj]))
   }
 
   return (
