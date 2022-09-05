@@ -42,11 +42,22 @@ export interface ISigninResponse {
   name: string
 }
 
-// type Difficulty = 'easy' | 'medium' | 'hard'
 export interface IWordDescription {
-  difficulty: string
-  optional: {
-    dataAdd: string
+  difficulty?: string
+  optional?: {
+    addTime: Date
+    isDeleted: boolean
+    games: {
+      sprint: {
+        right: number
+        wrong: number
+      }
+      audioChallenge: {
+        right: number
+        wrong: number
+      }
+    }
+    allTry: number
   }
 }
 
