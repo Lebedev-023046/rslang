@@ -117,62 +117,80 @@ const SprintQuestion: React.FC<SprintQuestionProps> = ({ words, gameOver }) => {
     addAnswer(answer, userAnswer, correctAnswer)
   }
 
+  React.useEffect(() => {
+    const onKeypress = (e: KeyboardEvent) => {
+      if (e.key === '1') handleWrong()
+      if (e.key === '2') handleRight()
+    }
+
+    document.addEventListener('keypress', onKeypress)
+
+    return () => {
+      document.removeEventListener('keypress', onKeypress)
+    }
+  })
+
   return (
-    <div className="sprint__question">
-      <div className="sprint__score">{currentPoint}</div>
-      <div className="sprint__card">
-        <div className="sprint__bonus-point">
-          <div className="sprint__dots">
-            <Icon
-              type="dot"
-              width="18"
-              height="18"
-              color={seriesOfCorrectAnswers > 0 ? BONUS : NEUTRAL}
-            />
-            <Icon
-              type="dot"
-              width="18"
-              height="18"
-              color={seriesOfCorrectAnswers > 1 ? BONUS : NEUTRAL}
-            />
-            <Icon
-              type="dot"
-              width="18"
-              height="18"
-              color={seriesOfCorrectAnswers > 2 ? BONUS : NEUTRAL}
-            />
+    <div>
+      <div className='sprint__keys-description'>{'Клавиша "1" - wrong, Клавиша "2" - right'}</div>
+      <div className="sprint__question">
+        <div className="sprint__score">{currentPoint}</div>
+        <div className="sprint__card">
+          <div className="sprint__bonus-point">
+            <div className="sprint__dots">
+              <Icon
+                type="dot"
+                width="18"
+                height="18"
+                color={seriesOfCorrectAnswers > 0 ? BONUS : NEUTRAL}
+              />
+              <Icon
+                type="dot"
+                width="18"
+                height="18"
+                color={seriesOfCorrectAnswers > 1 ? BONUS : NEUTRAL}
+              />
+              <Icon
+                type="dot"
+                width="18"
+                height="18"
+                color={seriesOfCorrectAnswers > 2 ? BONUS : NEUTRAL}
+              />
+            </div>
+            <div className="sprint__points">
+              <span className="points">+{upPoint}</span> points per word
+            </div>
           </div>
-          <div className="sprint__points">
-            <span className="points">+{upPoint}</span> points per word
+          <div className="question__words">
+            <div className="question__eng">{wordsArray[iterEng].word}</div>
+            <div className="question__ru">
+              {wordsArray[iterRu].wordTranslate}
+            </div>
+          </div>
+          <div
+            className="sprint__checkbox"
+            style={{ backgroundColor: colorCheck }}
+          ></div>
+          <div className="sprint__btns">
+            <button className="wrong btn" onClick={handleWrong}>
+              Wrong
+            </button>
+            <button className="right btn" onClick={handleRight}>
+              Right
+            </button>
           </div>
         </div>
-        <div className="question__words">
-          <div className="question__eng">{wordsArray[iterEng].word}</div>
-          <div className="question__ru">{wordsArray[iterRu].wordTranslate}</div>
+        <div className="sprint__timer">
+          <CountdownCircleTimer
+            size={100}
+            isPlaying
+            duration={30}
+            colors={['#6CA0FA', '#F7B801', '#A30000', '#A30000']}
+            colorsTime={[7, 5, 2, 0]}
+          >
+            {({ remainingTime }) => remainingTime}
+          </CountdownCircleTimer>
         </div>
-        <div
-          className="sprint__checkbox"
-          style={{ backgroundColor: colorCheck }}
-        ></div>
-        <div className="sprint__btns">
-          <button className="wrong btn" onClick={handleWrong}>
-            Wrong
-          </button>
-          <button className="right btn" onClick={handleRight}>
-            Right
-          </button>
-        </div>
-      </div>
-      <div className="sprint__timer">
-        <CountdownCircleTimer
-          size={100}
-          isPlaying
-          duration={30}
-          colors={['#6CA0FA', '#F7B801', '#A30000', '#A30000']}
-          colorsTime={[7, 5, 2, 0]}
-        >
-          {({ remainingTime }) => remainingTime}
-        </CountdownCircleTimer>
       </div>
     </div>
   )

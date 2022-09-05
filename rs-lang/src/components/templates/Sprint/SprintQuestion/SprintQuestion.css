@@ -96,3 +96,12 @@
 .right {
   background-color: #B1FFAF;
 }
+
+.sprint__keys-description {
+  font-size: 19px;
+  font-weight: 500;
+  color: rgb(252, 252, 252);
+  text-align: center;
+  margin-bottom: 10px;
+  text-shadow: 0.5px 0.5px 0.2px rgb(30, 45, 202);
+}
