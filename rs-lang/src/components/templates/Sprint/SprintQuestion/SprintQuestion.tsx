@@ -7,6 +7,7 @@ import {
   CountdownCircleTimer,
   useCountdown
 } from 'react-countdown-circle-timer'
+import { handleUserAnswer } from '../../../../utils/Utils'
 
 interface SprintQuestionProps {
   words: IData[]
@@ -28,7 +29,6 @@ const SprintQuestion: React.FC<SprintQuestionProps> = ({ words, gameOver }) => {
   const [upPoint, setUpPoint] = React.useState(10)
   const [seriesOfCorrectAnswers, setSeriesOfCorrectAnswers] = React.useState(0)
   const [colorCheck, setColorCheck] = React.useState(NEUTRAL)
-  const [timer, setTimer] = React.useState(30)
   const arrayAnswerWords = []
 
   const { remainingTime } = useCountdown({
@@ -54,7 +54,8 @@ const SprintQuestion: React.FC<SprintQuestionProps> = ({ words, gameOver }) => {
     const color = answer ? RIGHT : WRONG
     setColorCheck(color)
     const currentWord = wordsArray[iterEng].id
-    // TODO
+    const answerStr = answer ? 'right' : 'wrong'
+    void handleUserAnswer(currentWord, 'sprint', answerStr)
     if (answer) {
       setCurrentPoint(currentPoint + upPoint)
       setSeriesOfCorrectAnswers(seriesOfCorrectAnswers + 1)
