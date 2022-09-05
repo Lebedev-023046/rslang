@@ -5,7 +5,7 @@ import './WhyUs.css'
 
 const WhyUs: React.FC = () => {
   return (
-    <section className='why-us'>
+    <section className='why-us' id='why-us'>
       <div className='container why-us__container'>
         <div className='why-us__stickers'>
           <Sticker

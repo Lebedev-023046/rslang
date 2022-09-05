@@ -25,7 +25,7 @@ const Team: React.FC = () => {
   }
 
   return (
-    <section className='team'>
+    <section className='team' id='team'>
       <div className='container team__container'>
         <h2>Our team</h2>
         <div className='team__slider'>

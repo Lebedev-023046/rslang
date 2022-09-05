@@ -4,7 +4,7 @@ import './Try.css'
 
 const Try: React.FC = () => {
   return (
-    <section className='try'>
+    <section className='try' id='try'>
       <div className='container try__container'>
         <div className='try__content'>
           <h2>Try for free</h2>

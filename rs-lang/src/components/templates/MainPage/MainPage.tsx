@@ -27,15 +27,13 @@ const MainPage = () => {
       <Header>
         <h2>RS Lang</h2>
         <Nav>
-          <span className='nav__link'>Why Us</span>
-          <span className='nav__link'>Games</span>
-          <span className='nav__link'>Team</span>
-          <span className='nav__link'>Why Us</span>
-          {/* <Link className='nav__link' to='#'>Why Us</Link> */}
+          <a className='nav__link' href='#why-us'>Why Us</a>
+          {/* <span className='nav__link'>Games</span> */}
           <Link className='nav__link' to='/AudioChallenge'>Audio Challenge</Link>
           <Link className='nav__link' to='/Sprint'>Sprint</Link>
-          {/* <Link className='nav__link' to='#'>Team</Link> */}
-          {/* <Link className='nav__link' to='#'>Textbook</Link> */}
+          <a className='nav__link' href='#team'>Team</a>
+          <Link className='nav__link' to='/TextBook'>TextBook</Link>
+          {isAuth && <Link className='nav__link' to='/Statistics'>Statistics</Link>}
         </Nav>
         { isAuth
           ? <NameBlock/>
