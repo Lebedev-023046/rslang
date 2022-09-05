@@ -2,9 +2,10 @@ import React from 'react'
 import './AudioResult.css'
 import CircularProgress from '@mui/material/CircularProgress'
 import { IData, IQuestion } from '../../../interfaces/IData'
-import { ANSWERS_LIMIT, BASE_URL } from '../../../utils/Utils'
+import { BASE_URL } from '../../../utils/Utils'
 import Icon from '../../atoms/Icon/Icon'
 import { Link } from 'react-router-dom'
+import Api from '../../../api/Api'
 
 interface AudioResultProps {
   answers: Array<IData | null>
@@ -29,13 +30,54 @@ const AudioResult: React.FC<AudioResultProps> = ({
     }
   })
 
-  const correctPercent = Math.floor(correct.length / ANSWERS_LIMIT * 100)
+  const correctPercent = Math.floor(correct.length / answers.length * 100)
 
   const handleSound = (audioUrl: string) => {
     const audio = new Audio(`${BASE_URL}${audioUrl}`)
     audio.volume = 0.1
     void audio.play()
   }
+
+  // const updateUserStats = async (newWords: number) => {
+  const updateUserStats = async () => {
+    let dates
+
+    const res = await Api.getUserStatistic()
+    console.log(res)
+
+    if (typeof res !== 'string') {
+      dates = JSON.parse(res.optional.dateStat)
+
+      if ((new Date(dates[0].date)).getDate() === (new Date()).getDate()) {
+        // TODO update current date stats
+        // console.log(dates)
+        dates = dates.concat({
+          date: new Date(),
+          newWords: 10,
+          allWords: 20
+        })
+        // console.log(dates)
+      } else {
+        // TODO add new date stats
+      }
+    } else {
+      // TODO Error: user has no stats
+    }
+
+    // const newObj: IStatistics = {
+    //   res.le
+    // }
+
+    // TODO send new user's stats
+    // const res2 = await Api.upsetUserStatistics({
+    //   learnedWords: 30,
+    //   optional: {
+    //     dateStat: JSON.stringify(dates)
+    //   }
+    // })
+    // console.log(res2)
+  }
+  void updateUserStats()
 
   return (
     <div className='audiocall__result result'>

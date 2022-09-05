@@ -65,12 +65,14 @@ export interface IWordsResponse extends IWordDescription {
   wordId: string
 }
 
-export interface IStatistics {
+export interface IStatisticsRequest {
   learnedWords: number
-  optional: {}
+  optional: {
+    dateStat: string
+  }
 }
-export interface IStatisticsUpset {
-  learnedWords: number
+
+export interface IStatisticsResponse extends IStatisticsRequest {
   id: string
 }
 
