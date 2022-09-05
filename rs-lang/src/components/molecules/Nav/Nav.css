@@ -11,3 +11,7 @@
   font-weight: 500;
   line-height: 2.3rem;
 }
+
+.nav__link_active {
+  border-bottom: 1px solid #FF6822;
+}

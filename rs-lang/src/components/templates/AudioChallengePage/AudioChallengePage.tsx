@@ -154,7 +154,7 @@ const AudioChallengePage: React.FC = () => {
 
           {loading &&
             <div className='audiocall__loading-screen'>
-              <h2>Loding...</h2>
+              <h2>Loading...</h2>
             </div>
           }
 
