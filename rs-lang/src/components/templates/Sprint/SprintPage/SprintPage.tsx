@@ -46,10 +46,13 @@ const SprintPage = () => {
   const startGame = () => {
     void generateQuestions(difficulty)
     setGame(true)
-    console.log(wordsArray)
   }
 
-  const handleGameOver = () => {
+  const handleGameOver = (answerWords: IData[], questionsWords: IQuestion[]) => {
+    setUserAnswers(answerWords)
+    setQuestions(questionsWords)
+    console.log(answerWords)
+    console.log(questionsWords)
     setResult(true)
   }
 
