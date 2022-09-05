@@ -10,14 +10,18 @@ import {
   VARIANTS_LIMIT,
   shuffleArr,
   getRandomWordsFrom,
-  getRandomPage
+  getRandomPage,
+  handleUserAnswer
 } from '../../../utils/Utils'
 import AudioQuestion from '../../molecules/AudioQuestion/AudioQuestion'
 import AudioResult from '../../molecules/AudioResult/AudioResult'
 import reloadSVG from '../../../assets/icons/reload.svg'
 import crossSVG from '../../../assets/icons/cross.svg'
+import { authContext } from '../../../context/AuthContext/AuthContext'
 
 const AudioChallengePage: React.FC = () => {
+  const { isAuth } = React.useContext(authContext)
+
   const [difficulty, setDifficulty] = React.useState(1)
   const [loading, setLoading] = React.useState(false)
   const [game, setGame] = React.useState(false)
@@ -70,7 +74,9 @@ const AudioChallengePage: React.FC = () => {
       setUserAnswers(userAnswers.concat(null))
     }
 
-    // TODO get user's word, update its state
+    if (isAuth) {
+      void handleUserAnswer(question.answer.id, 'audioChallenge', id === question.correct ? 'right' : 'wrong')
+    }
 
     setChoice(id.toString())
     setDone(true)
@@ -86,6 +92,11 @@ const AudioChallengePage: React.FC = () => {
     setDone(false)
     setChoice('')
   }
+
+  // void (async () => {
+  //   const res = await Api.getUserStatistic()
+  //   console.log(res)
+  // })()
 
   return (
     <div className='wrapper'>
