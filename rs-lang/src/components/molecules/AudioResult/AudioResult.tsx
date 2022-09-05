@@ -2,7 +2,7 @@ import React from 'react'
 import './AudioResult.css'
 import CircularProgress from '@mui/material/CircularProgress'
 import { IData, IQuestion } from '../../../interfaces/IData'
-import { ANSWERS_LIMIT, BASE_URL } from '../../../utils/Utils'
+import { BASE_URL, updateUserStats } from '../../../utils/Utils'
 import Icon from '../../atoms/Icon/Icon'
 import { Link } from 'react-router-dom'
 
@@ -15,6 +15,10 @@ const AudioResult: React.FC<AudioResultProps> = ({
   answers,
   questions
 }) => {
+  React.useEffect(() => {
+    void updateUserStats(questions.length)
+  }, [questions])
+
   const [resultPage, setResultPage] = React.useState(true)
 
   const correct: IData[] = []
@@ -29,7 +33,7 @@ const AudioResult: React.FC<AudioResultProps> = ({
     }
   })
 
-  const correctPercent = Math.floor(correct.length / ANSWERS_LIMIT * 100)
+  const correctPercent = Math.floor(correct.length / answers.length * 100)
 
   const handleSound = (audioUrl: string) => {
     const audio = new Audio(`${BASE_URL}${audioUrl}`)

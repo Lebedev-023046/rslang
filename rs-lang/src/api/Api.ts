@@ -10,9 +10,9 @@ import {
   IUserResponse,
   IWordDescription,
   IWordsResponse,
-  IStatistics,
-  IStatisticsUpset,
-  ISettings
+  ISettings,
+  IStatisticsResponse,
+  IStatisticsRequest
 } from '../interfaces/IData'
 
 // eslint-disable-next-line @typescript-eslint/no-extraneous-class
@@ -377,7 +377,7 @@ export default class Api {
   }
 
   /** возвращает статистику пользователя */
-  static async getUserStatistic(): Promise<IStatistics | IResponseError> {
+  static async getUserStatistic(): Promise<IStatisticsResponse | IResponseError> {
     const currentToken = await Api.getCurrentToken()
     const id = Api.getId()
     if (id === null) return 'Please signin'
@@ -400,8 +400,8 @@ export default class Api {
   optional: {}
 } */
   static async upsetUserStatistics(
-    statics: IStatistics
-  ): Promise<IStatisticsUpset | IResponseError> {
+    statics: IStatisticsRequest
+  ): Promise<IStatisticsResponse | IResponseError> {
     const currentToken = await Api.getCurrentToken()
     const id = Api.getId()
 
