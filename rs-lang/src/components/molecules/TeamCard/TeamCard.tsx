@@ -23,13 +23,19 @@ const TeamCard: React.FC<TeamCardProps> = ({ type }) => {
                     <h2>Dmitry Lebedev</h2>
                     <p>Team Lead, Frontend Developer</p>
                 </div>
-                <p>Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry&apos;s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
-                <Icon
-                  type='github'
-                  height='48px'
-                  width='48px'
-                  color='#151618'
-                />
+                <p>During the implementation of this project, I was engaged in the following: I set up a backend, made word cards, built a modal window and a form for registration, and also worked on a textbook and a dictionary</p>
+                <a
+                  className='footer__github'
+                  href="https://github.com/Lebedev-023046"
+                  target='blank'
+                >
+                  <Icon
+                    type='github'
+                    height='48px'
+                    width='48px'
+                    color='#151618'
+                  />
+                </a>
             </div>
           </div>
         </div>
@@ -41,22 +47,28 @@ const TeamCard: React.FC<TeamCardProps> = ({ type }) => {
           <div className='team-card__info'>
             <div className='team-card__image'>
               <img
-                src={require('./images/dima.png')}
+                src={require('./images/aldar.jpg')}
                 alt="aldar"
               />
             </div>
             <div className='team-card__content'>
               <div className='team-card__titles'>
                     <h2>Aldar Okonov</h2>
-                    <p>Team Lead, Frontend Developer</p>
+                    <p>Frontend Developer</p>
                 </div>
-                <p>Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry&apos;s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
-                <Icon
-                  type='github'
-                  height='48px'
-                  width='48px'
-                  color='#151618'
-                />
+                <p>In this project, I created the main page and the statistics page, implemented the Audio Challenge game and dealt with the structure of the project, created most of the basic components</p>
+                <a
+                  className='footer__github'
+                  href="https://github.com/Aldar0K"
+                  target='blank'
+                >
+                  <Icon
+                    type='github'
+                    height='48px'
+                    width='48px'
+                    color='#151618'
+                  />
+                </a>
             </div>
           </div>
         </div>
@@ -68,22 +80,28 @@ const TeamCard: React.FC<TeamCardProps> = ({ type }) => {
           <div className='team-card__info'>
             <div className='team-card__image'>
               <img
-                src={require('./images/dima.png')}
+                src={require('./images/viktor.jpg')}
                 alt="viktor"
               />
             </div>
             <div className='team-card__content'>
               <div className='team-card__titles'>
                     <h2>Viktor Stoianov</h2>
-                    <p>Team Lead, Frontend Developer</p>
+                    <p>Frontend Developer</p>
                 </div>
-                <p>Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry&apos;s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
-                <Icon
-                  type='github'
-                  height='48px'
-                  width='48px'
-                  color='#151618'
-                />
+                <p>During the execution of this project, I implemented APIs and interfaces, made a Sprint game and a couple of additional functions</p>
+                <a
+                  className='footer__github'
+                  href="https://github.com/ViktorVitsk"
+                  target='blank'
+                >
+                  <Icon
+                    type='github'
+                    height='48px'
+                    width='48px'
+                    color='#151618'
+                  />
+                </a>
             </div>
           </div>
         </div>

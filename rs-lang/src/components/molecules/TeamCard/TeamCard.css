@@ -25,11 +25,18 @@
 
 .team-card__image {
   max-width: 36rem;
+  max-height: 36rem;
   width: 100%;
 }
 
 .team-card__image img {
+  width: 36rem;
+  /* height: 36rem; */
+  width: 100%;
   border-radius: 100%;
+
+  background-size: cover;
+  background-position: center center;
 }
 
 .team-card__content {
