@@ -10,18 +10,14 @@ import {
   VARIANTS_LIMIT,
   shuffleArr,
   getRandomWordsFrom,
-  getRandomPage,
-  handleUserAnswer
+  getRandomPage
 } from '../../../utils/Utils'
 import AudioQuestion from '../../molecules/AudioQuestion/AudioQuestion'
 import AudioResult from '../../molecules/AudioResult/AudioResult'
 import reloadSVG from '../../../assets/icons/reload.svg'
 import crossSVG from '../../../assets/icons/cross.svg'
-import { authContext } from '../../../context/AuthContext/AuthContext'
 
 const AudioChallengePage: React.FC = () => {
-  const { isAuth } = React.useContext(authContext)
-
   const [difficulty, setDifficulty] = React.useState(1)
   const [loading, setLoading] = React.useState(false)
   const [game, setGame] = React.useState(false)
@@ -72,10 +68,6 @@ const AudioChallengePage: React.FC = () => {
       setUserAnswers(userAnswers.concat(question.variants[id]))
     } else {
       setUserAnswers(userAnswers.concat(null))
-    }
-
-    if (isAuth) {
-      void handleUserAnswer(question.answer.id as string, 'audioChallenge', id === question.correct ? 'right' : 'wrong')
     }
 
     setChoice(id.toString())
