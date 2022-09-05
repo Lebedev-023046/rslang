@@ -18,15 +18,15 @@
 
   flex-direction: column;
   align-items: flex-start;
-  justify-content: space-between;
-  gap: 2rem;
+  justify-content: center;
+  gap: 3rem;
 }
 
 .try__content p {
   color: #151618;
 
-  font-size: 20px;
-  line-height: 23px;
+  font-size: 2rem;
+  line-height: 2.3rem;
 }
 
 .try__image {
@@ -44,12 +44,28 @@
     padding: 5rem 2rem;
   }
   .try__content {
-    gap: 1rem;
+    gap: 2rem;
+  }
+  .try__content h2 {
+    font-size: 2.6rem;
+    line-height: 3rem;
+  }
+  .try__content p {
+    font-size: 1.8;
+    line-height: 2.2rem;
   }
 }
 
 @media (max-width: 960px) {
   .try__container {
     padding: 3rem 2rem;
+  }
+  .try__content h2 {
+    font-size: 2.4rem;
+    line-height: 2.6rem;
+  }
+  .try__content p {
+    font-size: 1.6;
+    line-height: 2rem;
   }
 }
