@@ -75,7 +75,7 @@ const AudioChallengePage: React.FC = () => {
     }
 
     if (isAuth) {
-      void handleUserAnswer(question.answer.id, 'audioChallenge', id === question.correct ? 'right' : 'wrong')
+      void handleUserAnswer(question.answer.id as string, 'audioChallenge', id === question.correct ? 'right' : 'wrong')
     }
 
     setChoice(id.toString())
