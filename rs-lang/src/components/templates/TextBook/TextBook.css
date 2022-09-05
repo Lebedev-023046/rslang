@@ -1,0 +1,79 @@
+.wrapper {
+    min-height: 100%;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    background-image: url('../../../assets/png/hero-bg.png');
+    background-position: top;
+    background-repeat: no-repeat;
+    background-size: contain;
+  }
+  
+  .conteiner {
+    margin: 0 auto;
+    max-width: 1240px;
+    width: 100%;
+    min-height: 100%;
+  }
+
+.main {
+    margin-top: 20rem;
+}
+
+.pagination {
+    display: flex;
+    justify-content: center;
+    max-width: 800px;
+    width: 100%;
+    margin: 20px;
+    
+}
+
+.words-container {
+    display: flex;
+    justify-content: space-between;
+    padding: 0 20px 0;
+    max-width: 1240px;
+    width: 100%;
+}
+
+.wordSet {
+    display: flex;
+    flex-direction: column;
+    row-gap: 50px;
+    max-width: 800px;
+    width: 100%;
+    margin-bottom: 30px;
+}
+
+.MuiPagination-ul > li > button {
+    font-size: 20px;
+}
+
+.MuiPagination-ul > li > .MuiPaginationItem-circular {
+    font-size: 20px;
+}
+
+.beginner-bg-color {
+    background-color: #bfffcb;
+}
+.elementary-bg-color {
+    background-color: #e4ffad;
+}
+.intermediate-bg-color {
+    background-color: #ffffb3;
+}
+.upper-bg-color {
+    background-color: #ffd6a5;
+}
+.advanced-bg-color {
+    background-color: #ffb49f;
+}
+.proficiency-bg-color {
+    background-color: #f6a6a6;
+}
+
+.difficult-bg-color {
+    background-color: #864949;
+    color: #ffffff;
+}

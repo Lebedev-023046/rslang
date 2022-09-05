@@ -1,0 +1,21 @@
+.sucl-reg-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    row-gap: 2rem;
+    padding: 1.5rem 4rem;
+}
+
+.sucl-reg-img {
+    width: 20rem;
+    height: 20rem;
+    filter: invert(60%) sepia(43%) saturate(536%) hue-rotate(77deg) brightness(89%) contrast(91%);
+}
+
+.sucl-reg-text {
+    text-transform: uppercase;
+    height: auto;
+    text-align: center;
+    font-weight: 700;
+    font-size: 1.2em;
+}
