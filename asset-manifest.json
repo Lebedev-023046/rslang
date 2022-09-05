@@ -1,0 +1,30 @@
+{
+  "files": {
+    "main.css": "/static/css/main.14eee13f.css",
+    "main.js": "/static/js/main.65c2b84a.js",
+    "static/media/girl-with-book.png": "/static/media/girl-with-book.b306baafbebc75d6b800.png",
+    "static/media/viktor.jpg": "/static/media/viktor.89f289440043075d9aba.jpg",
+    "static/media/dima.png": "/static/media/dima.868bf04bd08afcca2213.png",
+    "static/media/audio.png": "/static/media/audio.20fa9680e468881f4db5.png",
+    "static/media/aldar.jpg": "/static/media/aldar.403f047ca1a126f0c6ab.jpg",
+    "static/media/sprint.png": "/static/media/sprint.82bd3420e2b91cf1b418.png",
+    "static/media/hero-girl.png": "/static/media/hero-girl.387f4880ae77653684ab.png",
+    "static/media/right.mp3": "/static/media/right.64347e4528cd1b351c36.mp3",
+    "static/media/wrong.mp3": "/static/media/wrong.1dd4af72e2da1ea94fba.mp3",
+    "static/media/hero-bg.png": "/static/media/hero-bg.124fa5cf855e529ef7a9.png",
+    "static/media/logout.svg": "/static/media/logout.0841d3fbaef1ad875331cefcc29d4720.svg",
+    "static/media/sound_icon.svg": "/static/media/sound_icon.8efc519171c9fbe199553d6f65de8d06.svg",
+    "static/media/suclReg.svg": "/static/media/suclReg.9c80c67ecfdd093bb2e6180d9743a99e.svg",
+    "index.html": "/index.html",
+    "static/media/stroke-right.svg": "/static/media/stroke-right.9db04b7cec791df147e0061751850a57.svg",
+    "static/media/stroke-left.svg": "/static/media/stroke-left.68bbbec080a6ce4ac48ca4bdf5c9f30c.svg",
+    "static/media/reload.svg": "/static/media/reload.2527eb5cededc1d066325eb8bd094874.svg",
+    "static/media/cross.svg": "/static/media/cross.1cddb45fddd6a230009793490b633bac.svg",
+    "main.14eee13f.css.map": "/static/css/main.14eee13f.css.map",
+    "main.65c2b84a.js.map": "/static/js/main.65c2b84a.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.14eee13f.css",
+    "static/js/main.65c2b84a.js"
+  ]
+}
