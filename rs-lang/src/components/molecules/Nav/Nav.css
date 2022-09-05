@@ -4,6 +4,13 @@
   gap: 5rem;
 }
 
+.nav__links {
+  display: flex;
+
+  align-items: center;
+  gap: 5rem;
+}
+
 .nav__link {
   color: #151618;
 
@@ -14,4 +21,108 @@
 
 .nav__link_active {
   border-bottom: 1px solid #FF6822;
+}
+
+.menu__icon {
+  display: none;
+  z-index: 5;
+  position: relative;
+  width: 30px;
+  height: 25px;
+  cursor: pointer;
+}
+
+.menu__icon span,
+.menu__icon::before,
+.menu__icon::after {
+  left: 0;
+  position: absolute;
+  height: 8%;
+  width: 100%;
+  transition: all 0.3s ease 0s;
+  background-color: #151618;
+}
+
+.menu__icon::before,
+.menu__icon::after {
+  content: "";
+}
+
+.menu__icon::before {
+  top: 0;
+}
+
+.menu__icon::after {
+  bottom: 0;
+}
+
+.menu__icon span {
+  top: 50%;
+  transform: scale(1) translate(0px, -50%);
+}
+
+.menu__icon_active span {
+  transform: scale(0) translate(0px, -50%);
+}
+
+.menu__icon_active::before {
+  top: 50%;
+  transform: rotate(-45deg) translate(0px, -50%);
+}
+
+.menu__icon_active::after {
+  bottom: 50%;
+  transform: rotate(45deg) translate(0px, 50%);
+}
+
+@media (max-width: 1120px) {
+  .nav__links {
+    display: none;
+  }
+
+  .menu__icon {
+    display: block;
+  }
+
+  .menu__icon_active {
+    position: fixed;
+
+    top: 5rem;
+    right: 5rem;
+  }
+
+  .nav__links_active {
+    display: flex;
+    position: fixed;
+    
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2.5rem;
+
+    background-color: rgba(0, 0, 0, 0.5);
+  }
+
+  .nav__link {
+    font-size: 3.6rem;
+    line-height: 4rem;
+    color: #FFFFFF;
+  }
+
+  .user-name p {
+    font-size: 4.4rem;
+    line-height: 5rem;
+    color: #FF6822;
+  }
+
+  .logout-icon-container .logout-icon {
+    margin-left: 1.2rem;
+    width: 4rem;
+    height: 4rem;
+  }
 }

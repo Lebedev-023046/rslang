@@ -4,11 +4,13 @@ import AudioChallengePage from './components/templates/AudioChallengePage/AudioC
 import SprintPage from './components/templates/Sprint/SprintPage/SprintPage'
 import { Route, Routes } from 'react-router-dom'
 import StatisticsPage from './components/templates/StatisticsPage/StatisticsPage'
+import { TextBook } from './components/templates/TextBook/TextBook'
 
 const App = () => {
   return (
     <Routes>
       <Route path="/" element={<MainPage />} />
+      <Route path="/TextBook" element={<TextBook />} />
       <Route path="/AudioChallenge" element={<AudioChallengePage />} />
       <Route path="/Sprint" element={<SprintPage />} />
       <Route path="/Statistics" element={<StatisticsPage />} />

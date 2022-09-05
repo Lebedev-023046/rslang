@@ -43,3 +43,11 @@
   font-size: 32px;
   line-height: 38px;
 }
+
+@media (max-width: 768px) {
+  .footer__container {
+    flex-direction: column-reverse;
+    align-items: center;
+    gap: 1.5rem;
+  }
+}

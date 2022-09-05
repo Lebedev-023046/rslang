@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/restrict-plus-operands */
 import Api from '../api/Api'
 import { IData, IWordDescription } from '../interfaces/IData'
 

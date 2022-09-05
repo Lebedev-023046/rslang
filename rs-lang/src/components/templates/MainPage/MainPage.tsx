@@ -27,34 +27,34 @@ const MainPage = () => {
       <Header>
         <h2>RS Lang</h2>
         <Nav>
-          <span className='nav__link'>Why Us</span>
-          <span className='nav__link'>Games</span>
-          <span className='nav__link'>Team</span>
-          <span className='nav__link'>Why Us</span>
-          {/* <Link className='nav__link' to='#'>Why Us</Link> */}
+          <a className='nav__link' href='#why-us'>Why Us</a>
           <Link className='nav__link' to='/AudioChallenge'>Audio Challenge</Link>
           <Link className='nav__link' to='/Sprint'>Sprint</Link>
-          {/* <Link className='nav__link' to='#'>Team</Link> */}
-          {/* <Link className='nav__link' to='#'>Textbook</Link> */}
+          <a className='nav__link' href='#team'>Team</a>
+          <Link className='nav__link' to='/TextBook'>TextBook</Link>
+          {isAuth &&
+            <Link className='nav__link' to='/Statistics'>
+              Statistics
+            </Link>
+          }
+          {isAuth
+            ? <NameBlock />
+            : <Button
+                text='Get Started'
+                type='secondary'
+                onClick={openSIU}
+              />
+          }
         </Nav>
-        { isAuth
-          ? <NameBlock/>
-          : <Button
-            text='Get Started'
-            type='secondary'
-            onClick={openSIU}
-          />}
       </Header>
-      <Hero
-        title='Learn English'
-        text='Visiting the New York, getting a new job, or making a personal connection - no matter why you want to learn, we have the right app for you'
-        buttonText='Get Started'
-      />
+      <Hero onGetStarted={openSIU} />
       <WhyUs />
       <Games />
       <Team />
       <Video />
-      <Try />
+      {!isAuth &&
+        <Try onGetStarted={openSIU} />
+      }
       <Footer />
     </div>
   )
