@@ -14,6 +14,23 @@ export interface IData {
   wordTranslate: string
   textMeaningTranslate: string
   textExampleTranslate: string
+  userWord?: {
+    difficulty: string
+    optional?: {
+      addTime?: string
+      isDeleted: boolean
+      games?: {
+        sprint: {
+          right: number
+          wrong: number
+        }
+        audioChallenge: {
+          right: number
+          wrong: number
+        }
+      }
+    }
+  }
 }
 
 export interface IUserRequest {

@@ -265,8 +265,7 @@ export default class Api {
   static async getAggregatedWords(
     group: string,
     page: string,
-    wordsPerPage: string,
-    difficulty?: string
+    wordsPerPage: string
   ) {
     const currentToken = await Api.getCurrentToken()
     const id = Api.getId()
@@ -274,12 +273,9 @@ export default class Api {
     const response = await fetch(
       `${
         Api.USERS
-      }/${id}/aggregatedWords?group=${group}&page=${page}&wordsPerPage=${wordsPerPage}&filter=${JSON.stringify(
+      }/${id}/aggregatedWords?group=${group}&page=${page}&pages=3600&wordsPerPage=${wordsPerPage}&filter=${JSON.stringify(
         {
-          $and: [
-            { 'userWord.difficulty': difficulty }
-            // { $and: [{ page: +page }, { group: +group }] }
-          ]
+          // $and: [{ 'userWord.difficulty': difficulty, 'userWord.optional.isDeleted': false }]
         }
       )}`,
       {
@@ -296,6 +292,62 @@ export default class Api {
     if (status !== 200) return 'Bad Request'
     return await response.json()
   }
+
+  static async filterDifficult(
+  ) {
+    const currentToken = await Api.getCurrentToken()
+    const id = Api.getId()
+    if (id === null) return 'Please signin'
+    const response = await fetch(
+      `${
+        Api.USERS
+      }/${id}/aggregatedWords?&pages=3600&wordsPerPage=3600&filter=${JSON.stringify(
+        {
+          $and: [{ 'userWord.difficulty': 'hard', 'userWord.optional.isDeleted': false }]
+        }
+      )}`,
+      {
+        method: 'GET',
+        headers: {
+          Authorization: `Bearer ${currentToken}`,
+          Accept: 'application/json',
+          'Content-Type': 'application/json'
+        }
+      }
+    )
+    const status = response.status
+    if (status === 401) return 'Access token is missing or invalid'
+    if (status !== 200) return 'Bad Request'
+    return await response.json()
+  }
+
+  static async filterInProgress(
+    ) {
+      const currentToken = await Api.getCurrentToken()
+      const id = Api.getId()
+      if (id === null) return 'Please signin'
+      const response = await fetch(
+        `${
+          Api.USERS
+        }/${id}/aggregatedWords?&pages=3600&wordsPerPage=3600&filter=${JSON.stringify(
+          {
+            $and: [{ 'userWord.difficulty': 'medium', 'userWord.optional.isDeleted': false }]
+          }
+        )}`,
+        {
+          method: 'GET',
+          headers: {
+            Authorization: `Bearer ${currentToken}`,
+            Accept: 'application/json',
+            'Content-Type': 'application/json'
+          }
+        }
+      )
+      const status = response.status
+      if (status === 401) return 'Access token is missing or invalid'
+      if (status !== 200) return 'Bad Request'
+      return await response.json()
+    }
 
   /** вроде делает тоже что и getWord только возвращает слово в массиве
    * наверное ошибки бэкэнда

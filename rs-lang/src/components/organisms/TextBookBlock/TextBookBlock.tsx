@@ -11,14 +11,13 @@ interface ITextBookBlockProps {
     active: number
     setActive: (e: number) => void
     words: IData[]
-    totalCount: number
 }
 
-export function TextBookBlock ({ page, setPage, isLoading, active, setActive, words, totalCount }: ITextBookBlockProps) {
+export function TextBookBlock ({ page, setPage, isLoading, active, setActive, words }: ITextBookBlockProps) {
     return (
         <div>
             <div className="pagination">
-                <Pagination count={totalCount / 20} size="large" page={page} onChange={(_, num) => {
+                <Pagination count={active !== 6 ? 30 : 1} size="large" page={page} onChange={(_, num) => {
                     setPage(num)
                     localStorage.setItem('page', num.toString())
                 }}/>

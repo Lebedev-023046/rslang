@@ -1,0 +1,9 @@
+.buttons {
+    display: flex;
+    justify-content: center;
+    column-gap: 5rem;
+}
+
+.button-item {
+    text-align: center;
+}

@@ -31,9 +31,12 @@ export function ButtonLevelsBlock ({ active, setActive }: ButtonLevelsBlockProps
 
   return (
     <div className="btnLevels-block">
-      { levels.map((elem, i) => <button id={String(i + 1)} style={{ backgroundColor: elem[1] }} className={ i === active ? `btnLevel btnLevel-active ${elem[1]}` : `btnLevel ${elem[1]}`} key={i} onClick={() => {
-        setActive(i)
-        localStorage.setItem('active', i.toString())
+      { levels.map((elem, i) => <button id={String(i + 1)} style={{ backgroundColor: elem[1] }}
+                                        className={ i === active ? `btnLevel btnLevel-active ${elem[1]}` : `btnLevel ${elem[1]}`}
+                                        key={i}
+                                        onClick={() => {
+                                        setActive(i)
+                                        localStorage.setItem('active', i.toString())
       }}>
         { elem[0] }
       </button>) }

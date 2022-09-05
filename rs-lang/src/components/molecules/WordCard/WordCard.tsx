@@ -4,7 +4,7 @@ import soundImg from '../../../assets/sound_icon.svg'
 import { IData } from '../../../interfaces/IData'
 import { useContext } from 'react'
 import { authContext } from '../../../context/AuthContext/AuthContext'
-// import Api from '../../../api/Api'
+import { addDifficult } from '../../../utils/Utils'
 
 const BASE_URL = 'https://react-rslang-words.herokuapp.com/'
 
@@ -40,7 +40,7 @@ export function WordCard (props: ICardProps) {
     }
 
     return (
-        <div id={ props.card._id } className={ `word-card-container ${props.active !== 6 ? colors[props.active] : ''}`}>
+        <div id={ props.card._id } className={ `word-card-container ${props.active !== 6 ? colors[props.active] : 'difficult-bg-color'}`}>
             <div className="card-img" style={{ backgroundImage: `url(${BASE_URL}${props.card.image})` }}/>
             <div className="card-info">
                 <div className="card-info-block">
@@ -65,8 +65,15 @@ export function WordCard (props: ICardProps) {
                         </div>
                     </div>
                     { isAuth && <div className="word-buttons">
-                        <button className='btnWordCard'>Mark as learning</button>
-                        <button className='btnWordCard'>Add to difficult words</button>
+                        <button className='btnWordCard' onClick={ async (e) => {
+                            const wordID = e.currentTarget.parentElement?.parentElement?.parentElement?.parentElement?.id as string
+                            await addDifficult(wordID, 'medium')
+                        }}>Mark as learning</button>
+                        <button className='btnWordCard' onClick={ async (e) => {
+                            e.currentTarget.parentElement?.parentElement?.parentElement?.parentElement?.classList.add(colors[6])
+                            const wordID = e.currentTarget.parentElement?.parentElement?.parentElement?.parentElement?.id as string
+                            await addDifficult(wordID, 'hard')
+                        }}>Add to difficult words</button>
                     </div>}
                 </div>
             </div>

@@ -7,6 +7,7 @@ import { IData } from '../../../interfaces/IData'
 import Button from '../../atoms/Button/Button'
 import { NameBlock } from '../../atoms/NameBlock/NameBlock'
 import Nav from '../../molecules/Nav/Nav'
+import { DictionaryBlock } from '../../organisms/DictionaryBlock/DictionaryBlock'
 import Footer from '../../organisms/Footer/Footer'
 import Games from '../../organisms/Games/Games'
 import Header from '../../organisms/Header/Header'
@@ -22,23 +23,26 @@ export function TextBook () {
     const [active, setActive] = useState((localStorage.getItem('active') != null) ? Number(localStorage.getItem('active')) : 0)
     const [page, setPage] = useState((localStorage.getItem('page') != null) ? Number(localStorage.getItem('page')) : 1)
     const [isLoading, setLoading] = useState(true)
-    const [totalCount, setTotalCount] = useState(600)
+    const [isDictionary, setIsDictionary] = useState(false)
+
     const fectchUserWords = async (activeBtn: number, activePage: number) => {
         activeBtn !== 6
             ? await Api.getAggregatedWords(String(activeBtn), String(activePage - 1), '20').then(data => {
                 setWords(data[0].paginatedResults)
-                setTotalCount(data[0].totalCount[0].count)
             })
-            : await Api.getAggregatedWords(String(activeBtn), String(1 - 1), '20', 'hard').then(data => setWords(data[0].paginatedResults))
+            : await Api.filterDifficult().then(data => setWords(data[0].paginatedResults))
         }
-    // const fectchWords = async (activeBtn: number, activePage: number) => {
-    //     await Api.getWords(String(activeBtn), String(activePage))
-    // }
+    const fectchWords = async (activeBtn: number, activePage: number) => {
+        await Api.getWords(String(activeBtn), String(activePage - 1)).then(data => setWords(data))
+    }
 
         useEffect(() => {
-            // eslint-disable-next-line no-void
-            void fectchUserWords(active, page).then(() => setLoading(false))
-        }, [active, isAuth, page])
+                if (isAuth) {
+                    void fectchUserWords(active, page).then(() => setLoading(false))
+                } else {
+                    void fectchWords(active, page).then(() => setLoading(false))
+                }
+            }, [active, page, isAuth])
 
     return (
         <div className="wrapper">
@@ -46,13 +50,9 @@ export function TextBook () {
             <Header>
                 <h2>RS Lang</h2>
                 <Nav>
-                    <span className='nav__link'>Dictionary</span>
-                    <span className='nav__link'>Audio Challenge</span>
-                    <span className='nav__link'>Sprint</span>
-                    <span className='nav__link'>Statistics</span>
-                    {/* <Link className='nav__link' to='#'>Why Us</Link> */}
-                    {/* <Link className='nav__link' to='#'>Games</Link> */}
-                    {/* <Link className='nav__link' to='#'>Team</Link> */}
+                    <Link className='nav__link' to='/AudioChallenge'>Audio Challenge</Link>
+                    <Link className='nav__link' to='/Sprint'>Sprint</Link>
+                    <Link className='nav__link' to=''>Statistics</Link>
                     <Link className='nav__link' to='#'>Textbook</Link>
                     </Nav>
                     { isAuth
@@ -65,7 +65,15 @@ export function TextBook () {
             </Header>
             <div className='conteiner'>
                 <main className="main">
-                    <TextBookBlock page={page} setPage={setPage} isLoading={isLoading} active={active} setActive={setActive} words={words} totalCount={totalCount} />
+                <div className='btnLevel dictionary' style={{ textAlign: 'center', margin: '0 auto' }} onClick={() => setIsDictionary(!isDictionary)}>{ isDictionary ? 'Dictionary' : 'Textbook' }</div>
+                    { !isDictionary
+                        ? <TextBookBlock page={page}
+                            setPage={setPage}
+                            isLoading={isLoading}
+                            active={active}
+                            setActive={setActive}
+                            words={words} />
+                        : <DictionaryBlock/>}
                     <Games/>
                 </main>
             </div>
