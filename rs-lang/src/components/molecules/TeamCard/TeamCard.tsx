@@ -15,7 +15,7 @@ const TeamCard: React.FC<TeamCardProps> = ({ type }) => {
             <div className='team-card__image'>
               <img
                 src={require('./images/dima.png')}
-                alt="dima"
+                alt="dmitry"
               />
             </div>
             <div className='team-card__content'>
@@ -42,7 +42,7 @@ const TeamCard: React.FC<TeamCardProps> = ({ type }) => {
             <div className='team-card__image'>
               <img
                 src={require('./images/dima.png')}
-                alt="dima"
+                alt="aldar"
               />
             </div>
             <div className='team-card__content'>
@@ -69,7 +69,7 @@ const TeamCard: React.FC<TeamCardProps> = ({ type }) => {
             <div className='team-card__image'>
               <img
                 src={require('./images/dima.png')}
-                alt="dima"
+                alt="viktor"
               />
             </div>
             <div className='team-card__content'>

@@ -47,12 +47,14 @@ const MainPage = () => {
           }
         </Nav>
       </Header>
-      <Hero />
+      <Hero onGetStarted={openSIU} />
       <WhyUs />
       <Games />
       <Team />
       <Video />
-      <Try />
+      {!isAuth &&
+        <Try onGetStarted={openSIU} />
+      }
       <Footer />
     </div>
   )
