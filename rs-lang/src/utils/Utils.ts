@@ -143,3 +143,44 @@ export const addDifficult = async (
     }
   }
 }
+
+export const updateUserStats = async (newWords: number) => {
+  const res = await Api.getUserStatistic()
+
+  if (typeof res !== 'string') {
+    const dates = JSON.parse(res.optional.dateStat)
+
+    if ((new Date(dates[dates.length - 1]?.date)).getDate() === (new Date()).getDate()) {
+      // update current date stats
+      dates[dates.length - 1].newWords = Number(dates[dates.length - 1].newWords) + newWords
+      dates[dates.length - 1].allWords = Number(dates[dates.length - 1].allWords) + newWords
+    } else {
+      // add new date stats
+      dates.push({
+        date: new Date(),
+        newWords,
+        allWords: newWords
+      })
+    }
+
+    // send updated user's stats
+    await Api.upsetUserStatistics({
+      learnedWords: res.learnedWords + newWords,
+      optional: {
+        dateStat: JSON.stringify(dates)
+      }
+    })
+  } else {
+    // Error: user has no stats
+  }
+}
+
+export const resetUserStats = async () => {
+  const res = await Api.upsetUserStatistics({
+    learnedWords: 0,
+    optional: {
+      dateStat: '[]'
+    }
+  })
+  console.log(res)
+}
