@@ -33,11 +33,7 @@ const MainPage = () => {
           onClick={() => {}}
         />
       </Header>
-      <Hero
-        title='Learn English'
-        text='Visiting the New York, getting a new job, or making a personal connection - no matter why you want to learn, we have the right app for you'
-        buttonText='Get Started'
-      />
+      <Hero />
       <WhyUs />
       <Games />
       <Team />

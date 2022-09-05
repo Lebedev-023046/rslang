@@ -2,27 +2,17 @@ import React from 'react'
 import Button from '../../atoms/Button/Button'
 import './Hero.css'
 
-interface HeroProps {
-  title: string
-  text: string
-  buttonText: string
-}
-
-const Hero: React.FC<HeroProps> = ({
-  title,
-  text,
-  buttonText
-}) => {
+const Hero: React.FC = () => {
   return (
     <section className='hero'>
       <div className='container hero__container'>
         <div className='hero__content'>
           <div className='hero__text'>
-            <h1>{title}</h1>
-            <p className='hero__paragraph'>{text}</p>
+            <h1>Learn English</h1>
+            <p className='hero__paragraph'>Visiting the New York, getting a new job, or making a personal connection - no matter why you want to learn, we have the right app for you</p>
           </div>
           <Button
-            text={buttonText}
+            text='Get Started'
             type='primary'
             onClick={() => {}}
           />
