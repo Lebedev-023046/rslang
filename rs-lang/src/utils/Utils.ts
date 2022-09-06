@@ -46,9 +46,6 @@ export const getRandomWordsFrom = (
   const result: IData[] = []
 
   for (let i = 0; i < amount;) {
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
     const newWords: IData[] = exclude != null
       ? [...words].filter((word) => word !== exclude)
       : [...words]
@@ -56,19 +53,6 @@ export const getRandomWordsFrom = (
     const currentWord = exclude != null
       ? newWords[getRandomNumFromInterval(-1, 19)]
       : newWords[getRandomNumFromInterval(-1, 20)]
-=======
->>>>>>> 75df13059b2c9bf914cd81169fd3bc629f6b6995
-    const newWords: IData[] =
-      exclude != null ? [...words].filter(word => word !== exclude) : [...words]
-
-    const currentWord =
-      exclude != null
-        ? newWords[getRandomNumFromInterval(-1, 19)]
-        : newWords[getRandomNumFromInterval(-1, 20)]
-<<<<<<< HEAD
-=======
->>>>>>> develop
->>>>>>> 75df13059b2c9bf914cd81169fd3bc629f6b6995
 
     if (!result.includes(currentWord)) {
       result.push(currentWord)
