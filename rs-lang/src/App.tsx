@@ -7,7 +7,6 @@ import StatisticsPage from './components/templates/StatisticsPage/StatisticsPage
 import { TextBook } from './components/templates/TextBook/TextBook'
 
 const App = () => {
-  console.log('Hi!')
   return (
     <Routes>
       <Route path="/" element={<MainPage />} />
