@@ -31,7 +31,6 @@ const MainPage = () => {
           <Link className='nav__link' to='/TextBook'>TextBook</Link>
           <Link className='nav__link' to='/AudioChallenge'>Audio Challenge</Link>
           <Link className='nav__link' to='/Sprint'>Sprint</Link>
-          {/* <a className='nav__link' href='#team'>Team</a> */}
           {isAuth &&
             <Link className='nav__link' to='/Statistics'>
               Statistics
