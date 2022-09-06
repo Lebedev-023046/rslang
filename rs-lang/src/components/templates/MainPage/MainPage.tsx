@@ -21,8 +21,6 @@ const MainPage = () => {
   const { signInUpModal, openSIU, closeSIU } = useContext(signInUpContext)
   const { isAuth } = useContext(authContext)
 
-  console.log('Не могли бы вы проверить позже?')
-
   return (
     <div className='wrapper'>
       { signInUpModal && <Modal onClose={closeSIU}><SignUpInForm /></Modal> }
