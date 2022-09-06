@@ -18,6 +18,35 @@
   align-items: center;
   justify-content: center;
   flex-wrap: wrap;
-  row-gap: 12rem;
-  column-gap: 10rem;
+  gap: 12rem;
+}
+
+@media (max-width: 1120px) {
+  .games__container {
+    padding: 7rem 2rem 6rem;
+    gap: 10rem;
+  }
+  .games__cards {
+    gap: 10rem;
+  }
+}
+
+@media (max-width: 960px) {
+  .games__container {
+    padding: 5rem 2rem 4rem;
+    gap: 6rem;
+  }
+  .games__cards {
+    gap: 6rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .games__container {
+    padding: 4rem 2rem 3rem;
+    gap: 4rem;
+  }
+  .games__cards {
+    gap: 3rem;
+  }
 }

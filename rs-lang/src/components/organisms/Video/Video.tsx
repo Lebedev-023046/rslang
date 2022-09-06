@@ -4,7 +4,7 @@ import './Video.css'
 
 const Video: React.FC = () => {
   return (
-    <section className='video'>
+    <section className='video' id='video'>
       <div className='container video__container'>
         <h2>Learn more about the app</h2>
         <div className='video__player'>

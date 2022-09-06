@@ -7,19 +7,24 @@
   padding: 18.5rem 2rem;
 
   justify-content: space-between;
+  gap: 2rem;
 }
 
 .why-us__stickers {
   display: flex;
+
   max-width: 61rem;
+  width: 100%;
   
   flex-wrap: wrap;
-  gap: 50px;
+  gap: 5rem;
 }
 
 .why-us__content {
   display: flex;
+
   max-width: 33.5rem;
+  width: 100%;
 
   flex-direction: column;
   align-items: flex-start;
@@ -29,4 +34,59 @@
 .why-us__text {
   font-size: 2rem;
   line-height: 2.3rem;
+}
+
+@media (max-width: 1120px) {
+  .why-us__container {
+    padding: 10rem 2rem;
+
+    flex-direction: column-reverse;
+    align-items: center;
+    justify-content: center;
+    gap: 6rem;
+  }
+  .why-us__content {
+    align-items: center;
+    gap: 2rem;
+  }
+}
+
+@media (max-width: 960px) {
+  .why-us__container {
+    padding: 6rem 2rem;
+
+    flex-direction: column-reverse;
+    align-items: center;
+    justify-content: center;
+    gap: 5rem;
+  }
+  .why-us__content {
+    gap: 1.6rem;
+  }
+  .why-us__text {
+    font-size: 1.8rem;
+    line-height: 2.1rem;
+  }
+  .why-us__stickers {
+    justify-content: center;
+    gap: 3rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .why-us__container {
+    padding: 4rem 2rem;
+
+    flex-direction: column-reverse;
+    align-items: center;
+    justify-content: center;
+    gap: 3rem;
+  }
+  .why-us__text {
+    font-size: 1.6rem;
+    line-height: 1.9rem;
+  }
+  .why-us__stickers {
+    gap: 2rem;
+  }
 }

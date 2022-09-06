@@ -53,3 +53,27 @@
 .MuiPagination-ul > li > .MuiPaginationItem-circular {
     font-size: 20px;
 }
+
+.beginner-bg-color {
+    background-color: #bfffcb;
+}
+.elementary-bg-color {
+    background-color: #e4ffad;
+}
+.intermediate-bg-color {
+    background-color: #ffffb3;
+}
+.upper-bg-color {
+    background-color: #ffd6a5;
+}
+.advanced-bg-color {
+    background-color: #ffb49f;
+}
+.proficiency-bg-color {
+    background-color: #f6a6a6;
+}
+
+.difficult-bg-color {
+    background-color: #864949;
+    color: #ffffff;
+}

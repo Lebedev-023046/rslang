@@ -1,19 +1,28 @@
 import React from 'react'
+import { authContext } from '../../../context/AuthContext/AuthContext'
 import Button from '../../atoms/Button/Button'
 import './Try.css'
 
-const Try: React.FC = () => {
+interface TryProps {
+  onGetStarted: () => void
+}
+
+const Try: React.FC<TryProps> = ({ onGetStarted }) => {
+  const { isAuth } = React.useContext(authContext)
+
   return (
-    <section className='try'>
+    <section className='try' id='try'>
       <div className='container try__container'>
         <div className='try__content'>
           <h2>Try for free</h2>
           <p>Sign up and get access to statistics, word saving and other features that will make learning more effective</p>
-          <Button
-            text='Get Started'
-            type='primary'
-            onClick={() => {}}
-          />
+          {!isAuth &&
+            <Button
+              text='Get Started'
+              type='primary'
+              onClick={onGetStarted}
+            />
+          }
         </div>
         <div className='try__image'>
           <img
