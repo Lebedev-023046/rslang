@@ -46,8 +46,13 @@
     gap: 6rem;
   }
   .why-us__content {
+    max-width: 43.5rem;
+
     align-items: center;
     gap: 2rem;
+  }
+  .why-us__text {
+    text-align: center;
   }
 }
 
@@ -81,6 +86,9 @@
     align-items: center;
     justify-content: center;
     gap: 3rem;
+  }
+  .why-us__content {
+    max-width: 33.5rem;
   }
   .why-us__text {
     font-size: 1.6rem;
