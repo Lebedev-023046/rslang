@@ -4,7 +4,6 @@ import Header from '../../organisms/Header/Header'
 import Nav from '../../molecules/Nav/Nav'
 import { Link } from 'react-router-dom'
 import StatsCard from '../../molecules/StatsCard/StatsCard'
-
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -17,8 +16,9 @@ import {
   Legend
 } from 'chart.js'
 import { Line } from 'react-chartjs-2'
-import { getRandomNumFromInterval } from '../../../utils/Utils'
 import Footer from '../../organisms/Footer/Footer'
+import { NameBlock } from '../../atoms/NameBlock/NameBlock'
+import Api from '../../../api/Api'
 
 ChartJS.register(
   CategoryScale,
@@ -44,40 +44,66 @@ const options = {
   }
 }
 
-const labels = ['31.09.2022', '1.09.2022', '2.09.2022', '3.09.2022', '4.09.2022']
-
-const data = {
-  labels,
-  datasets: [
-    {
-      fill: true,
-      label: 'words',
-      data: labels.map(() => getRandomNumFromInterval(0, 200)),
-      borderColor: 'rgba(255, 104, 34, 1)',
-      backgroundColor: 'transparent'
-    }
-  ]
-}
-
 const StatisticsPage: React.FC = () => {
+  const [labels, setLabels] = React.useState<string[]>([])
+  const [newWords, setNewWords] = React.useState<number[]>([])
+  const [allWords, setAllWords] = React.useState<number[]>([])
+
+  React.useEffect(() => {
+    void Api.getUserStatistic()
+      .then((res) => {
+        if (typeof res !== 'string') {
+          const dates: any[] = JSON.parse(res.optional.dateStat)
+
+          setLabels(dates.map(item => {
+            const date = new Date(item.date)
+            return `${date.getDate()}.${date.getMonth() > 9 ? date.getMonth() : '0' + date.getMonth().toString()}.${date.getFullYear()}`
+          }))
+          setNewWords(dates.map(item => item.newWords))
+          setAllWords(dates.map(item => item.allWords))
+        }
+      })
+  }, [])
+
+  const newWordsData = {
+    labels,
+    datasets: [
+      {
+        fill: true,
+        label: 'words',
+        data: newWords,
+        borderColor: 'rgba(255, 104, 34, 1)',
+        backgroundColor: 'transparent'
+      }
+    ]
+  }
+
+  const allWordsData = {
+    labels,
+    datasets: [
+      {
+        fill: true,
+        label: 'words',
+        data: allWords,
+        borderColor: 'rgba(255, 104, 34, 1)',
+        backgroundColor: 'transparent'
+      }
+    ]
+  }
+
   return (
     <div className='wrapper'>
       <Header>
-        <h2>RS Lang</h2>
+        <Link className='nav__link' to='/'><h2>RS Lang</h2></Link>
         <Nav>
-          <Link className='nav__link' to='#'>Dictionary</Link>
-          <Link className='nav__link' to='#'>Textbook</Link>
+          <Link className='nav__link' to='/TextBook'>TextBook</Link>
           <Link className='nav__link' to='/AudioChallenge'>Audio Challenge</Link>
-          <Link className='nav__link' to='#'>Sprint</Link>
+          <Link className='nav__link' to='/Sprint'>Sprint</Link>
           <Link className='nav__link nav__link_active' to='/Statistics'>Statistics</Link>
+          <Link className='nav__link' to='/'>
+            <NameBlock />
+          </Link>
         </Nav>
-        <button
-          className='exit-button'
-          // TODO button should log out user of the account
-          onClick={() => {}}
-        >
-          Exit
-        </button>
       </Header>
 
       <section className='today'>
@@ -106,13 +132,13 @@ const StatisticsPage: React.FC = () => {
             <h3 className='graphs__heading'>
               Number of new words per day
             </h3>
-            <Line options={options} data={data} />
+            <Line options={options} data={newWordsData} />
           </div>
           <div className='graphs__graph'>
             <h3 className='graphs__heading'>
               Total number of learned words
             </h3>
-            <Line options={options} data={data} />
+            <Line options={options} data={allWordsData} />
           </div>
         </div>
       </section>

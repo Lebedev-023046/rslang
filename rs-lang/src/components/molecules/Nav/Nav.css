@@ -75,7 +75,7 @@
   transform: rotate(45deg) translate(0px, 50%);
 }
 
-@media (max-width: 1120px) {
+@media (max-width: 1060px) {
   .nav__links {
     display: none;
   }
@@ -94,6 +94,7 @@
   .nav__links_active {
     display: flex;
     position: fixed;
+    z-index: 10;
     
     top: 0;
     right: 0;

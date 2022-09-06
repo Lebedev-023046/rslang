@@ -14,6 +14,7 @@ import {
   IStatisticsResponse,
   IStatisticsRequest
 } from '../interfaces/IData'
+import { resetUserStats } from '../utils/Utils'
 
 // eslint-disable-next-line @typescript-eslint/no-extraneous-class
 export default class Api {
@@ -390,7 +391,10 @@ export default class Api {
     })
     const status = response.status
     if (status === 401) return 'Access token is missing or invalid'
-    if (status === 404) return 'Statistics not found'
+    if (status === 404) {
+      void resetUserStats()
+      return 'Statistics not found'
+    }
     if (status !== 200) return 'User not found'
     return await response.json()
   }

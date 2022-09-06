@@ -69,6 +69,31 @@
     gap: 5rem;
   }
   .team__pagination {
+    bottom: 12.3rem;
+    left: calc(50% - 5.8rem);
+  }
+}
+
+@media (max-width: 900px) {
+  .team__container {
+    padding: 3rem 2rem 5rem;
+
+    gap: 3rem;
+  }
+  .team__pagination {
+    bottom: 10.3rem;
+    left: calc(50% - 5.8rem);
+  }
+}
+
+@media (max-width: 768px) {
+  .team__container {
+    padding: 1rem 2rem 3rem;
+
+    gap: 2rem;
+  }
+  .team__pagination {
+    bottom: 6.3rem;
     left: calc(50% - 5.8rem);
   }
 }
