@@ -1,10 +1,10 @@
 .btnLevels-block {
-    max-width: 220px;
+    max-width: 230px;
     width: 100%;
 }
 
 .btnLevel {
-    max-width: 220px;
+    max-width: 230px;
     width: 100%;
     text-align: left;
     margin: 10px 0;
@@ -18,8 +18,8 @@
 }
 
 .btnLevel-active {
-    color: #ffffff;
-    background-color: #6CA0FA;
+    color: #3e3a44;
     cursor: pointer;
-
+    letter-spacing: 1px;
+    box-shadow: 2.5px 2.5px 2.5px 2.5px rgba(75, 46, 75, 0.25);
 }

@@ -80,7 +80,9 @@ const SprintQuestion: React.FC<SprintQuestionProps> = ({ words, gameOver }) => {
     const currentWord = wordsArray[iterEng].id
     const answerStr = answer ? 'right' : 'wrong'
     audioAnswer(answer)
-    void handleUserAnswer(currentWord, 'sprint', answerStr)
+    if (currentWord !== undefined) {
+      void handleUserAnswer(currentWord, 'sprint', answerStr)
+    }
     if (answer) {
       setCurrentPoint(currentPoint + upPoint)
       setSeriesOfCorrectAnswers(seriesOfCorrectAnswers + 1)
