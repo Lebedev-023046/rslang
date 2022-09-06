@@ -19,6 +19,7 @@ import {
 import { Line } from 'react-chartjs-2'
 import { getRandomNumFromInterval } from '../../../utils/Utils'
 import Footer from '../../organisms/Footer/Footer'
+import { NameBlock } from '../../atoms/NameBlock/NameBlock'
 
 ChartJS.register(
   CategoryScale,
@@ -65,19 +66,14 @@ const StatisticsPage: React.FC = () => {
       <Header>
         <h2>RS Lang</h2>
         <Nav>
-          <Link className='nav__link' to='#'>Dictionary</Link>
-          <Link className='nav__link' to='#'>Textbook</Link>
+          <Link className='nav__link' to='/TextBook'>TextBook</Link>
           <Link className='nav__link' to='/AudioChallenge'>Audio Challenge</Link>
-          <Link className='nav__link' to='#'>Sprint</Link>
+          <Link className='nav__link' to='/Sprint'>Sprint</Link>
           <Link className='nav__link nav__link_active' to='/Statistics'>Statistics</Link>
+          <Link className='nav__link' to='/'>
+            <NameBlock />
+          </Link>
         </Nav>
-        <button
-          className='exit-button'
-          // TODO button should log out user of the account
-          onClick={() => {}}
-        >
-          Exit
-        </button>
       </Header>
 
       <section className='today'>
