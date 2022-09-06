@@ -110,7 +110,7 @@ const AudioChallengePage: React.FC = () => {
           {!game && !loading && !result &&
             <div className='audiocall__start-screen'>
               <div className='audiocall__info'>
-                <h2>Audio Challenge</h2>
+                <h2 className='audiocall__heading'>Audio Challenge</h2>
                 <p className='audiocall__text'>Check your listening skills, trying to pick the right meaning after hearing a word. Be careful, as you just have one guess.</p>
               </div>
               <div className='audiocall__difficulty'>
