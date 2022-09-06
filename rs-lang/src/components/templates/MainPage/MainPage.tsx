@@ -25,7 +25,7 @@ const MainPage = () => {
     <div className='wrapper'>
       { signInUpModal && <Modal onClose={closeSIU}><SignUpInForm /></Modal> }
       <Header>
-        <h2>RS Lang</h2>
+        <Link className='nav__link' to='/'><h2>RS Lang</h2></Link>
         <Nav>
           <a className='nav__link' href='#why-us'>Why Us</a>
           <Link className='nav__link' to='/TextBook'>TextBook</Link>

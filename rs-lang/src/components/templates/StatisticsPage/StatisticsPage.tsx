@@ -64,7 +64,7 @@ const StatisticsPage: React.FC = () => {
   return (
     <div className='wrapper'>
       <Header>
-        <h2>RS Lang</h2>
+        <Link className='nav__link' to='/'><h2>RS Lang</h2></Link>
         <Nav>
           <Link className='nav__link' to='/TextBook'>TextBook</Link>
           <Link className='nav__link' to='/AudioChallenge'>Audio Challenge</Link>
