@@ -19,10 +19,14 @@ import reloadSVG from '../../../assets/icons/reload.svg'
 import crossSVG from '../../../assets/icons/cross.svg'
 import { authContext } from '../../../context/AuthContext/AuthContext'
 
-const AudioChallengePage: React.FC = () => {
+interface AudioChallengePageProps {
+  group: 0 | 1 | 2 | 3 | 4 | 5
+}
+
+const AudioChallengePage: React.FC<AudioChallengePageProps> = ({ group }) => {
   const { isAuth } = React.useContext(authContext)
 
-  const [difficulty, setDifficulty] = React.useState(1)
+  const [difficulty, setDifficulty] = React.useState<number>(group)
   const [loading, setLoading] = React.useState(false)
   const [game, setGame] = React.useState(false)
   const [result, setResult] = React.useState(false)
