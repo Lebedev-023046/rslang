@@ -158,7 +158,7 @@ export const updateUserStats = async (newWords: number) => {
       dates.push({
         date: new Date(),
         newWords,
-        allWords: newWords
+        allWords: res.learnedWords + newWords
       })
     }
 
