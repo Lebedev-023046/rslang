@@ -4,13 +4,15 @@ import soundImg from '../../../assets/sound_icon.svg'
 import { IData } from '../../../interfaces/IData'
 import { useContext } from 'react'
 import { authContext } from '../../../context/AuthContext/AuthContext'
-import { addDifficult } from '../../../utils/Utils'
+import { addDifficult, toggleDelete } from '../../../utils/Utils'
 
 const BASE_URL = 'https://react-rslang-words.herokuapp.com/'
 
 interface ICardProps {
     card: IData
     active: number
+    isInProgress: boolean
+    isDictionary: boolean
 }
 
 const colors = [
@@ -20,7 +22,9 @@ const colors = [
     'upper-bg-color',
     'advanced-bg-color',
     'proficiency-bg-color',
-    'difficult-bg-color'
+    'difficult-bg-color',
+    'inProgress-bg-color',
+    'deleted-bg-color'
 ]
 
 export function WordCard (props: ICardProps) {
@@ -39,8 +43,56 @@ export function WordCard (props: ICardProps) {
         void subsPlay()
     }
 
+    const firstButtonText = () => {
+        if (!props.isDictionary) {
+            return 'Mark as learning'
+        } else {
+            if (props.isInProgress) {
+               return 'delete permanently'
+            } else {
+                return 'add to difficult words'
+            }
+        }
+    }
+
+    const firstButtonHandlers = async (wordID: string) => {
+        if (!props.isDictionary) {
+            await addDifficult(wordID, 'medium')
+        } else {
+            if (props.isInProgress) {
+                await toggleDelete(wordID, true)
+            } else {
+                await addDifficult(wordID, 'hard')
+            }
+        }
+    }
+
+    const secondButtonText = () => {
+        if (!props.isDictionary) {
+            return 'add to difficult words'
+        } else {
+            if (props.isInProgress) {
+               return 'delete from stydying'
+            } else {
+                return 'remove from deleted'
+            }
+        }
+    }
+
+    const secondButtonHandlers = async (wordID: string) => {
+        if (!props.isDictionary) {
+            await addDifficult(wordID, 'hard')
+        } else {
+            if (props.isInProgress) {
+                await addDifficult(wordID, 'easy')
+            } else {
+                await toggleDelete(wordID, false)
+            }
+        }
+    }
+
     return (
-        <div id={ props.card._id } className={ `word-card-container ${props.active !== 6 ? colors[props.active] : 'difficult-bg-color'}`}>
+        <div id={ props.card._id } className={ `word-card-container ${props.isDictionary && !props.isInProgress ? colors[8] : ''}  ${props.isDictionary && props.isInProgress ? colors[7] : ''} ${props.active !== 6 ? colors[props.active] : 'difficult-bg-color'}`}>
             <div className="card-img" style={{ backgroundImage: `url(${BASE_URL}${props.card.image})` }}/>
             <div className="card-info">
                 <div className="card-info-block">
@@ -65,15 +117,18 @@ export function WordCard (props: ICardProps) {
                         </div>
                     </div>
                     { isAuth && <div className="word-buttons">
+
                         <button className='btnWordCard' onClick={ async (e) => {
                             const wordID = e.currentTarget.parentElement?.parentElement?.parentElement?.parentElement?.id as string
-                            await addDifficult(wordID, 'medium')
-                        }}>Mark as learning</button>
+                            void firstButtonHandlers(wordID)
+                        }}>{ firstButtonText()}</button>
+
                         <button className='btnWordCard' onClick={ async (e) => {
                             e.currentTarget.parentElement?.parentElement?.parentElement?.parentElement?.classList.add(colors[6])
                             const wordID = e.currentTarget.parentElement?.parentElement?.parentElement?.parentElement?.id as string
-                            await addDifficult(wordID, 'hard')
-                        }}>Add to difficult words</button>
+                            void secondButtonHandlers(wordID)
+                        }}>{secondButtonText()}</button>
+
                     </div>}
                 </div>
             </div>
