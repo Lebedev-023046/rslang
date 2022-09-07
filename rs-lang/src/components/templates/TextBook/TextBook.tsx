@@ -65,7 +65,9 @@ export function TextBook () {
             <h2>RS Lang</h2>
                 <Nav>
                     <Link className='nav__link' to='/'>HomePage</Link>
-                    <Link className='nav__link' to='/AudioChallenge'>Audio Challenge</Link>
+                    <Link className='nav__link' to={
+                        [0, 1, 2, 3, 4, 5].includes(active) ? '/AudioChallenge' + active.toString() : '/AudioChallenge'
+                    }>Audio Challenge</Link>
                     <Link className='nav__link' to='/Sprint'>Sprint</Link>
                     <Link className='nav__link' to='/Statistics'>Statistics</Link>
                     <Link className='nav__link' to='##'>Textbook</Link>

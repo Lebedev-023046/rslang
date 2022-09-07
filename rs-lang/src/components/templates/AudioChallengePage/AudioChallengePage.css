@@ -31,6 +31,9 @@
 .audiocall__start-screen {
   display: flex;
 
+  max-width: 54rem;
+  width: 100%;
+
   flex-direction: column;
   align-items: center;
   gap: 10rem;
@@ -38,7 +41,6 @@
 
 .audiocall__info {
   display: flex;
-  max-width: 54rem;
 
   flex-direction: column;
   align-items: center;
@@ -62,6 +64,46 @@
 .question__buttons {
   display: flex;
 
+  max-width: 38rem;
+  width: 100%;
+
   flex-wrap: wrap;
+  justify-content: space-between;
   gap: 2.8rem;
+}
+
+@media (max-width: 1000px) {
+  .reload {
+    top: 5rem;
+    left: 10rem;
+  }
+  .cross {
+    top: 5.7rem;
+    right: 10rem;
+  }
+}
+
+@media (max-width: 700px) {
+  .reload {
+    top: 5rem;
+    left: 5rem;
+  }
+  .cross {
+    top: 5.7rem;
+    right: 5rem;
+  }
+}
+
+@media (max-width: 420px) {
+  .reload {
+    top: 2rem;
+    left: 5rem;
+  }
+  .cross {
+    top: 2.6rem;
+    right: 5rem;
+  }
+  .question__buttons {
+    max-width: 17.6rem;
+  }
 }
