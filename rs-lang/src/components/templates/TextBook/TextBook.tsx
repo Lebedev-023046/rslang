@@ -24,33 +24,47 @@ export function TextBook () {
     const [page, setPage] = useState((localStorage.getItem('page') != null) ? Number(localStorage.getItem('page')) : 1)
     const [isLoading, setLoading] = useState(true)
     const [isDictionary, setIsDictionary] = useState(false)
+    const [isInProgress, setInProgress] = useState(true)
 
-    const fectchUserWords = async (activeBtn: number, activePage: number) => {
+    const fetchUserWords = async (activeBtn: number, activePage: number) => {
         activeBtn !== 6
             ? await Api.getAggregatedWords(String(activeBtn), String(activePage - 1), '20').then(data => {
                 setWords(data[0].paginatedResults)
             })
             : await Api.filterDifficult().then(data => setWords(data[0].paginatedResults))
         }
+
     const fectchWords = async (activeBtn: number, activePage: number) => {
         await Api.getWords(String(activeBtn), String(activePage - 1)).then(data => setWords(data))
     }
 
+    const fetchDictionaryWords = async (isInProgress: boolean) => {
+        if (isInProgress) {
+            await Api.filterInProgress().then(data => setWords(data[0].paginatedResults))
+        } else {
+            await Api.filterDeleted().then(data => setWords(data[0].paginatedResults))
+        }
+    }
+
         useEffect(() => {
                 if (isAuth) {
-                    void fectchUserWords(active, page).then(() => setLoading(false))
+                    if (isDictionary) {
+                        void fetchDictionaryWords(isInProgress).then(() => setLoading(false))
+                    } else {
+                        void fetchUserWords(active, page).then(() => setLoading(false))
+                    }
                 } else {
                     void fectchWords(active, page).then(() => setLoading(false))
                 }
-            }, [active, page, isAuth])
+            }, [active, page, isAuth, isDictionary, isInProgress])
 
     return (
         <div className="wrapper">
             { signInUpModal && <Modal onClose={closeSIU}><SignUpInForm /></Modal> }
             <Header>
-            <Link className='nav__link' to='/'><h2>RS Lang</h2></Link>
+            <h2>RS Lang</h2>
                 <Nav>
-                    <Link className='nav__link' to='/'><h2>RS Lang</h2></Link>
+                    <Link className='nav__link' to='/'>HomePage</Link>
                     <Link className='nav__link' to={
                         [0, 1, 2, 3, 4, 5].includes(active) ? '/AudioChallenge' + active.toString() : '/AudioChallenge'
                     }>Audio Challenge</Link>
@@ -68,7 +82,7 @@ export function TextBook () {
             </Header>
             <div className='conteiner'>
                 <main className="main">
-                <div className='btnLevel dictionary' style={{ textAlign: 'center', margin: '0 auto' }} onClick={() => setIsDictionary(!isDictionary)}>{ isDictionary ? 'Dictionary' : 'Textbook' }</div>
+                { isAuth && <div className='btnLevel dictionary' style={{ textAlign: 'center', margin: '0 auto' }} onClick={() => setIsDictionary(!isDictionary)}>{ isDictionary ? 'Dictionary' : 'Textbook' }</div>}
                     { !isDictionary
                         ? <TextBookBlock page={page}
                             setPage={setPage}
@@ -76,7 +90,7 @@ export function TextBook () {
                             active={active}
                             setActive={setActive}
                             words={words} />
-                        : <DictionaryBlock/>}
+                        : <DictionaryBlock isDictionary={isDictionary} words={words} active={active} isInProgress={isInProgress} setInProgress={setInProgress}/>}
                     <Games/>
                 </main>
             </div>
