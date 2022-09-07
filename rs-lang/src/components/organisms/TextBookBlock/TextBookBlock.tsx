@@ -23,7 +23,7 @@ export function TextBookBlock ({ page, setPage, isLoading, active, setActive, wo
                 }}/>
             </div>
             <div className="words-container">
-                { isLoading ? <CardSkeletonContainer/> : <WordsContainer active={active} words={words}/>}
+                { isLoading ? <CardSkeletonContainer/> : <WordsContainer isDictionary={false} isInProgress={false} active={active} words={words}/>}
                 <div className="wordLevel">
                     <ButtonLevelsBlock active={active} setActive={setActive} />
                 </div>
