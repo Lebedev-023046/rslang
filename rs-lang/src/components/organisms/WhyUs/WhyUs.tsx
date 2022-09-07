@@ -1,5 +1,5 @@
 import React from 'react'
-import Button from '../../atoms/Button/Button'
+// import Button from '../../atoms/Button/Button'
 import Sticker from '../../molecules/Sticker/Sticker'
 import './WhyUs.css'
 
@@ -33,7 +33,7 @@ const WhyUs: React.FC = () => {
           <h2 className='why-us__heading'>Why choose us?</h2>
           <p className='why-us__text'>RS Lang is a free service for learning English. You can study words from our Textbook, which contains about 4000 of the most popular and used English words, as well as add the words you need to your personal Dictionary to learn them accurately. Also, to consolidate the material, 2 games are available to you - Audio Challenge and Sprint. To view the statistics and dynamics of your learning, there is a Statistics page with detailed statistics for each day and for the current one</p>
           <a className='nav__link' href='#video'>
-            <Button
+            {/* <Button
               type='bordered'
               text='Watch video about us'
               onClick={() => {}}
@@ -41,7 +41,7 @@ const WhyUs: React.FC = () => {
               iconWidth='30'
               iconHeight='30'
               iconColor='#FF6822'
-            />
+            /> */}
           </a>
         </div>
       </div>

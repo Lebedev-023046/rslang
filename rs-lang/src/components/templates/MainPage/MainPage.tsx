@@ -8,7 +8,7 @@ import Hero from '../../organisms/Hero/Hero'
 import WhyUs from '../../organisms/WhyUs/WhyUs'
 import Games from '../../organisms/Games/Games'
 import Team from '../../organisms/Team/Team'
-import Video from '../../organisms/Video/Video'
+// import Video from '../../organisms/Video/Video'
 import Try from '../../organisms/Try/Try'
 import Footer from '../../organisms/Footer/Footer'
 import { signInUpContext } from '../../../context/ModalContext/ModalContext'
@@ -50,7 +50,7 @@ const MainPage = () => {
       <WhyUs />
       <Games />
       <Team />
-      <Video />
+      {/* <Video /> */}
       {!isAuth &&
         <Try onGetStarted={openSIU} />
       }
