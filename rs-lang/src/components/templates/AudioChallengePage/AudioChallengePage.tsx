@@ -10,15 +10,23 @@ import {
   VARIANTS_LIMIT,
   shuffleArr,
   getRandomWordsFrom,
-  getRandomPage
+  getRandomPage,
+  handleUserAnswer
 } from '../../../utils/Utils'
 import AudioQuestion from '../../molecules/AudioQuestion/AudioQuestion'
 import AudioResult from '../../molecules/AudioResult/AudioResult'
 import reloadSVG from '../../../assets/icons/reload.svg'
 import crossSVG from '../../../assets/icons/cross.svg'
+import { authContext } from '../../../context/AuthContext/AuthContext'
 
-const AudioChallengePage: React.FC = () => {
-  const [difficulty, setDifficulty] = React.useState(1)
+interface AudioChallengePageProps {
+  group: 0 | 1 | 2 | 3 | 4 | 5
+}
+
+const AudioChallengePage: React.FC<AudioChallengePageProps> = ({ group }) => {
+  const { isAuth } = React.useContext(authContext)
+
+  const [difficulty, setDifficulty] = React.useState<number>(group)
   const [loading, setLoading] = React.useState(false)
   const [game, setGame] = React.useState(false)
   const [result, setResult] = React.useState(false)
@@ -70,6 +78,14 @@ const AudioChallengePage: React.FC = () => {
       setUserAnswers(userAnswers.concat(null))
     }
 
+    if (isAuth) {
+      const currentWord = question.answer.id
+      const answerResult = id === question.correct ? 'right' : 'wrong'
+      if (currentWord !== undefined) {
+        void handleUserAnswer(currentWord, 'audioChallenge', answerResult)
+      }
+    }
+
     setChoice(id.toString())
     setDone(true)
   }
@@ -85,11 +101,6 @@ const AudioChallengePage: React.FC = () => {
     setChoice('')
   }
 
-  // void (async () => {
-  //   const res = await Api.getUserStatistic()
-  //   console.log(res)
-  // })()
-
   return (
     <div className='wrapper'>
       <section className='audiocall'>
@@ -103,7 +114,7 @@ const AudioChallengePage: React.FC = () => {
           {!game && !loading && !result &&
             <div className='audiocall__start-screen'>
               <div className='audiocall__info'>
-                <h2>Audio Challenge</h2>
+                <h2 className='audiocall__heading'>Audio Challenge</h2>
                 <p className='audiocall__text'>Check your listening skills, trying to pick the right meaning after hearing a word. Be careful, as you just have one guess.</p>
               </div>
               <div className='audiocall__difficulty'>
