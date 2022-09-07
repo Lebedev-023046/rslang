@@ -151,9 +151,9 @@ const AudioResult: React.FC<AudioResultProps> = ({
         >
           Play again
         </button>
-        <Link to='/Dictionary'>
+        <Link to='/TextBook'>
           <button className='go-to-btn'>
-            Go to dictionary
+            Go to TextBook
           </button>
         </Link>
       </div>
