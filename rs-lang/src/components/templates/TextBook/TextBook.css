@@ -77,3 +77,13 @@
     background-color: #864949;
     color: #ffffff;
 }
+
+.inProgress-bg-color {
+    color: #000000;
+    background-color: #7af3f3;
+}
+
+.deleted-bg-color {
+    color: #ffffff;
+    background-color: #4b5252;
+}

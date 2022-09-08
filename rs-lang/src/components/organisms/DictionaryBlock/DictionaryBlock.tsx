@@ -1,13 +1,24 @@
-import { useState } from 'react'
+import { IData } from '../../../interfaces/IData'
+import { WordsContainer } from '../wordsContainer/wordsContainer'
 import './DictionaryBlock.css'
 
-export function DictionaryBlock () {
-    const [isInProgress, setInProgress] = useState(true)
+interface IDictionaryBlockProps {
+    isInProgress: boolean
+    setInProgress: (e: boolean) => void
+    words: IData[]
+    active: number
+    isDictionary: boolean
+}
+
+export function DictionaryBlock ({ isInProgress, setInProgress, words, active, isDictionary }: IDictionaryBlockProps) {
     return (
         <div>
             <div className="buttons">
-                <div className={`btnLevel bg-color ${isInProgress ? 'btnLevel-active bg-color' : ''}`} onClick={() => setInProgress(true)}>Words In Progress</div>
-                <div className={`btnLevel bg-color ${isInProgress ? '' : 'btnLevel-active bg-color'}`} style={{ textAlign: 'center' }} onClick={() => setInProgress(false)}>Deleted Words</div>
+                <div style={{ textAlign: 'center' }} className={`btnLevel ${isInProgress ? 'btnLevel-active inProgress-bg-color' : ''}`} onClick={() => setInProgress(true)}>Words In Progress</div>
+                <div style={{ textAlign: 'center' }} className={`btnLevel ${isInProgress ? '' : 'btnLevel-active inProgress-bg-color'}`} onClick={() => setInProgress(false)}>Deleted Words</div>
+            </div>
+            <div style={{ maxWidth: '800px', width: '100%', margin: '0 auto', padding: '3rem 0 ' }}>
+                <WordsContainer isDictionary={isDictionary} isInProgress={isInProgress} words={words} active={active}/>
             </div>
         </div>
     )
