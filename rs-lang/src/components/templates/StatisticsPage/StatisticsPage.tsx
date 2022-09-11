@@ -19,6 +19,8 @@ import { Line } from 'react-chartjs-2'
 import Footer from '../../organisms/Footer/Footer'
 import { NameBlock } from '../../atoms/NameBlock/NameBlock'
 import Api from '../../../api/Api'
+import { getUserTodayStats } from '../../../utils/Utils'
+import { ICurrentUserTodayStats } from '../../../interfaces/IData'
 
 ChartJS.register(
   CategoryScale,
@@ -49,6 +51,38 @@ const StatisticsPage: React.FC = () => {
   const [newWords, setNewWords] = React.useState<number[]>([])
   const [allWords, setAllWords] = React.useState<number[]>([])
 
+  const [todayStats, setTodayStats] = React.useState<ICurrentUserTodayStats>({
+    date: new Date(),
+    allGamesRight: 0,
+    allGamesWrong: 0,
+    allNewWords: 0,
+    games: {
+      audioChallenge: {
+        right: 0,
+        wrong: 0,
+        bestSeries: 0,
+        newWords: 0
+      },
+      sprint: {
+        right: 0,
+        wrong: 0,
+        bestSeries: 0,
+        newWords: 0
+      }
+    }
+  })
+
+  const todayAllNewWords = todayStats.allNewWords
+  const todayRightPercent = Number.isNaN(Math.floor(todayStats.allGamesRight / todayStats.allNewWords * 100))
+  ? 0
+  : Math.floor(todayStats.allGamesRight / todayStats.allNewWords * 100)
+  const todaySprintRightPercent = Number.isNaN(Math.floor(todayStats.games.sprint.right / todayStats.games.sprint.newWords * 100))
+  ? 0
+  : Math.floor(todayStats.games.sprint.right / todayStats.games.sprint.newWords * 100)
+  const todayAudioRightPercent = Number.isNaN(Math.floor(todayStats.games.audioChallenge.right / todayStats.games.audioChallenge.newWords * 100))
+  ? 0
+  : Math.floor(todayStats.games.audioChallenge.right / todayStats.games.audioChallenge.newWords * 100)
+
   React.useEffect(() => {
     void Api.getUserStatistic()
       .then((res) => {
@@ -61,6 +95,14 @@ const StatisticsPage: React.FC = () => {
           }))
           setNewWords(dates.map(item => item.newWords))
           setAllWords(dates.map(item => item.allWords))
+        }
+      })
+
+    void getUserTodayStats()
+      .then((res) => {
+        if (typeof res !== 'string') {
+          console.log(res)
+          setTodayStats(res)
         }
       })
   }, [])
@@ -111,17 +153,27 @@ const StatisticsPage: React.FC = () => {
           <h2 className='today__heading'>Statistics for today</h2>
           <div className='today__words-and-answers'>
             <div className='today__words'>
-              <div className='today__words-count'>12</div>
+              <div className='today__words-count'>{todayAllNewWords}</div>
               <div className='today__words-heading'>Words learned</div>
             </div>
             <div className='today__answers'>
-              <div className='today__answers-count'>89%</div>
+              <div className='today__answers-count'>{todayRightPercent}%</div>
               <div className='today__answers-heading'>Correct answers</div>
             </div>
           </div>
           <div className='today__games'>
-            <StatsCard type={'audio'} />
-            <StatsCard type={'sprint'} />
+            <StatsCard
+              type={'audio'}
+              newWords={todayStats.games.audioChallenge.newWords}
+              accuracy={todayAudioRightPercent}
+              row={todayStats.games.audioChallenge.bestSeries}
+            />
+            <StatsCard
+              type={'sprint'}
+              newWords={todayStats.games.sprint.newWords}
+              accuracy={todaySprintRightPercent}
+              row={todayStats.games.sprint.bestSeries}
+            />
           </div>
         </div>
       </section>

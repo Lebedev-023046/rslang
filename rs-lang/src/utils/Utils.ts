@@ -186,11 +186,29 @@ export const resetUserStats = async () => {
   console.log(res)
 }
 
+export const getUserTodayStats = async () => {
+  const id = localStorage.getItem('idLang')
+  if (id !== null) {
+    const currentUserIdStatsKey = `${`todayStats${id}`}`
+    const currentUserTodayStats = localStorage.getItem(currentUserIdStatsKey)
+
+    if (currentUserTodayStats !== null) {
+      const currentUserTodayStatsParsed: ICurrentUserTodayStats = JSON.parse(currentUserTodayStats)
+      return currentUserTodayStatsParsed
+    } else {
+      return 'there are no such user statistics'
+    }
+  } else {
+    return 'there is no such user ID'
+  }
+}
+
 export const updateUserTodayStats = async (
   game: 'audioChallenge' | 'sprint',
   qustions: number,
   correct: number,
   mistakes: number
+  // bestSeries: number
 ) => {
   const id = localStorage.getItem('idLang')
 
@@ -199,12 +217,10 @@ export const updateUserTodayStats = async (
     const currentUserTodayStats = localStorage.getItem(currentUserIdStatsKey)
 
     if (currentUserTodayStats !== null) {
-      // TODO update current today stats
+      // update current today stats
       const currentUserTodayStatsParsed: ICurrentUserTodayStats = JSON.parse(currentUserTodayStats)
-      console.log(currentUserTodayStatsParsed)
 
       if ((new Date(currentUserTodayStatsParsed.date)).getDate() === (new Date()).getDate()) {
-        console.log('today is', (new Date(currentUserTodayStatsParsed.date)).getDate())
         currentUserTodayStatsParsed.allNewWords += qustions
         currentUserTodayStatsParsed.allGamesRight += correct
         currentUserTodayStatsParsed.allGamesWrong += mistakes
@@ -212,16 +228,19 @@ export const updateUserTodayStats = async (
         currentUserTodayStatsParsed.games[game].newWords += qustions
         currentUserTodayStatsParsed.games[game].right += correct
         currentUserTodayStatsParsed.games[game].wrong += mistakes
+        // if (currentUserTodayStatsParsed.games[game].bestSeries < bestSeries)
 
         localStorage.setItem(currentUserIdStatsKey, JSON.stringify(currentUserTodayStatsParsed))
       } else {
+        // create new today stats
         void createUserTodayStats(currentUserIdStatsKey, game, qustions, correct, mistakes)
       }
     } else {
+      // create new today stats
       void createUserTodayStats(currentUserIdStatsKey, game, qustions, correct, mistakes)
     }
   } else {
-    // no id
+    // no user id
   }
 }
 
