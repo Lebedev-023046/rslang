@@ -1,24 +1,22 @@
 import React from 'react'
-import './AudioResult.css'
+import './GameResult.css'
 import CircularProgress from '@mui/material/CircularProgress'
 import { IData, IQuestion } from '../../../interfaces/IData'
-import { BASE_URL, updateUserStats } from '../../../utils/Utils'
+import { BASE_URL, updateUserStats, updateUserTodayStats } from '../../../utils/Utils'
 import Icon from '../../atoms/Icon/Icon'
 import { Link } from 'react-router-dom'
 
-interface AudioResultProps {
+interface GameResultProps {
+  game: 'audioChallenge' | 'sprint'
   answers: Array<IData | null>
   questions: IQuestion[]
 }
 
-const AudioResult: React.FC<AudioResultProps> = ({
+const GameResult: React.FC<GameResultProps> = ({
+  game,
   answers,
   questions
 }) => {
-  React.useEffect(() => {
-    void updateUserStats(questions.length)
-  }, [questions])
-
   const [resultPage, setResultPage] = React.useState(true)
 
   const correct: IData[] = []
@@ -40,6 +38,13 @@ const AudioResult: React.FC<AudioResultProps> = ({
     audio.volume = 0.1
     void audio.play()
   }
+
+  React.useEffect(() => {
+    void updateUserStats(questions.length)
+
+    // TODO update user's today stats or create one
+    void updateUserTodayStats(game, questions.length, correct.length, mistakes.length)
+  }, [game, correct.length, mistakes.length, questions.length])
 
   return (
     <div className='audiocall__result result'>
@@ -161,4 +166,4 @@ const AudioResult: React.FC<AudioResultProps> = ({
   )
 }
 
-export default AudioResult
+export default GameResult

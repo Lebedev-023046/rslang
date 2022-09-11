@@ -12,7 +12,7 @@ import {
   IData,
   IQuestion
 } from '../../../../interfaces/IData'
-import AudioResult from '../../../molecules/AudioResult/AudioResult'
+import GameResult from '../../../molecules/GameResult/GameResult'
 const SprintPage = () => {
   const [difficulty, setDifficulty] = React.useState(0)
   const [game, setGame] = React.useState(false)
@@ -136,7 +136,11 @@ const SprintPage = () => {
           )}
           {game && !loading && result && (
             <div className="audiocall__result-screen">
-              <AudioResult answers={userAnswers} questions={questions} />
+              <GameResult
+                game='sprint'
+                answers={userAnswers}
+                questions={questions}
+              />
             </div>
           )}
         </div>

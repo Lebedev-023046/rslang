@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/restrict-plus-operands */
 import Api from '../api/Api'
-import { IData, IWordDescription } from '../interfaces/IData'
+import { ICurrentUserTodayStats, IData, IWordDescription } from '../interfaces/IData'
 
 export const BASE_URL = 'https://react-rslang-words.herokuapp.com/'
 export const ANSWERS_LIMIT = 10
@@ -170,7 +170,9 @@ export const updateUserStats = async (newWords: number) => {
       }
     })
   } else {
-    // Error: user has no stats
+    // initialize user's stats and update them
+    await resetUserStats()
+    void updateUserStats(newWords)
   }
 }
 
@@ -182,4 +184,73 @@ export const resetUserStats = async () => {
     }
   })
   console.log(res)
+}
+
+export const updateUserTodayStats = async (
+  game: 'audioChallenge' | 'sprint',
+  qustions: number,
+  correct: number,
+  mistakes: number
+) => {
+  const id = localStorage.getItem('idLang')
+
+  if (id !== null) {
+    const currentUserIdStatsKey = `${`todayStats${id}`}`
+    const currentUserTodayStats = localStorage.getItem(currentUserIdStatsKey)
+
+    if (currentUserTodayStats !== null) {
+      // TODO update current today stats
+      const currentUserTodayStatsParsed: ICurrentUserTodayStats = JSON.parse(currentUserTodayStats)
+      console.log(currentUserTodayStatsParsed)
+
+      if ((new Date(currentUserTodayStatsParsed.date)).getDate() === (new Date()).getDate()) {
+        console.log('today is', (new Date(currentUserTodayStatsParsed.date)).getDate())
+        currentUserTodayStatsParsed.allNewWords += qustions
+        currentUserTodayStatsParsed.allGamesRight += correct
+        currentUserTodayStatsParsed.allGamesWrong += mistakes
+
+        currentUserTodayStatsParsed.games[game].newWords += qustions
+        currentUserTodayStatsParsed.games[game].right += correct
+        currentUserTodayStatsParsed.games[game].wrong += mistakes
+
+        localStorage.setItem(currentUserIdStatsKey, JSON.stringify(currentUserTodayStatsParsed))
+      } else {
+        void createUserTodayStats(currentUserIdStatsKey, game, qustions, correct, mistakes)
+      }
+    } else {
+      void createUserTodayStats(currentUserIdStatsKey, game, qustions, correct, mistakes)
+    }
+  } else {
+    // no id
+  }
+}
+
+const createUserTodayStats = async (
+  currentUserIdStatsKey: string,
+  game: 'audioChallenge' | 'sprint',
+  qustions: number,
+  correct: number,
+  mistakes: number
+) => {
+  const currentUserTodayTemplate = {
+    date: new Date(),
+    allGamesRight: correct,
+    allGamesWrong: mistakes,
+    allNewWords: qustions,
+    games: {
+      audioChallenge: {
+        right: game === 'audioChallenge' ? correct : 0,
+        wrong: game === 'audioChallenge' ? mistakes : 0,
+        bestSeries: 0,
+        newWords: game === 'audioChallenge' ? qustions : 0
+      },
+      sprint: {
+        right: game === 'sprint' ? correct : 0,
+        wrong: game === 'sprint' ? mistakes : 0,
+        bestSeries: 0,
+        newWords: game === 'sprint' ? qustions : 0
+      }
+    }
+  }
+  localStorage.setItem(currentUserIdStatsKey, JSON.stringify(currentUserTodayTemplate))
 }
