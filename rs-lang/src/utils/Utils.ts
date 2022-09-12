@@ -235,11 +235,11 @@ export const updateUserTodayStats = async (
         localStorage.setItem(currentUserIdStatsKey, JSON.stringify(currentUserTodayStatsParsed))
       } else {
         // create new today stats
-        void createUserTodayStats(currentUserIdStatsKey, game, qustions, correct, mistakes)
+        void createUserTodayStats(currentUserIdStatsKey, game, qustions, correct, mistakes, bestSeries)
       }
     } else {
       // create new today stats
-      void createUserTodayStats(currentUserIdStatsKey, game, qustions, correct, mistakes)
+      void createUserTodayStats(currentUserIdStatsKey, game, qustions, correct, mistakes, bestSeries)
     }
   } else {
     // no user id
@@ -251,7 +251,8 @@ const createUserTodayStats = async (
   game: 'audioChallenge' | 'sprint',
   qustions: number,
   correct: number,
-  mistakes: number
+  mistakes: number,
+  bestSeries: number
 ) => {
   const currentUserTodayTemplate = {
     date: new Date(),
@@ -262,13 +263,13 @@ const createUserTodayStats = async (
       audioChallenge: {
         right: game === 'audioChallenge' ? correct : 0,
         wrong: game === 'audioChallenge' ? mistakes : 0,
-        bestSeries: 0,
-        newWords: game === 'audioChallenge' ? qustions : 0
+        bestSeries: game === 'audioChallenge' ? qustions : 0,
+        newWords: game === 'audioChallenge' ? bestSeries : 0
       },
       sprint: {
         right: game === 'sprint' ? correct : 0,
         wrong: game === 'sprint' ? mistakes : 0,
-        bestSeries: 0,
+        bestSeries: game === 'sprint' ? bestSeries : 0,
         newWords: game === 'sprint' ? qustions : 0
       }
     }
