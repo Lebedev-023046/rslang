@@ -2,8 +2,9 @@
   display: flex;
   padding: 18.6rem 2rem 2.1rem;
 
-  height: 40rem;
-  width: 30rem;
+  max-height: 40rem;
+  max-width: 30rem;
+  width: 100%;
 
   flex-direction: column;
   align-items: center;
