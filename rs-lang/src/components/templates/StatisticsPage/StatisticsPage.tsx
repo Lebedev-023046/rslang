@@ -101,7 +101,6 @@ const StatisticsPage: React.FC = () => {
     void getUserTodayStats()
       .then((res) => {
         if (typeof res !== 'string') {
-          console.log(res)
           setTodayStats(res)
         }
       })

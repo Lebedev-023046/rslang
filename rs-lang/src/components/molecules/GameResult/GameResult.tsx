@@ -22,13 +22,20 @@ const GameResult: React.FC<GameResultProps> = ({
   const correct: IData[] = []
   const mistakes: IData[] = []
 
+  const currentSeries: number[] = [0]
+  const [bestSeries, setBestSeries] = React.useState<number>(0)
+  // const bestSeries = correctSeries.reduce((a, b) => a > b ? a : b)
+
   answers.forEach((answer, id) => {
     const answerWord = answer?.word
     if (questions[id].answer.word === answerWord) {
       correct.push(questions[id].answer)
+      currentSeries[currentSeries.length - 1] += 1
     } else {
       mistakes.push(questions[id].answer)
+      currentSeries.push(0)
     }
+    if (bestSeries < Math.max(...currentSeries)) setBestSeries(Math.max(...currentSeries))
   })
 
   const correctPercent = Math.floor(correct.length / answers.length * 100)
@@ -41,10 +48,8 @@ const GameResult: React.FC<GameResultProps> = ({
 
   React.useEffect(() => {
     void updateUserStats(questions.length)
-
-    // TODO update user's today stats or create one
-    void updateUserTodayStats(game, questions.length, correct.length, mistakes.length)
-  }, [game, correct.length, mistakes.length, questions.length])
+    void updateUserTodayStats(game, questions.length, correct.length, mistakes.length, bestSeries)
+  }, [game, correct.length, mistakes.length, questions.length, bestSeries])
 
   return (
     <div className='audiocall__result result'>

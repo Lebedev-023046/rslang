@@ -207,8 +207,8 @@ export const updateUserTodayStats = async (
   game: 'audioChallenge' | 'sprint',
   qustions: number,
   correct: number,
-  mistakes: number
-  // bestSeries: number
+  mistakes: number,
+  bestSeries: number
 ) => {
   const id = localStorage.getItem('idLang')
 
@@ -228,7 +228,9 @@ export const updateUserTodayStats = async (
         currentUserTodayStatsParsed.games[game].newWords += qustions
         currentUserTodayStatsParsed.games[game].right += correct
         currentUserTodayStatsParsed.games[game].wrong += mistakes
-        // if (currentUserTodayStatsParsed.games[game].bestSeries < bestSeries)
+        if (currentUserTodayStatsParsed.games[game].bestSeries < bestSeries) {
+          currentUserTodayStatsParsed.games[game].bestSeries = bestSeries
+        }
 
         localStorage.setItem(currentUserIdStatsKey, JSON.stringify(currentUserTodayStatsParsed))
       } else {
