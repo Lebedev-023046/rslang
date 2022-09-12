@@ -23,11 +23,14 @@ const AudioQuestion: React.FC<AudioQuestionProps> = ({
 
   const audio = new Audio(`${BASE_URL}${answer.audio}`)
   audio.volume = 0.1
-  void audio.play()
 
   const handleSound = () => {
     void audio.play()
   }
+
+  React.useEffect(() => {
+    handleSound()
+  })
 
   React.useEffect(() => {
     const onKeypress = (e: KeyboardEvent) => {

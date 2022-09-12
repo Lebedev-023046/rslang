@@ -94,6 +94,12 @@
 
 @media (max-width: 768px) {
   .team-card {
-    padding: 7rem;
+    padding: 7rem 3rem;
+  }
+}
+
+@media (max-width: 560px) {
+  .team-card {
+    padding: 7rem 2rem 14rem;
   }
 }
