@@ -46,8 +46,18 @@
 
 @media (max-width: 768px) {
   .footer__container {
-    flex-direction: column-reverse;
-    align-items: center;
+    padding: 2rem 2rem;
+
+    /* flex-direction: column-reverse; */
     gap: 1.5rem;
+  }
+  .footer__githubs {
+    gap: 3rem;
+  }
+}
+
+@media (max-width: 600px) {
+  .footer__container {
+    flex-direction: column-reverse;
   }
 }

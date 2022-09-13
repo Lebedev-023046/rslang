@@ -3,10 +3,12 @@ import './StatsCard.css'
 
 interface StatsCardProps {
   type: 'audio' | 'sprint'
+  newWords: number
+  accuracy: number
+  row: number
 }
 
-// TODO add props: new: number, accuracy: number, row: number
-const StatsCard: React.FC<StatsCardProps> = ({ type }) => {
+const StatsCard: React.FC<StatsCardProps> = ({ type, newWords, accuracy, row }) => {
   switch (type) {
     case 'audio':
       return (
@@ -14,19 +16,19 @@ const StatsCard: React.FC<StatsCardProps> = ({ type }) => {
           <h3 className='stats-card__heading'>Audio challenge</h3>
           <div className='stats-card__info'>
             <div className='stats-card__new'>
-              <div className='stats-card__amount'>9</div>
+              <div className='stats-card__amount'>{newWords}</div>
               <span className='stats-card__explanation'>
-                number of new words per day
+                number of new words
               </span>
             </div>
             <div className='stats-card__accuracy'>
-              <div className='stats-card__amount'>89</div>
+              <div className='stats-card__amount'>{accuracy}</div>
               <span className='stats-card__explanation'>
                 accuracy, %
               </span>
             </div>
             <div className='stats-card__row'>
-              <div className='stats-card__amount'>5</div>
+              <div className='stats-card__amount'>{row}</div>
               <span className='stats-card__explanation'>
                 in a row
               </span>
@@ -40,19 +42,19 @@ const StatsCard: React.FC<StatsCardProps> = ({ type }) => {
           <h3 className='stats-card__heading'>Sprint</h3>
           <div className='stats-card__info'>
             <div className='stats-card__new'>
-              <div className='stats-card__amount'>9</div>
+              <div className='stats-card__amount'>{newWords}</div>
               <span className='stats-card__explanation'>
-                number of new words per day
+                number of new Words
               </span>
             </div>
             <div className='stats-card__accuracy'>
-              <div className='stats-card__amount'>89</div>
+              <div className='stats-card__amount'>{accuracy}</div>
               <span className='stats-card__explanation'>
                 accuracy, %
               </span>
             </div>
             <div className='stats-card__row'>
-              <div className='stats-card__amount'>5</div>
+              <div className='stats-card__amount'>{row}</div>
               <span className='stats-card__explanation'>
                 in a row
               </span>

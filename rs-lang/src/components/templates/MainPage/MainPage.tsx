@@ -47,7 +47,7 @@ const MainPage = () => {
         </Nav>
       </Header>
       <Hero onGetStarted={openSIU} />
-      <WhyUs />
+      <WhyUs onGetStarted={openSIU} />
       <Games />
       <Team />
       {/* <Video /> */}
