@@ -54,7 +54,7 @@
 .team-card__content p {
   font-size: 2.4rem;
   font-weight: 300;
-  line-height: 28px;
+  line-height: 2.8rem;
 }
 
 .team-card__titles {
@@ -94,12 +94,54 @@
 
 @media (max-width: 768px) {
   .team-card {
-    padding: 7rem 3rem;
+    padding: 5rem 3rem 7rem;
+  }
+  .team-card__info {
+    gap: 3rem;
   }
 }
 
 @media (max-width: 560px) {
   .team-card {
-    padding: 7rem 2rem 14rem;
+    padding: 3rem 2rem 14rem;
+  }
+  .team-card__info {
+    gap: 2rem;
+  }
+  .team-card__content {
+    gap: 1.5rem;
+  }
+  .team-card__content h2 {
+    font-size: 2.8rem;
+    line-height: 3.2rem;
+  }
+  .team-card__content p {
+    font-size: 2rem;
+    line-height: 2.4rem;
+  }
+}
+
+@media (max-width: 470px) {
+  .team-card__content {
+    gap: 1rem;
+  }
+  .team-card__content h2 {
+    font-size: 2.6rem;
+    line-height: 3rem;
+  }
+  .team-card__content p {
+    font-size: 1.8rem;
+    line-height: 2.3rem;
+  }
+}
+
+@media (max-width: 360px) {
+  .team-card__content h2 {
+    font-size: 2.6rem;
+    line-height: 3rem;
+  }
+  .team-card__content p {
+    font-size: 1.6rem;
+    line-height: 2rem;
   }
 }
