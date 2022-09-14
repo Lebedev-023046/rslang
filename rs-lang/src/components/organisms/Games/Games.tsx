@@ -6,7 +6,7 @@ const Games: React.FC = () => {
   return (
     <section className='games'>
       <div className='container games__container'>
-        <h2>Enhance your learning experience with games</h2>
+        <h2 className='games__heading'>Enhance your learning experience with games</h2>
         <div className='games__cards'>
           <GamesCard type='audio' />
           <GamesCard type='sprint' />

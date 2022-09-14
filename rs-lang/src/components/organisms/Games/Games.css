@@ -50,3 +50,26 @@
     gap: 3rem;
   }
 }
+
+@media (max-width: 460px) {
+  .games__container {
+    gap: 3rem;
+  }
+  .games__heading {
+    font-size: 2.8rem;
+    line-height: 3.2rem;
+  }
+  .games__cards {
+    gap: 2rem;
+  }
+}
+
+@media (max-width: 360px) {
+  .games__container {
+    gap: 2rem;
+  }
+  .games__heading {
+    font-size: 2.4rem;
+    line-height: 3rem;
+  }
+}
