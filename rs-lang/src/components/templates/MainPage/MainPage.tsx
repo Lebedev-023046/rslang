@@ -8,7 +8,6 @@ import Hero from '../../organisms/Hero/Hero'
 import WhyUs from '../../organisms/WhyUs/WhyUs'
 import Games from '../../organisms/Games/Games'
 import Team from '../../organisms/Team/Team'
-// import Video from '../../organisms/Video/Video'
 import Try from '../../organisms/Try/Try'
 import Footer from '../../organisms/Footer/Footer'
 import { signInUpContext } from '../../../context/ModalContext/ModalContext'
@@ -17,7 +16,7 @@ import { SignUpInForm } from '../../organisms/signUpInForm/signUpInForm'
 import { authContext } from '../../../context/AuthContext/AuthContext'
 import { NameBlock } from '../../atoms/NameBlock/NameBlock'
 
-const MainPage = () => {
+const MainPage: React.FC = () => {
   const { signInUpModal, openSIU, closeSIU } = useContext(signInUpContext)
   const { isAuth } = useContext(authContext)
 
@@ -50,7 +49,6 @@ const MainPage = () => {
       <WhyUs onGetStarted={openSIU} />
       <Games />
       <Team />
-      {/* <Video /> */}
       {!isAuth &&
         <Try onGetStarted={openSIU} />
       }
