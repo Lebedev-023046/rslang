@@ -17,3 +17,10 @@
   flex-direction: column;
   gap: 1rem;
 }
+
+@media (max-width: 636px) {
+  .sticker__icon,
+  .sticker__heading {
+    text-align: center;
+  }
+}

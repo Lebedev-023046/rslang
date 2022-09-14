@@ -19,7 +19,7 @@ const Sticker: React.FC<IStickerProps> = ({ iconType, tittle, text }) => {
         />
       </div>
       <div className='sticker__content'>
-        <h4 className='sticker__title'>{tittle}</h4>
+        <h4 className='sticker__heading'>{tittle}</h4>
         <p className='sticker__text'>{text}</p>
       </div>
     </div>
