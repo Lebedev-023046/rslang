@@ -263,8 +263,8 @@ const createUserTodayStats = async (
       audioChallenge: {
         right: game === 'audioChallenge' ? correct : 0,
         wrong: game === 'audioChallenge' ? mistakes : 0,
-        bestSeries: game === 'audioChallenge' ? qustions : 0,
-        newWords: game === 'audioChallenge' ? bestSeries : 0
+        bestSeries: game === 'audioChallenge' ? bestSeries : 0,
+        newWords: game === 'audioChallenge' ? qustions : 0
       },
       sprint: {
         right: game === 'sprint' ? correct : 0,
