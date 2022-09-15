@@ -101,7 +101,9 @@ const StatisticsPage: React.FC = () => {
     void getUserTodayStats()
       .then((res) => {
         if (typeof res !== 'string') {
-          setTodayStats(res)
+          if ((new Date(res.date)).getDay() === (new Date()).getDay()) {
+            setTodayStats(res)
+          }
         }
       })
   }, [])
