@@ -1,6 +1,9 @@
 import React from 'react'
 import Icon from '../../atoms/Icon/Icon'
 import './TeamCard.css'
+import dimaPNG from './images/dima.png'
+import aldarPNG from './images/aldar.jpg'
+import viktorPNG from './images/viktor.jpg'
 
 interface TeamCardProps {
   type: 'dmitry' | 'aldar' | 'viktor'
@@ -14,7 +17,7 @@ const TeamCard: React.FC<TeamCardProps> = ({ type }) => {
           <div className='team-card__info'>
             <div className='team-card__image'>
               <img
-                src={require('./images/dima.png')}
+                src={dimaPNG}
                 alt="dmitry"
               />
             </div>
@@ -47,7 +50,7 @@ const TeamCard: React.FC<TeamCardProps> = ({ type }) => {
           <div className='team-card__info'>
             <div className='team-card__image'>
               <img
-                src={require('./images/aldar.jpg')}
+                src={aldarPNG}
                 alt="aldar"
               />
             </div>
@@ -80,7 +83,7 @@ const TeamCard: React.FC<TeamCardProps> = ({ type }) => {
           <div className='team-card__info'>
             <div className='team-card__image'>
               <img
-                src={require('./images/viktor.jpg')}
+                src={viktorPNG}
                 alt="viktor"
               />
             </div>

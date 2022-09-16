@@ -1,7 +1,9 @@
 .sticker {
   display: flex;
   padding: 2rem;
+
   max-width: 28rem;
+  width: 100%;
 
   flex-direction: column;
   gap: 2rem;
@@ -19,6 +21,9 @@
 }
 
 @media (max-width: 636px) {
+  .sticker {
+    max-width: 37rem;
+  }
   .sticker__icon,
   .sticker__heading {
     text-align: center;
