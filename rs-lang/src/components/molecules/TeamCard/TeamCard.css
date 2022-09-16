@@ -24,14 +24,13 @@
 }
 
 .team-card__image {
+  height: 36rem;
   max-width: 36rem;
-  max-height: 36rem;
   width: 100%;
 }
 
 .team-card__image img {
   width: 36rem;
-  /* height: 36rem; */
   width: 100%;
   border-radius: 100%;
 
@@ -118,6 +117,9 @@
   .team-card__content p {
     font-size: 2rem;
     line-height: 2.4rem;
+  }
+  .team-card__image {
+    display: none;
   }
 }
 
