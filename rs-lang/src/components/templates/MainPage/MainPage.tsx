@@ -8,7 +8,6 @@ import Hero from '../../organisms/Hero/Hero'
 import WhyUs from '../../organisms/WhyUs/WhyUs'
 import Games from '../../organisms/Games/Games'
 import Team from '../../organisms/Team/Team'
-import Video from '../../organisms/Video/Video'
 import Try from '../../organisms/Try/Try'
 import Footer from '../../organisms/Footer/Footer'
 import { signInUpContext } from '../../../context/ModalContext/ModalContext'
@@ -17,7 +16,7 @@ import { SignUpInForm } from '../../organisms/signUpInForm/signUpInForm'
 import { authContext } from '../../../context/AuthContext/AuthContext'
 import { NameBlock } from '../../atoms/NameBlock/NameBlock'
 
-const MainPage = () => {
+const MainPage: React.FC = () => {
   const { signInUpModal, openSIU, closeSIU } = useContext(signInUpContext)
   const { isAuth } = useContext(authContext)
 
@@ -25,13 +24,12 @@ const MainPage = () => {
     <div className='wrapper'>
       { signInUpModal && <Modal onClose={closeSIU}><SignUpInForm /></Modal> }
       <Header>
-        <h2>RS Lang</h2>
+        <Link className='nav__link' to='/'><h2>RS Lang</h2></Link>
         <Nav>
           <a className='nav__link' href='#why-us'>Why Us</a>
+          <Link className='nav__link' to='/TextBook'>TextBook</Link>
           <Link className='nav__link' to='/AudioChallenge'>Audio Challenge</Link>
           <Link className='nav__link' to='/Sprint'>Sprint</Link>
-          <a className='nav__link' href='#team'>Team</a>
-          <Link className='nav__link' to='/TextBook'>TextBook</Link>
           {isAuth &&
             <Link className='nav__link' to='/Statistics'>
               Statistics
@@ -48,10 +46,9 @@ const MainPage = () => {
         </Nav>
       </Header>
       <Hero onGetStarted={openSIU} />
-      <WhyUs />
+      <WhyUs onGetStarted={openSIU} />
       <Games />
       <Team />
-      <Video />
       {!isAuth &&
         <Try onGetStarted={openSIU} />
       }

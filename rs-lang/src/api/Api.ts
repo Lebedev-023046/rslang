@@ -14,6 +14,7 @@ import {
   IStatisticsResponse,
   IStatisticsRequest
 } from '../interfaces/IData'
+import { resetUserStats } from '../utils/Utils'
 
 // eslint-disable-next-line @typescript-eslint/no-extraneous-class
 export default class Api {
@@ -301,7 +302,7 @@ export default class Api {
     const response = await fetch(
       `${
         Api.USERS
-      }/${id}/aggregatedWords?&pages=3600&wordsPerPage=3600&filter=${JSON.stringify(
+      }/${id}/aggregatedWords?wordsPerPage=3600&filter=${JSON.stringify(
         {
           $and: [{ 'userWord.difficulty': 'hard', 'userWord.optional.isDeleted': false }]
         }
@@ -329,9 +330,37 @@ export default class Api {
       const response = await fetch(
         `${
           Api.USERS
-        }/${id}/aggregatedWords?&pages=3600&wordsPerPage=3600&filter=${JSON.stringify(
+        }/${id}/aggregatedWords?wordsPerPage=3600&filter=${JSON.stringify(
           {
             $and: [{ 'userWord.difficulty': 'medium', 'userWord.optional.isDeleted': false }]
+          }
+        )}`,
+        {
+          method: 'GET',
+          headers: {
+            Authorization: `Bearer ${currentToken}`,
+            Accept: 'application/json',
+            'Content-Type': 'application/json'
+          }
+        }
+      )
+      const status = response.status
+      if (status === 401) return 'Access token is missing or invalid'
+      if (status !== 200) return 'Bad Request'
+      return await response.json()
+    }
+
+  static async filterDeleted(
+    ) {
+      const currentToken = await Api.getCurrentToken()
+      const id = Api.getId()
+      if (id === null) return 'Please signin'
+      const response = await fetch(
+        `${
+          Api.USERS
+        }/${id}/aggregatedWords?&pages=3600&wordsPerPage=3600&filter=${JSON.stringify(
+          {
+            $and: [{ 'userWord.optional.isDeleted': true }]
           }
         )}`,
         {
@@ -390,7 +419,10 @@ export default class Api {
     })
     const status = response.status
     if (status === 401) return 'Access token is missing or invalid'
-    if (status === 404) return 'Statistics not found'
+    if (status === 404) {
+      void resetUserStats()
+      return 'Statistics not found'
+    }
     if (status !== 200) return 'User not found'
     return await response.json()
   }

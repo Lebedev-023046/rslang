@@ -5,7 +5,7 @@
 .team__pagination {
   display: flex;
   position: absolute;
-  z-index: 5;
+  z-index: 1;
 
   bottom: 14.3rem;
   left: calc(50% - 7.7rem);
@@ -44,14 +44,14 @@
 }
 
 .stroke-left {
-  z-index: 5;
+  z-index: 1;
 
   bottom: calc(50% - 3rem);
   left: 1rem;
 }
 
 .stroke-right {
-  z-index: 5;
+  z-index: 1;
   
   bottom: calc(50% - 3rem);
   right: 1rem;
@@ -69,6 +69,46 @@
     gap: 5rem;
   }
   .team__pagination {
+    bottom: 12.3rem;
     left: calc(50% - 5.8rem);
+  }
+}
+
+@media (max-width: 900px) {
+  .team__container {
+    padding: 3rem 2rem 5rem;
+
+    gap: 3rem;
+  }
+  .team__pagination {
+    bottom: 10.3rem;
+    left: calc(50% - 5.8rem);
+  }
+}
+
+@media (max-width: 768px) {
+  .team__container {
+    padding: 1rem 2rem 3rem;
+
+    gap: 2rem;
+  }
+  .team__pagination {
+    bottom: 6.3rem;
+    left: calc(50% - 5.8rem);
+  }
+}
+
+@media (max-width: 560px) {
+  .team__pagination {
+    bottom: 13.3rem;
+    left: calc(50% - 5.8rem);
+  }
+  .stroke-left {
+    bottom: 2rem;
+    left: calc(50% - 8rem);
+  }
+  .stroke-right {
+    bottom: 2rem;
+    right: calc(50% - 8rem);
   }
 }

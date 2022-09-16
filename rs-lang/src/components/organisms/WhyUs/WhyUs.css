@@ -40,14 +40,19 @@
   .why-us__container {
     padding: 10rem 2rem;
 
-    flex-direction: column-reverse;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
     gap: 6rem;
   }
   .why-us__content {
+    max-width: 43.5rem;
+
     align-items: center;
     gap: 2rem;
+  }
+  .why-us__text {
+    text-align: center;
   }
 }
 
@@ -55,9 +60,6 @@
   .why-us__container {
     padding: 6rem 2rem;
 
-    flex-direction: column-reverse;
-    align-items: center;
-    justify-content: center;
     gap: 5rem;
   }
   .why-us__content {
@@ -77,10 +79,10 @@
   .why-us__container {
     padding: 4rem 2rem;
 
-    flex-direction: column-reverse;
-    align-items: center;
-    justify-content: center;
     gap: 3rem;
+  }
+  .why-us__content {
+    max-width: 33.5rem;
   }
   .why-us__text {
     font-size: 1.6rem;
