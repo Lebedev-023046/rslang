@@ -93,7 +93,7 @@ export function TextBook () {
                             setActive={setActive}
                             words={words} />
                         : <DictionaryBlock isDictionary={isDictionary} words={words} active={active} isInProgress={isInProgress} setInProgress={setInProgress}/>}
-                    <Games/>
+                    <Games group={active}/>
                 </main>
             </div>
             <Footer />

@@ -47,7 +47,7 @@ const MainPage: React.FC = () => {
       </Header>
       <Hero onGetStarted={openSIU} />
       <WhyUs onGetStarted={openSIU} />
-      <Games />
+      <Games group={1} />
       <Team />
       {!isAuth &&
         <Try onGetStarted={openSIU} />
