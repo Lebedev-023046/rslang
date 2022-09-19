@@ -68,7 +68,9 @@ export function TextBook () {
                     <Link className='nav__link' to={
                         [0, 1, 2, 3, 4, 5].includes(active) ? '/AudioChallenge' + active.toString() : '/AudioChallenge'
                     }>Audio Challenge</Link>
-                    <Link className='nav__link' to='/Sprint'>Sprint</Link>
+                    <Link className='nav__link' to={
+                        [0, 1, 2, 3, 4, 5].includes(active) ? '/Sprint' + active.toString() : '/Sprint'
+                    }>Sprint</Link>
                     <Link className='nav__link' to='/Statistics'>Statistics</Link>
                     <Link className='nav__link' to='##'>Textbook</Link>
                     </Nav>

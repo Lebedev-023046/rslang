@@ -13,8 +13,13 @@ import {
   IQuestion
 } from '../../../../interfaces/IData'
 import GameResult from '../../../molecules/GameResult/GameResult'
-const SprintPage = () => {
-  const [difficulty, setDifficulty] = React.useState(0)
+
+interface SprintPageProps {
+  group: 0 | 1 | 2 | 3 | 4 | 5
+}
+
+const SprintPage: React.FC<SprintPageProps> = ({ group }) => {
+  const [difficulty, setDifficulty] = React.useState<number>(group)
   const [game, setGame] = React.useState(false)
   const [loading, setLoading] = React.useState(false)
   const [wordsArray, setWordsArray] = React.useState<IData[]>([])

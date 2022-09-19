@@ -18,7 +18,13 @@ const App = () => {
       <Route path="/AudioChallenge3" element={<AudioChallengePage group={3} />} />
       <Route path="/AudioChallenge4" element={<AudioChallengePage group={4} />} />
       <Route path="/AudioChallenge5" element={<AudioChallengePage group={5} />} />
-      <Route path="/Sprint" element={<SprintPage />} />
+      <Route path="/Sprint" element={<SprintPage group={1} />} />
+      <Route path="/Sprint" element={<SprintPage group={0} />} />
+      <Route path="/Sprint" element={<SprintPage group={1} />} />
+      <Route path="/Sprint" element={<SprintPage group={2} />} />
+      <Route path="/Sprint" element={<SprintPage group={3} />} />
+      <Route path="/Sprint" element={<SprintPage group={4} />} />
+      <Route path="/Sprint" element={<SprintPage group={5} />} />
       <Route path="/Statistics" element={<StatisticsPage />} />
     </Routes>
   )

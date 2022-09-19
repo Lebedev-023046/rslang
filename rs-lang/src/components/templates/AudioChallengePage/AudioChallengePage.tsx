@@ -95,7 +95,6 @@ const AudioChallengePage: React.FC<AudioChallengePageProps> = ({ group }) => {
       setStep(step + 1)
     } else {
       setResult(true)
-      // TODO update user's stats
     }
     setDone(false)
     setChoice('')
