@@ -14,7 +14,7 @@ import {
   handleUserAnswer
 } from '../../../utils/Utils'
 import AudioQuestion from '../../molecules/AudioQuestion/AudioQuestion'
-import AudioResult from '../../molecules/AudioResult/AudioResult'
+import GameResult from '../../molecules/GameResult/GameResult'
 import reloadSVG from '../../../assets/icons/reload.svg'
 import crossSVG from '../../../assets/icons/cross.svg'
 import { authContext } from '../../../context/AuthContext/AuthContext'
@@ -186,7 +186,8 @@ const AudioChallengePage: React.FC<AudioChallengePageProps> = ({ group }) => {
 
           {game && !loading && result &&
             <div className='audiocall__result-screen'>
-              <AudioResult
+              <GameResult
+                game='audioChallenge'
                 answers={userAnswers}
                 questions={questions}
               />

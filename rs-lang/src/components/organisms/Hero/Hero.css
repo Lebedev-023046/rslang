@@ -91,3 +91,37 @@
     line-height: 1.8rem;
   }
 }
+
+@media (max-width: 640px) {
+  .hero__container {
+    padding: 12rem 2rem 6rem;
+    flex-direction: column-reverse;
+  }
+  .hero__content {
+    align-items: center;
+  }
+  .hero__heading {
+    font-size: 4rem;
+    line-height: 4.4rem;
+    text-align: center;
+  }
+  .hero__image {
+    max-width: 39rem;
+
+    text-align: center;
+  }
+}
+
+@media (max-width: 500px) {
+  .hero__container {
+    padding-bottom: 4rem;
+    gap: 1rem;
+  }
+  .hero__text {
+    gap: 1rem;
+  }
+  .hero__heading {
+    font-size: 3.2rem;
+    line-height: 3.6rem;
+  }
+}

@@ -1,36 +1,41 @@
 import React from 'react'
-import './AudioResult.css'
+import './GameResult.css'
 import CircularProgress from '@mui/material/CircularProgress'
 import { IData, IQuestion } from '../../../interfaces/IData'
-import { BASE_URL, updateUserStats } from '../../../utils/Utils'
+import { BASE_URL, updateUserStats, updateUserTodayStats } from '../../../utils/Utils'
 import Icon from '../../atoms/Icon/Icon'
 import { Link } from 'react-router-dom'
 
-interface AudioResultProps {
+interface GameResultProps {
+  game: 'audioChallenge' | 'sprint'
   answers: Array<IData | null>
   questions: IQuestion[]
 }
 
-const AudioResult: React.FC<AudioResultProps> = ({
+const GameResult: React.FC<GameResultProps> = ({
+  game,
   answers,
   questions
 }) => {
-  React.useEffect(() => {
-    void updateUserStats(questions.length)
-  }, [questions])
-
   const [resultPage, setResultPage] = React.useState(true)
 
   const correct: IData[] = []
   const mistakes: IData[] = []
 
+  const currentSeries: number[] = [0]
+  const [bestSeries, setBestSeries] = React.useState<number>(0)
+  // const bestSeries = correctSeries.reduce((a, b) => a > b ? a : b)
+
   answers.forEach((answer, id) => {
     const answerWord = answer?.word
     if (questions[id].answer.word === answerWord) {
       correct.push(questions[id].answer)
+      currentSeries[currentSeries.length - 1] += 1
     } else {
       mistakes.push(questions[id].answer)
+      currentSeries.push(0)
     }
+    if (bestSeries < Math.max(...currentSeries)) setBestSeries(Math.max(...currentSeries))
   })
 
   const correctPercent = Math.floor(correct.length / answers.length * 100)
@@ -40,6 +45,11 @@ const AudioResult: React.FC<AudioResultProps> = ({
     audio.volume = 0.1
     void audio.play()
   }
+
+  React.useEffect(() => {
+    void updateUserStats(questions.length)
+    void updateUserTodayStats(game, questions.length, correct.length, mistakes.length, bestSeries)
+  }, [game, correct.length, mistakes.length, questions.length, bestSeries])
 
   return (
     <div className='audiocall__result result'>
@@ -151,9 +161,9 @@ const AudioResult: React.FC<AudioResultProps> = ({
         >
           Play again
         </button>
-        <Link to='/Dictionary'>
+        <Link to='/TextBook'>
           <button className='go-to-btn'>
-            Go to dictionary
+            Go to TextBook
           </button>
         </Link>
       </div>
@@ -161,4 +171,4 @@ const AudioResult: React.FC<AudioResultProps> = ({
   )
 }
 
-export default AudioResult
+export default GameResult

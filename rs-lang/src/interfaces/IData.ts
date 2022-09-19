@@ -104,3 +104,24 @@ export interface IQuestion {
   variants: IData[]
   correct: number
 }
+
+export interface ICurrentUserTodayStats {
+  date: Date
+    allGamesRight: number
+    allGamesWrong: number
+    allNewWords: number
+    games: {
+      audioChallenge: {
+        right: number
+        wrong: number
+        bestSeries: number
+        newWords: number
+      }
+      sprint: {
+        right: number
+        wrong: number
+        bestSeries: number
+        newWords: number
+      }
+    }
+}
