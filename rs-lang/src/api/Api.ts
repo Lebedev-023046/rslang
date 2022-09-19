@@ -83,6 +83,8 @@ export default class Api {
     localStorage.removeItem('idLang')
     localStorage.removeItem('tokenTimeLang')
     localStorage.removeItem('signinLang')
+    localStorage.removeItem('page')
+    localStorage.removeItem('active')
   }
 
   /** Возвращает {
