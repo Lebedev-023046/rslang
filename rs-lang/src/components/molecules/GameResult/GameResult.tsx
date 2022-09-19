@@ -1,10 +1,11 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import './GameResult.css'
 import CircularProgress from '@mui/material/CircularProgress'
 import { IData, IQuestion } from '../../../interfaces/IData'
 import { BASE_URL, updateUserStats, updateUserTodayStats } from '../../../utils/Utils'
 import Icon from '../../atoms/Icon/Icon'
 import { Link } from 'react-router-dom'
+import { authContext } from '../../../context/AuthContext/AuthContext'
 
 interface GameResultProps {
   game: 'audioChallenge' | 'sprint'
@@ -18,6 +19,7 @@ const GameResult: React.FC<GameResultProps> = ({
   questions
 }) => {
   const [resultPage, setResultPage] = React.useState(true)
+  const { isAuth } = useContext(authContext)
 
   const correct: IData[] = []
   const mistakes: IData[] = []
@@ -47,9 +49,11 @@ const GameResult: React.FC<GameResultProps> = ({
   }
 
   React.useEffect(() => {
-    void updateUserStats(questions.length)
-    void updateUserTodayStats(game, questions.length, correct.length, mistakes.length, bestSeries)
-  }, [game, correct.length, mistakes.length, questions.length, bestSeries])
+    if (isAuth) {
+      void updateUserStats(questions.length)
+      void updateUserTodayStats(game, questions.length, correct.length, mistakes.length, bestSeries)
+    }
+  }, [game, correct.length, mistakes.length, questions.length, bestSeries, isAuth])
 
   return (
     <div className='audiocall__result result'>
