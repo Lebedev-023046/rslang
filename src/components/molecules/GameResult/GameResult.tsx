@@ -2,7 +2,7 @@ import React, { useContext } from 'react'
 import './GameResult.css'
 import CircularProgress from '@mui/material/CircularProgress'
 import { IData, IQuestion } from '../../../interfaces/IData'
-import { BASE_URL, updateUserStats, updateUserTodayStats } from '../../../utils/Utils'
+import { BASE_URL, updateUserStats } from '../../../utils/Utils'
 import Icon from '../../atoms/Icon/Icon'
 import { Link } from 'react-router-dom'
 import { authContext } from '../../../context/AuthContext/AuthContext'
@@ -50,8 +50,7 @@ const GameResult: React.FC<GameResultProps> = ({
 
   React.useEffect(() => {
     if (isAuth) {
-      void updateUserStats(questions.length)
-      void updateUserTodayStats(game, questions.length, correct.length, mistakes.length, bestSeries)
+      void updateUserStats(questions.length, game, questions.length, correct.length, mistakes.length, bestSeries)
     }
   }, [game, correct.length, mistakes.length, questions.length, bestSeries, isAuth])
 

@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/restrict-plus-operands */
 import Api from '../api/Api'
-import { ICurrentUserTodayStats, IData, IWordDescription } from '../interfaces/IData'
+import { IData, IWordDescription } from '../interfaces/IData'
 
 export const BASE_URL = 'https://react-rslang-words.herokuapp.com/'
 export const ANSWERS_LIMIT = 10
@@ -143,7 +143,14 @@ export const addDifficult = async (
   }
 }
 
-export const updateUserStats = async (newWords: number) => {
+export const updateUserStats = async (
+  newWords: number,
+  game: 'audioChallenge' | 'sprint',
+  qustions: number,
+  correct: number,
+  mistakes: number,
+  bestSeries: number
+) => {
   const res = await Api.getUserStatistic()
 
   if (typeof res !== 'string') {
@@ -151,14 +158,41 @@ export const updateUserStats = async (newWords: number) => {
 
     if ((new Date(dates[dates.length - 1]?.date)).getDate() === (new Date()).getDate()) {
       // update current date stats
-      dates[dates.length - 1].newWords = Number(dates[dates.length - 1].newWords) + newWords
-      dates[dates.length - 1].allWords = Number(dates[dates.length - 1].allWords) + newWords
+      // TODO newWords and questions are the same?
+      dates[dates.length - 1].newWords += newWords
+      dates[dates.length - 1].allWords += newWords
+
+      dates[dates.length - 1].allGamesRight += correct
+      dates[dates.length - 1].allGamesWrong += mistakes
+      dates[dates.length - 1].allNewWords += qustions
+
+      dates[dates.length - 1].games[game].right += correct
+      dates[dates.length - 1].games[game].wrong += mistakes
+      dates[dates.length - 1].games[game].bestSeries += bestSeries
+      dates[dates.length - 1].games[game].newWords += qustions
     } else {
       // add new date stats
       dates.push({
         date: new Date(),
         newWords,
-        allWords: res.learnedWords + newWords
+        allWords: res.learnedWords + newWords,
+        allGamesRight: correct,
+        allGamesWrong: mistakes,
+        allNewWords: qustions,
+        games: {
+          audioChallenge: {
+            right: game === 'audioChallenge' ? correct : 0,
+            wrong: game === 'audioChallenge' ? mistakes : 0,
+            bestSeries: game === 'audioChallenge' ? bestSeries : 0,
+            newWords: game === 'audioChallenge' ? qustions : 0
+          },
+          sprint: {
+            right: game === 'sprint' ? correct : 0,
+            wrong: game === 'sprint' ? mistakes : 0,
+            bestSeries: game === 'sprint' ? bestSeries : 0,
+            newWords: game === 'sprint' ? qustions : 0
+          }
+        }
       })
     }
 
@@ -172,7 +206,7 @@ export const updateUserStats = async (newWords: number) => {
   } else {
     // initialize user's stats and update them
     await resetUserStats()
-    void updateUserStats(newWords)
+    void updateUserStats(newWords, game, qustions, correct, mistakes, bestSeries)
   }
 }
 
@@ -184,95 +218,4 @@ export const resetUserStats = async () => {
     }
   })
   console.log(res)
-}
-
-export const getUserTodayStats = async () => {
-  const id = localStorage.getItem('idLang')
-  if (id !== null) {
-    const currentUserIdStatsKey = `${`todayStats${id}`}`
-    const currentUserTodayStats = localStorage.getItem(currentUserIdStatsKey)
-
-    if (currentUserTodayStats !== null) {
-      const currentUserTodayStatsParsed: ICurrentUserTodayStats = JSON.parse(currentUserTodayStats)
-      return currentUserTodayStatsParsed
-    } else {
-      return 'there are no such user statistics'
-    }
-  } else {
-    return 'there is no such user ID'
-  }
-}
-
-export const updateUserTodayStats = async (
-  game: 'audioChallenge' | 'sprint',
-  qustions: number,
-  correct: number,
-  mistakes: number,
-  bestSeries: number
-) => {
-  const id = localStorage.getItem('idLang')
-
-  if (id !== null) {
-    const currentUserIdStatsKey = `${`todayStats${id}`}`
-    const currentUserTodayStats = localStorage.getItem(currentUserIdStatsKey)
-
-    if (currentUserTodayStats !== null) {
-      // update current today stats
-      const currentUserTodayStatsParsed: ICurrentUserTodayStats = JSON.parse(currentUserTodayStats)
-
-      if ((new Date(currentUserTodayStatsParsed.date)).getDate() === (new Date()).getDate()) {
-        currentUserTodayStatsParsed.allNewWords += qustions
-        currentUserTodayStatsParsed.allGamesRight += correct
-        currentUserTodayStatsParsed.allGamesWrong += mistakes
-
-        currentUserTodayStatsParsed.games[game].newWords += qustions
-        currentUserTodayStatsParsed.games[game].right += correct
-        currentUserTodayStatsParsed.games[game].wrong += mistakes
-        if (currentUserTodayStatsParsed.games[game].bestSeries < bestSeries) {
-          currentUserTodayStatsParsed.games[game].bestSeries = bestSeries
-        }
-
-        localStorage.setItem(currentUserIdStatsKey, JSON.stringify(currentUserTodayStatsParsed))
-      } else {
-        // create new today stats
-        void createUserTodayStats(currentUserIdStatsKey, game, qustions, correct, mistakes, bestSeries)
-      }
-    } else {
-      // create new today stats
-      void createUserTodayStats(currentUserIdStatsKey, game, qustions, correct, mistakes, bestSeries)
-    }
-  } else {
-    // no user id
-  }
-}
-
-const createUserTodayStats = async (
-  currentUserIdStatsKey: string,
-  game: 'audioChallenge' | 'sprint',
-  qustions: number,
-  correct: number,
-  mistakes: number,
-  bestSeries: number
-) => {
-  const currentUserTodayTemplate = {
-    date: new Date(),
-    allGamesRight: correct,
-    allGamesWrong: mistakes,
-    allNewWords: qustions,
-    games: {
-      audioChallenge: {
-        right: game === 'audioChallenge' ? correct : 0,
-        wrong: game === 'audioChallenge' ? mistakes : 0,
-        bestSeries: game === 'audioChallenge' ? bestSeries : 0,
-        newWords: game === 'audioChallenge' ? qustions : 0
-      },
-      sprint: {
-        right: game === 'sprint' ? correct : 0,
-        wrong: game === 'sprint' ? mistakes : 0,
-        bestSeries: game === 'sprint' ? bestSeries : 0,
-        newWords: game === 'sprint' ? qustions : 0
-      }
-    }
-  }
-  localStorage.setItem(currentUserIdStatsKey, JSON.stringify(currentUserTodayTemplate))
 }

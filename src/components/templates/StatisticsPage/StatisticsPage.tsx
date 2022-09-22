@@ -19,7 +19,6 @@ import { Line } from 'react-chartjs-2'
 import Footer from '../../organisms/Footer/Footer'
 import { NameBlock } from '../../atoms/NameBlock/NameBlock'
 import Api from '../../../api/Api'
-import { getUserTodayStats } from '../../../utils/Utils'
 import { ICurrentUserTodayStats } from '../../../interfaces/IData'
 
 ChartJS.register(
@@ -72,17 +71,6 @@ const StatisticsPage: React.FC = () => {
     }
   })
 
-  const todayAllNewWords = todayStats.allNewWords
-  const todayRightPercent = Number.isNaN(Math.floor(todayStats.allGamesRight / todayStats.allNewWords * 100))
-  ? 0
-  : Math.floor(todayStats.allGamesRight / todayStats.allNewWords * 100)
-  const todaySprintRightPercent = Number.isNaN(Math.floor(todayStats.games.sprint.right / todayStats.games.sprint.newWords * 100))
-  ? 0
-  : Math.floor(todayStats.games.sprint.right / todayStats.games.sprint.newWords * 100)
-  const todayAudioRightPercent = Number.isNaN(Math.floor(todayStats.games.audioChallenge.right / todayStats.games.audioChallenge.newWords * 100))
-  ? 0
-  : Math.floor(todayStats.games.audioChallenge.right / todayStats.games.audioChallenge.newWords * 100)
-
   React.useEffect(() => {
     void Api.getUserStatistic()
       .then((res) => {
@@ -95,18 +83,45 @@ const StatisticsPage: React.FC = () => {
           }))
           setNewWords(dates.map(item => item.newWords))
           setAllWords(dates.map(item => item.allWords))
-        }
-      })
 
-    void getUserTodayStats()
-      .then((res) => {
-        if (typeof res !== 'string') {
-          if ((new Date(res.date)).getDay() === (new Date()).getDay()) {
-            setTodayStats(res)
+          const lastDate = dates[dates.length - 1]
+          const lastDateDay = (new Date(lastDate.date)).getDate()
+          const currentDay = (new Date()).getDate()
+          if (lastDateDay === currentDay) {
+            setTodayStats({
+              date: lastDate.date,
+              allGamesRight: lastDate.allGamesRight,
+              allGamesWrong: lastDate.allGamesWrong,
+              allNewWords: lastDate.allNewWords,
+              games: {
+                audioChallenge: {
+                  right: lastDate.games.audioChallenge.right,
+                  wrong: lastDate.games.audioChallenge.wrong,
+                  bestSeries: lastDate.games.audioChallenge.bestSeries,
+                  newWords: lastDate.games.audioChallenge.newWords
+                },
+                sprint: {
+                  right: lastDate.games.sprint.right,
+                  wrong: lastDate.games.sprint.wrong,
+                  bestSeries: lastDate.games.sprint.bestSeries,
+                  newWords: lastDate.games.sprint.newWords
+                }
+              }
+            })
           }
         }
       })
   }, [])
+
+  const todayRightPercent = Number.isNaN(Math.floor(todayStats.allGamesRight / todayStats.allNewWords * 100))
+    ? 0
+    : Math.floor(todayStats.allGamesRight / todayStats.allNewWords * 100)
+  const todaySprintRightPercent = Number.isNaN(Math.floor(todayStats.games.sprint.right / todayStats.games.sprint.newWords * 100))
+    ? 0
+    : Math.floor(todayStats.games.sprint.right / todayStats.games.sprint.newWords * 100)
+  const todayAudioRightPercent = Number.isNaN(Math.floor(todayStats.games.audioChallenge.right / todayStats.games.audioChallenge.newWords * 100))
+    ? 0
+    : Math.floor(todayStats.games.audioChallenge.right / todayStats.games.audioChallenge.newWords * 100)
 
   const newWordsData = {
     labels,
@@ -154,7 +169,7 @@ const StatisticsPage: React.FC = () => {
           <h2 className='today__heading'>Statistics for today</h2>
           <div className='today__words-and-answers'>
             <div className='today__words'>
-              <div className='today__words-count'>{todayAllNewWords}</div>
+              <div className='today__words-count'>{todayStats.allNewWords}</div>
               <div className='today__words-heading'>Words learned</div>
             </div>
             <div className='today__answers'>
