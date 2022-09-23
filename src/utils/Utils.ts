@@ -146,7 +146,6 @@ export const addDifficult = async (
 export const updateUserStats = async (
   newWords: number,
   game: 'audioChallenge' | 'sprint',
-  qustions: number,
   correct: number,
   mistakes: number,
   bestSeries: number
@@ -156,20 +155,22 @@ export const updateUserStats = async (
   if (typeof res !== 'string') {
     const dates = JSON.parse(res.optional.dateStat)
 
-    if ((new Date(dates[dates.length - 1]?.date)).getDate() === (new Date()).getDate()) {
+    const lastDateDay = (new Date(dates[dates.length - 1].date)).getDate()
+    const currentDay = (new Date()).getDate()
+
+    if (lastDateDay === currentDay) {
       // update current date stats
-      // TODO newWords and questions are the same?
       dates[dates.length - 1].newWords += newWords
       dates[dates.length - 1].allWords += newWords
 
       dates[dates.length - 1].allGamesRight += correct
       dates[dates.length - 1].allGamesWrong += mistakes
-      dates[dates.length - 1].allNewWords += qustions
+      dates[dates.length - 1].allNewWords += newWords
 
       dates[dates.length - 1].games[game].right += correct
       dates[dates.length - 1].games[game].wrong += mistakes
-      dates[dates.length - 1].games[game].bestSeries += bestSeries
-      dates[dates.length - 1].games[game].newWords += qustions
+      if (dates[dates.length - 1].games[game].bestSeries < bestSeries) dates[dates.length - 1].games[game].bestSeries = bestSeries
+      dates[dates.length - 1].games[game].newWords += newWords
     } else {
       // add new date stats
       dates.push({
@@ -178,19 +179,19 @@ export const updateUserStats = async (
         allWords: res.learnedWords + newWords,
         allGamesRight: correct,
         allGamesWrong: mistakes,
-        allNewWords: qustions,
+        allNewWords: newWords,
         games: {
           audioChallenge: {
             right: game === 'audioChallenge' ? correct : 0,
             wrong: game === 'audioChallenge' ? mistakes : 0,
             bestSeries: game === 'audioChallenge' ? bestSeries : 0,
-            newWords: game === 'audioChallenge' ? qustions : 0
+            newWords: game === 'audioChallenge' ? newWords : 0
           },
           sprint: {
             right: game === 'sprint' ? correct : 0,
             wrong: game === 'sprint' ? mistakes : 0,
             bestSeries: game === 'sprint' ? bestSeries : 0,
-            newWords: game === 'sprint' ? qustions : 0
+            newWords: game === 'sprint' ? newWords : 0
           }
         }
       })
@@ -206,7 +207,7 @@ export const updateUserStats = async (
   } else {
     // initialize user's stats and update them
     await resetUserStats()
-    void updateUserStats(newWords, game, qustions, correct, mistakes, bestSeries)
+    void updateUserStats(newWords, game, correct, mistakes, bestSeries)
   }
 }
 

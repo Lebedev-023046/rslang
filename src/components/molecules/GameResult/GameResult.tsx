@@ -50,7 +50,7 @@ const GameResult: React.FC<GameResultProps> = ({
 
   React.useEffect(() => {
     if (isAuth) {
-      void updateUserStats(questions.length, game, questions.length, correct.length, mistakes.length, bestSeries)
+      void updateUserStats(questions.length, game, correct.length, mistakes.length, bestSeries)
     }
   }, [game, correct.length, mistakes.length, questions.length, bestSeries, isAuth])
 
