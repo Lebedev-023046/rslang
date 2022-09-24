@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import Button from '../../../atoms/Button/Button'
 import DifficultyButton from '../../../atoms/DifficultyButton/DifficultyButton'
@@ -15,11 +15,11 @@ import {
 import GameResult from '../../../molecules/GameResult/GameResult'
 
 interface SprintPageProps {
-  group: 0 | 1 | 2 | 3 | 4 | 5
+  fromTextBook: boolean
 }
 
-const SprintPage: React.FC<SprintPageProps> = ({ group }) => {
-  const [difficulty, setDifficulty] = React.useState<number>(group)
+const SprintPage: React.FC<SprintPageProps> = ({ fromTextBook }) => {
+  const [difficulty, setDifficulty] = React.useState<number>(1)
   const [game, setGame] = React.useState(false)
   const [loading, setLoading] = React.useState(false)
   const [wordsArray, setWordsArray] = React.useState<IData[]>([])
@@ -60,6 +60,16 @@ const SprintPage: React.FC<SprintPageProps> = ({ group }) => {
     console.log(questionsWords)
     setResult(true)
   }
+
+  useEffect(() => {
+    if (fromTextBook && (localStorage.getItem('active') !== null) && (localStorage.getItem('page') !== null)) {
+      const group = Number(localStorage.getItem('active')) < 6 ? Number(localStorage.getItem('active')) : 1
+      // const page = Number(localStorage.getItem('page')) < 20 ? Number(localStorage.getItem('page')) : 0
+
+      setGame(true)
+      void generateQuestions(group)
+    }
+  }, [fromTextBook])
 
   return (
     <div className="wrapper">

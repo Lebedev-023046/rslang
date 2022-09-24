@@ -47,6 +47,9 @@ export function TextBook () {
     }
 
         useEffect(() => {
+            if (localStorage.getItem('page') === null) localStorage.setItem('page', '1')
+            if (localStorage.getItem('active') === null) localStorage.setItem('active', '0')
+
                 if (isAuth) {
                     if (isDictionary) {
                         void fetchDictionaryWords(isInProgress).then(() => setLoading(false))
@@ -64,12 +67,8 @@ export function TextBook () {
             <Header>
                 <Link className='nav__link' to='/'><h2>RS Lang</h2></Link>
                 <Nav>
-                    <Link className='nav__link' to={
-                        [0, 1, 2, 3, 4, 5].includes(active) ? '/AudioChallenge' + active.toString() : '/AudioChallenge'
-                    }>Audio Challenge</Link>
-                    <Link className='nav__link' to={
-                        [0, 1, 2, 3, 4, 5].includes(active) ? '/Sprint' + active.toString() : '/Sprint'
-                    }>Sprint</Link>
+                    <Link className='nav__link' to='/AudioChallenge1'>Audio Challenge</Link>
+                    <Link className='nav__link' to='/Sprint1'>Sprint</Link>
                     { isAuth && <Link className='nav__link' to='/Statistics'>Statistics</Link>}
                     <Link className='nav__link' to='#'>Textbook</Link>
                     </Nav>
@@ -92,7 +91,7 @@ export function TextBook () {
                             setActive={setActive}
                             words={words} />
                         : <DictionaryBlock isDictionary={isDictionary} words={words} active={active} isInProgress={isInProgress} setInProgress={setInProgress}/>}
-                    <Games group={active}/>
+                    <Games fromTextBook={true}/>
                 </main>
             </div>
             <Footer />

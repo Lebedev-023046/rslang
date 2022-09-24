@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import './AudioChallengePage.css'
 import { Link } from 'react-router-dom'
 import Button from '../../atoms/Button/Button'
@@ -20,13 +20,13 @@ import crossSVG from '../../../assets/icons/cross.svg'
 import { authContext } from '../../../context/AuthContext/AuthContext'
 
 interface AudioChallengePageProps {
-  group: 0 | 1 | 2 | 3 | 4 | 5
+  fromTextBook: boolean
 }
 
-const AudioChallengePage: React.FC<AudioChallengePageProps> = ({ group }) => {
+const AudioChallengePage: React.FC<AudioChallengePageProps> = ({ fromTextBook }) => {
   const { isAuth } = React.useContext(authContext)
 
-  const [difficulty, setDifficulty] = React.useState<number>(group)
+  const [difficulty, setDifficulty] = React.useState<number>(1)
   const [loading, setLoading] = React.useState(false)
   const [game, setGame] = React.useState(false)
   const [result, setResult] = React.useState(false)
@@ -99,6 +99,16 @@ const AudioChallengePage: React.FC<AudioChallengePageProps> = ({ group }) => {
     setDone(false)
     setChoice('')
   }
+
+  useEffect(() => {
+    if (fromTextBook && (localStorage.getItem('active') !== null) && (localStorage.getItem('page') !== null)) {
+      const group = Number(localStorage.getItem('active')) < 6 ? Number(localStorage.getItem('active')) : 1
+      const page = Number(localStorage.getItem('page')) < 20 ? Number(localStorage.getItem('page')) : 0
+
+      setGame(true)
+      void generateQuestions(group, page)
+    }
+  }, [fromTextBook])
 
   return (
     <div className='wrapper'>

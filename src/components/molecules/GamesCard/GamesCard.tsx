@@ -5,19 +5,17 @@ import './GamesCard.css'
 
 interface GamesCardProps {
   type: 'audio' | 'sprint'
-  group: number
+  fromTextBook: boolean
 }
 
-const GamesCard: React.FC<GamesCardProps> = ({ type, group }) => {
+const GamesCard: React.FC<GamesCardProps> = ({ type, fromTextBook }) => {
   switch (type) {
     case 'audio':
       return (
         <div className='games__card games__card_audio'>
           <h3>Audio challenge</h3>
           <p>Check your listening skills, trying to pick the right meaning after hearing a word. Be careful, as you just have one guess.</p>
-          <Link className='nav__link' to={
-            [0, 1, 2, 3, 4, 5].includes(group) ? '/AudioChallenge' + group.toString() : '/AudioChallenge'
-          }>
+          <Link className='nav__link' to={fromTextBook ? '/AudioChallenge1' : '/AudioChallenge'}>
             <Button
               type='primary'
               text='Play now'
@@ -31,9 +29,7 @@ const GamesCard: React.FC<GamesCardProps> = ({ type, group }) => {
         <div className='games__card games__card_sprint'>
           <h3>Sprint</h3>
           <p>Check how much points you can get in one minute, making educated guesses about what is right and what is wrong.</p>
-          <Link className='nav__link' to={
-            [0, 1, 2, 3, 4, 5].includes(group) ? '/AudioChallenge' + group.toString() : '/AudioChallenge'
-          }>
+          <Link className='nav__link' to={fromTextBook ? '/Sprint1' : '/Sprint'}>
             <Button
               type='primary'
               text='Play now'
