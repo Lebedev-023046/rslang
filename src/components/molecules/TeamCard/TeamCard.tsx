@@ -2,7 +2,7 @@ import React from 'react'
 import Icon from '../../atoms/Icon/Icon'
 import './TeamCard.css'
 import dimaPNG from './images/dima.png'
-import aldarPNG from './images/aldar.jpg'
+import aldarPNG from './images/aldar.png'
 import viktorPNG from './images/viktor.jpg'
 
 interface TeamCardProps {
