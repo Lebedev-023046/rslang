@@ -18,7 +18,7 @@ import { resetUserStats } from '../utils/Utils'
 
 // eslint-disable-next-line @typescript-eslint/no-extraneous-class
 export default class Api {
-  private static readonly URL = 'https://react-rslang-be-f1qg.onrender.com/'
+  private static readonly URL = 'https://react-rslang-be-f1qg.onrender.com'
   private static readonly WORDS = `${Api.URL}/words`
   private static readonly USERS = `${Api.URL}/users`
   private static readonly SIGNIN = `${Api.URL}/signin`
