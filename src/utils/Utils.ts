@@ -2,7 +2,7 @@
 import Api from '../api/Api'
 import { IData, IWordDescription } from '../interfaces/IData'
 
-export const BASE_URL = 'https://react-rslang-be-f1qg.onrender.com'
+export const BASE_URL = 'https://react-rslang-be-f1qg.onrender.com/'
 export const ANSWERS_LIMIT = 10
 export const VARIANTS_LIMIT = 4
 export const PAGES_LIMIT = 30

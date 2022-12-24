@@ -6,7 +6,7 @@ import { useContext } from 'react'
 import { authContext } from '../../../context/AuthContext/AuthContext'
 import { addDifficult, toggleDelete } from '../../../utils/Utils'
 
-const BASE_URL = 'https://react-rslang-be-f1qg.onrender.com'
+const BASE_URL = 'https://react-rslang-be-f1qg.onrender.com/'
 
 interface ICardProps {
     card: IData
